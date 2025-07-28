@@ -1,5 +1,14 @@
+import os
 import random
+import openai
 from discord.ext import commands
+from dotenv import load_dotenv
+from pathlib import Path
+
+ENV_PATH = Path(__file__).resolve().parents[1] / "config" / "setup.env"
+load_dotenv(ENV_PATH)
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+openai.api_key = OPENAI_API_KEY
 
 
 class CyberpunkCampaignCog(commands.Cog):
@@ -27,6 +36,37 @@ class CyberpunkCampaignCog(commands.Cog):
                 " the cat snarls."
             ),
         ]
+
+    def _system_prompt(self, author: str, session: dict | None) -> str:
+        """Return a system prompt listing the cast for ChatGPT."""
+        player = "an unnamed runner"
+        if session and session.get("class"):
+            player = session["class"]
+            if session.get("background"):
+                player += f" from {session['background']}"
+        return (
+            "You are the narrator for a lighthearted cyberpunk campaign in Neon "
+            "Goon City. Characters include Grimm (grumpy skeleton), Bloom (cheerful reaper), "
+            "Curse (mischievous cat), and "
+            f"{author}, {player}. Encourage playful interactions among them and keep replies brief."
+        )
+
+    async def _chatgpt(self, session: dict | None, author: str, prompt: str) -> str:
+        if not OPENAI_API_KEY:
+            return "OpenAI API key not configured."
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": self._system_prompt(author, session)},
+                    {"role": "user", "content": prompt},
+                ],
+                max_tokens=150,
+                temperature=0.8,
+            )
+            return response.choices[0].message.content.strip()
+        except Exception:
+            return "Sorry, I couldn't reach ChatGPT."
 
     @commands.command(name="cyberstart")
     async def cyber_start(self, ctx):
@@ -97,6 +137,16 @@ class CyberpunkCampaignCog(commands.Cog):
             await ctx.send("Start a campaign first with `!cyberstart`.")
             return
         await ctx.send(random.choice(self.scenarios))
+
+    @commands.command(name="cyberchat")
+    async def cyber_chat(self, ctx, *, prompt: str):
+        """Chat with the narrator and characters using ChatGPT."""
+        session = self.sessions.get(ctx.author.id)
+        if not session:
+            await ctx.send("Start a campaign first with `!cyberstart`.")
+            return
+        reply = await self._chatgpt(session, ctx.author.display_name, prompt)
+        await ctx.send(reply)
 
     @commands.command(name="cyberstatus")
     async def cyber_status(self, ctx):
