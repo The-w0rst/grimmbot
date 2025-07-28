@@ -89,6 +89,9 @@ Commands use the `*` prefix:
 - `!sushi` – mention sushi.
 - `!flick` – flick the tail.
 - `!insult` – deliver an insult.
+- `!hiss` – hiss at the server.
+- `!scratch [@user]` – scratch someone just because.
+- `!curse_me` – willingly take the curse.
 
 ## Developing your own bots
 

@@ -71,7 +71,10 @@ curse_responses = [
     "Did you really think that would work? Cursed move.",
     "I’d help, but I’m morally opposed to effort.",
     "You're cursed. Figure it out. 😽",
-    "Lick my paw and mind your business."
+    "Lick my paw and mind your business.",
+    "Hope you like hairballs in your shoes.",
+    "Your luck is as bad as your taste in cat food.",
+    "May your pillow forever smell of catnip."
 ]
 
 # === Keywords ===
@@ -81,7 +84,10 @@ curse_keywords = {
     "sushi": ["BACK OFF. It’s mine."],
     "pet": ["Touch me and lose a finger."],
     "curse": ["You rang? Someone's getting hexed."],
-    "meow": ["I'm not cute. I’m cursed. Get it right."]
+    "meow": ["I'm not cute. I’m cursed. Get it right."],
+    "tuna": ["Step away from the tuna."],
+    "treat": ["No treats for you."],
+    "cursed": ["Curse intensifies."]
 }
 
 # === On Ready ===
@@ -147,5 +153,21 @@ async def insult(ctx):
         "Your aura is soggy cardboard." 
     ]
     await ctx.send(random.choice(burns))
+
+@bot.command()
+async def hiss(ctx):
+    await ctx.send("Hissss! Keep your distance.")
+
+@bot.command()
+async def scratch(ctx, member: discord.Member = None):
+    member = member or ctx.author
+    await ctx.send(f"*scratches {member.display_name} just because*")
+
+@bot.command()
+async def curse_me(ctx):
+    global cursed_user_id, cursed_user_name
+    cursed_user_id = ctx.author.id
+    cursed_user_name = ctx.author.display_name
+    await ctx.send(f"😾 Fine. {ctx.author.display_name} is now cursed.")
 
 bot.run(DISCORD_TOKEN)
