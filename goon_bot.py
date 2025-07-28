@@ -5,8 +5,8 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
-# Load environment for the unified bot
-load_dotenv("config/goon.env")
+# Load a single shared configuration file for all bots
+load_dotenv("config/setup.env")
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 
 # Allow both '!' and '*' prefixes like the individual bots
