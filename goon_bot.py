@@ -4,9 +4,11 @@ import glob
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
+from pathlib import Path
 
 # Load a single shared configuration file for all bots
-load_dotenv("config/setup.env")
+ENV_PATH = Path(__file__).resolve().parent / "config" / "setup.env"
+load_dotenv(ENV_PATH)
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 
 # Allow both '!' and '*' prefixes like the individual bots

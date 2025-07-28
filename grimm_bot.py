@@ -15,12 +15,14 @@ from discord.ext import commands
 import os
 
 from dotenv import load_dotenv
+from pathlib import Path
 import random
 import socketio
 
 # === ENVIRONMENT VARIABLES ===
 # Load a single shared configuration file for all bots
-load_dotenv("config/setup.env")
+ENV_PATH = Path(__file__).resolve().parent / "config" / "setup.env"
+load_dotenv(ENV_PATH)
 DISCORD_TOKEN = os.getenv("GRIMM_DISCORD_TOKEN")
 GRIMM_API_KEY_1 = os.getenv("GRIMM_API_KEY_1")
 GRIMM_API_KEY_2 = os.getenv("GRIMM_API_KEY_2")
