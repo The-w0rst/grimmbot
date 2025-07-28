@@ -82,6 +82,8 @@ Commands use the `*` prefix:
 - `*mood` – display Bloom's mood.
 - `*improv` – begin improv.
 - `*squad` – list the goon squad.
+- `*boba` – talk about bubble tea.
+- `*compliment` – send a random compliment.
 
 ### CurseBot
 - `!curse @user` – manually curse a user (admin only).

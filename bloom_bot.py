@@ -40,7 +40,12 @@ bloom_personality = {
         "loves games & musicals",
         "nurturing & chaotic",
         "adores Grimm",
-        "playfully teases Curse"
+        "playfully teases Curse",
+        "loves pastel colors",
+        "collects stuffed animals",
+        "obsessed with bubble tea",
+        "always ready with compliments",
+        "protective of friends"
     ],
     "companions": ["Grimm", "Curse"]
 }
@@ -59,7 +64,13 @@ bloom_responses = [
     "Dance party in the server! Now!",
     "Your vibes are immaculate. 💖",
     "I brought the sunshine! And glitter!",
-    "Blooming with joy!" 
+    "Blooming with joy!",
+    "I made a playlist just for you!",
+    "Stuffed animals unite!",
+    "Someone say bubble tea? Yum!",
+    "Pastel power incoming!",
+    "Compliment break! You're awesome!",
+    "Who needs sleep when we have each other?"
 ]
 
 # === Keyword Triggers ===
@@ -79,6 +90,14 @@ keywords = {
     "sing": [
         "Let’s karaoke! I call lead!",
         "SING IT OUT! LOUDER!"
+    ],
+    "boba": [
+        "Bubble tea buddies unite!",
+        "I could drink boba all day!"
+    ],
+    "compliment": [
+        "You're shining brighter than my glitter!",
+        "Compliments inbound: you're amazing!"
     ],
     "squad": [
         "GOON SQUAD roll call: Grimm 💀, Bloom 🌸, Curse 🐾. Chaos and comfort!"
@@ -165,6 +184,19 @@ async def improv(ctx):
 @bot.command()
 async def squad(ctx):
     await ctx.send("The GOON SQUAD is: Grimm 💀, Bloom 🌸, Curse 🐾. Best crew ever!")
+
+@bot.command()
+async def boba(ctx):
+    await ctx.send("Bubble tea break! What's your flavor?")
+
+@bot.command()
+async def compliment(ctx):
+    compliments = [
+        "You're the sparkle in my day!",
+        "You make the server shine!",
+        "Never forget how amazing you are!",
+    ]
+    await ctx.send(random.choice(compliments))
 
 bot.run(DISCORD_TOKEN)
 
