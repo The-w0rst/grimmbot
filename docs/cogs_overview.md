@@ -10,6 +10,7 @@ what mischief it adds.
 | `bloom_cog.py` | Implements the cheerful Bloom personality as a cog. |
 | `curse_cog.py` | Implements the mischievous Curse personality. |
 | `grimm_cog.py` | Implements the grumpy Grimm personality. |
+| `grimm_extra_cog.py` | Extra utilities for Grimm: gloom meter, laments and bonks. |
 | `fun_cog.py` | Provides quick games like dice rolls, coin flips and an 8‑ball. |
 | `trivia_cog.py` | Simple trivia mini‑game. |
 | `music_cog.py` | Stream audio from YouTube links into voice channels. |

@@ -88,6 +88,10 @@ Here's a taste of what each bot can do.
 - `!flip [@user]` – flip a user.
 - `!brood` – quietly brood.
 - `!bone` – offer a skeletal joke.
+- `!gloom` – check Grimm's gloom level.
+- `!lament` – hear a gloomy thought.
+- `!bonk [@user]` – bonk someone with a femur.
+- `!inventory` – reveal a random item from Grimm's stash.
 - `!shield [@user]` – provide mock protection.
 
 ### BloomBot

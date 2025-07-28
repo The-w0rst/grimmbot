@@ -16,6 +16,7 @@ from discord.ext import commands
 import os
 
 from dotenv import load_dotenv
+import grimm_utils
 from pathlib import Path
 import random
 import socketio
@@ -303,6 +304,30 @@ async def brood(ctx):
 async def bone(ctx):
     await ctx.send("You want a bone? I'm using all of mine.")
 
+@bot.command()
+async def gloom(ctx):
+    level = grimm_utils.gloom_level()
+    if level >= 70:
+        mood = "The shadows gather. Grimm is pleased."
+    elif level >= 40:
+        mood = "Decently gloomy. Could be worse."
+    else:
+        mood = "Too bright for Grimm's taste."
+    await ctx.send(f"Gloom level: {level}/100. {mood}")
+
+@bot.command()
+async def lament(ctx):
+    await ctx.send(grimm_utils.random_lament())
+
+@bot.command()
+async def bonk(ctx, member: discord.Member = None):
+    member = member or ctx.author
+    await ctx.send(f"*bonks {member.display_name} on the head with a femur*")
+
+@bot.command()
+async def inventory(ctx):
+    item = grimm_utils.random_item()
+    await ctx.send(f"Grimm hands you {item}.")
 
 # === RANDOM PROTECTIVE RESPONSES ===
 
