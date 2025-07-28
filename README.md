@@ -41,11 +41,16 @@ robots can be developed on their own branches and merged back once stable.
    ./setup.sh
    ```
 
-3. Open `config/setup.env` and fill in your Discord tokens and API keys. The
-   setup script creates this file for you if it doesn't already exist.
+3. Run the interactive configuration tool to fill in your Discord tokens and
+   API keys:
 
-   This single file stores every Discord token and API key. Set
-   `OPENAI_API_KEY` if you want ChatGPT powered features. See
+   ```bash
+   python configure.py
+   ```
+
+   This writes your details to `config/setup.env`. You can rerun the script at
+   any time to update values. Set `OPENAI_API_KEY` if you want ChatGPT powered
+   features. See
 
    [`config/README.md`](config/README.md) provides a line-by-line explanation.
 
