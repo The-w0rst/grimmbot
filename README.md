@@ -11,7 +11,7 @@ Here's what you'll find lurking in the repo:
 
 - `grimm_bot.py` – Grimm is our cranky skeleton (prefix `!`).
 - `bloom_bot.py` – Bloom brings bubbly chaos (prefix `*`).
-- `curse_bot.py` – that's me, the mischievous calico (prefix `!`).
+- `curse_bot.py` – that's me, the mischievous calico (prefix `?`).
 - `goon_bot.py` – pulls us all together as cogs.
 - `config/setup.env` – one file to hold all the secret tokens.
 - `requirements/base.txt` – packages the installer grabs.
@@ -109,15 +109,15 @@ Commands use the `*` prefix:
 - `*queen` – share a playful "yas queen" line.
 
 ### CurseBot
-- `!curse @user` – manually curse a user (admin only).
-- `!whois_cursed` – check the currently cursed user.
-- `!sushi` – mention sushi.
-- `!flick` – flick the tail.
-- `!insult` – deliver an insult.
-- `!hiss` – hiss at the server.
-- `!scratch [@user]` – scratch someone just because.
-- `!pet` – attempt to pet Curse (may end badly).
-- `!curse_me` – willingly take the curse.
+- `?curse @user` – manually curse a user (admin only).
+- `?whois_cursed` – check the currently cursed user.
+- `?sushi` – mention sushi.
+- `?flick` – flick the tail.
+- `?insult` – deliver an insult.
+- `?hiss` – hiss at the server.
+- `?scratch [@user]` – scratch someone just because.
+- `?pet` – attempt to pet Curse (may end badly).
+- `?curse_me` – willingly take the curse.
 
 ### Additional cogs
 - `trivia` – play a quick trivia round.
