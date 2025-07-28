@@ -35,26 +35,249 @@ class CyberpunkCampaignCog(commands.Cog):
                 "and playful snark."
             ),
         }
+        # 60 chance encounters split between upbeat and troublesome moments
+        # Positive encounters encourage or reward the players, while negative
+        # encounters hint at danger or complication. Players can interpret the
+        # outcomes however they like during play.
         self.scenarios = [
+            # --- Positive Encounters ---
             (
-                "You wander the rain-soaked alleys of **Neon Goon City**. Grimm"
-                " steps from the shadows and mutters, 'This city never sleeps.'"
+                "A street vendor gifts you neon stickers after Bloom compliments "
+                "his music, brightening everyone's spirits."
             ),
             (
-                "Bloom bursts out of a holo-club singing, 'Adventure waits in"
-                " every corner!'"
+                "Grimm finds an old map etched on a wall, revealing a shortcut "
+                "through the city."
             ),
             (
-                "Curse darts across a flickering sign. 'Break it and you buy it,'"
-                " the cat snarls."
+                "A kid recognizes Curse from a local legend and hands over a lucky "
+                "charm."
             ),
             (
-                "A towering vending machine whirs to life, dispensing neon noodles "
-                "while Bloom hums a tune and Grimm keeps watch."
+                "Bloom leads a spontaneous dance-off in the plaza, and the crowd "
+                "cheers for the crew."
             ),
             (
-                "You duck into an abandoned arcade. Curse prowls among the dusty "
-                "games, eyeing your pockets for snacks."
+                "You stumble across a hidden rooftop garden glowing in neon light, "
+                "offering a quiet place to rest."
+            ),
+            (
+                "A holographic poet recites verses that hint at safe paths through "
+                "the undercity."
+            ),
+            (
+                "Grimm's sarcasm actually amuses a patrol of enforcers who let you "
+                "pass without hassle."
+            ),
+            (
+                "Curse finds a stash of fresh sushi left out as an offering and "
+                "shares it, begrudgingly."
+            ),
+            (
+                "A rogue AI billboard flashes helpful tips about upcoming events in "
+                "Neon Goon City."
+            ),
+            (
+                "During a rainstorm, an umbrella drone offers everyone shelter, "
+                "making travel easier."
+            ),
+            (
+                "Bloom befriends a wandering spirit who offers cryptic guidance "
+                "for the next objective."
+            ),
+            (
+                "A local shopkeeper is so entertained by Grimm's dry humor that he "
+                "throws in extra gear for free."
+            ),
+            (
+                "You rescue a microbot from scrap dealers, and it projects a "
+                "short-cut through the city's maze."
+            ),
+            (
+                "An abandoned train car reveals a small cache of creds tucked "
+                "behind a panel."
+            ),
+            (
+                "Curse's tail accidentally triggers a hidden door leading to a "
+                "secret arcade full of friendly hackers."
+            ),
+            (
+                "A cheerful street artist paints your likeness, granting temporary "
+                "fame among the locals."
+            ),
+            (
+                "Grimm discovers an encrypted data chip that might hold leverage "
+                "over your enemies."
+            ),
+            (
+                "Bloom's song soothes a restless crowd, turning a potential riot "
+                "into a block party."
+            ),
+            (
+                "A passing courier mistakes you for VIPs and hands over invites to "
+                "an exclusive club."
+            ),
+            (
+                "The crew finds an abandoned mech frame ripe for salvage, giving "
+                "you valuable parts."
+            ),
+            (
+                "A radio tower broadcasts coded messages praising your recent deeds, "
+                "boosting morale."
+            ),
+            (
+                "You help a runaway droid evade capture, and it swears to repay the "
+                "favor someday."
+            ),
+            (
+                "Curse chases off a swarm of pesky drones, clearing the path ahead."
+            ),
+            (
+                "A hidden cache of neon graffiti supplies lets Bloom decorate the "
+                "streets with uplifting art."
+            ),
+            (
+                "You discover a quiet noodle bar where the owner remembers your "
+                "heroics and offers a free meal."
+            ),
+            (
+                "Grimm's quick thinking saves a musician from a collapsing stage, "
+                "earning gratitude and new allies."
+            ),
+            (
+                "A rogue taxi AI ferries you across town swiftly, avoiding known "
+                "trouble spots."
+            ),
+            (
+                "Bloom uncovers a stash of glittering credits hidden beneath a "
+                "loose street tile."
+            ),
+            (
+                "A friendly courier drone delivers forgotten supplies from an "
+                "earlier mission."
+            ),
+            (
+                "You cross paths with a legendary hacker who offers a favor in "
+                "exchange for a story."
+            ),
+            # --- Negative Encounters ---
+            (
+                "A sudden blackout plunges the street into darkness as hostile "
+                "voices close in."
+            ),
+            (
+                "Grimm accidentally trips a silent alarm, drawing unwanted "
+                "attention from patrols."
+            ),
+            (
+                "Curse tries to swipe a snack and angers a stall owner who calls "
+                "for backup."
+            ),
+            (
+                "Bloom's humming attracts security drones that demand identification."
+            ),
+            (
+                "You hear rumors of a bounty on your heads spreading through the "
+                "undercity."
+            ),
+            (
+                "A rival gang tags the alley with threats, warning you to stay out "
+                "of their territory."
+            ),
+            (
+                "A neon sign shorts out, showering sparks and causing a nearby "
+                "vendor to accuse you of sabotage."
+            ),
+            (
+                "Curse catches sight of a mysterious figure tailing the crew, then "
+                "loses them in the crowd."
+            ),
+            (
+                "Grimm receives a hacked message claiming an old foe is back in "
+                "town seeking revenge."
+            ),
+            (
+                "Bloom slips on a slick street and nearly tumbles into a trash bot "
+                "grinder."
+            ),
+            (
+                "A faulty holo-advert projects a massive monster, causing chaos "
+                "that obscures real threats."
+            ),
+            (
+                "The crew stumbles into a restricted zone and must dodge roaming "
+                "security mechs."
+            ),
+            (
+                "A contact fails to show up, leaving you waiting while rumors of "
+                "an ambush spread."
+            ),
+            (
+                "Curse's latest prank enrages a street performer who vows payback "
+                "with their own gang."
+            ),
+            (
+                "Grimm's sarcasm offends a corporate officer, escalating into a "
+                "tense standoff."
+            ),
+            (
+                "A digital billboard glitches, flashing your faces with the word "
+                "'Wanted'."
+            ),
+            (
+                "You find an encrypted note hinting at betrayal from someone you "
+                "consider an ally."
+            ),
+            (
+                "Bloom hears a haunting melody that lures her toward a decrepit "
+                "theater rumored to be cursed."
+            ),
+            (
+                "A rogue drone steals a valuable gadget right out of Grimm's hands."
+            ),
+            (
+                "Street rumors point to a hidden trap ahead, but the only detour "
+                "leads through enemy turf."
+            ),
+            (
+                "A shady informant offers info for a price that seems far too high, "
+                "hinting at a setup."
+            ),
+            (
+                "Curse's whiskers twitch as toxic fumes seep from a nearby vent, "
+                "forcing the crew to find clean air fast."
+            ),
+            (
+                "Grimm suspects a gang is trailing you, but can't confirm how close "
+                "they really are."
+            ),
+            (
+                "The city speakers blare an emergency warning: curfew is starting "
+                "early, trapping you outside."
+            ),
+            (
+                "A surveillance drone broadcasts your location to unknown viewers "
+                "before you can shut it down."
+            ),
+            (
+                "Bloom spots ghostly figures flickering at the edge of vision, "
+                "whispering ominous threats."
+            ),
+            (
+                "Curse misreads a map and leads the party straight into a corporate "
+                "checkpoint."
+            ),
+            (
+                "An old contact betrays you, tipping off the authorities to your "
+                "last safe house."
+            ),
+            (
+                "A malfunctioning servo lift nearly drops you into the depths of "
+                "the undercity."
+            ),
+            (
+                "A mysterious broadcast hijacks nearby screens, claiming the crew "
+                "holds the key to a dark prophecy."
             ),
         ]
 
