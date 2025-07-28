@@ -28,5 +28,5 @@ credentials and avoids duplicating values across multiple files.
 
 Do **not** commit `setup.env` to version control. It should remain private.
 
-Refer to [`../INSTALL.txt`](../INSTALL.txt) for instructions on installing the
+Refer to [`../INSTALL.md`](../INSTALL.md) for instructions on installing the
 required Python packages.

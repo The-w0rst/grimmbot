@@ -26,8 +26,7 @@ This mirrors the modular approach used by Red Discord Bot.
 - `media_player.is_supported_extension()` checks media file extensions.
 - Each cog now declares `COG_VERSION` for easy tracking of updates.
 - Each personality gives out a small daily gift if the bot stays online.
-- `INSTALL.txt` – step-by-step setup instructions for Linux/macOS.
-- `INSTALL_WINDOWS.txt` – Windows-specific installation guide.
+- `INSTALL.md` – cross-platform installation instructions.
 
 The `main` branch contains the latest working bots. New ideas or additional
 robots can be developed on their own branches and merged back once stable.
@@ -48,8 +47,7 @@ robots can be developed on their own branches and merged back once stable.
 
    [`config/README.md`](config/README.md) provides a line-by-line explanation.
 
-For a step-by-step installation guide see [`INSTALL.txt`](INSTALL.txt). Windows
-users should follow [`INSTALL_WINDOWS.txt`](INSTALL_WINDOWS.txt).
+For a step-by-step installation guide see [`INSTALL.md`](INSTALL.md).
 
 ## Running the bots
 
