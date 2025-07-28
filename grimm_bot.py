@@ -256,6 +256,7 @@ async def flip(ctx, member: discord.Member = None):
     await ctx.send(f"{member.mention}, you just got goon-flipped. 😈")
     send_status("active", f"Flipped off {member.display_name}")
 
+
 @bot.command()
 async def nickname(ctx, member: discord.Member = None):
     """Playfully call someone a grumpy nickname."""
