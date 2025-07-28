@@ -18,23 +18,22 @@ folders you will modify. Linux and macOS users should refer to `INSTALL.txt`.
      Replace `<repo-url>` with the URL of this repository. All other steps assume
      you are inside this `grimmbot` folder.
 
-3. **Install Python packages** (requirements folder)
-   - Run:
+3. **Run the interactive installer**
+   - The easiest way to set everything up is:
+     ```cmd
+     py -3 install.py
+     ```
+     This installs dependencies and walks you through creating
+     `config\setup.env`.
+
+4. **Manual setup** (optional)
+   - If you prefer to do things yourself:
      ```cmd
      py -3 -m pip install -r requirements\base.txt
-     ```
-     This installs `discord.py`, `python-dotenv`, and the other required
-     libraries. The `requirements` directory also contains `extra-dev.txt` for
-     development tools (optional).
-
-4. **Create the configuration file** (config folder)
-   - Copy the provided template:
-     ```cmd
      copy config\env_template.env config\setup.env
      ```
-   - Open `config\setup.env` in a text editor and fill in your Discord tokens and
-     any API keys. These values are used by all bots. Do not commit this file to
-     version control.
+   - Edit `config\setup.env` in a text editor and fill in your Discord tokens
+     and any API keys. Do not commit this file to version control.
 
 5. **Optional: Add local media** (localtracks folder)
    - Place any music or sound files you want the bots to play into the

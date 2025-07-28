@@ -19,6 +19,8 @@ from pathlib import Path
 
 # Load a single shared configuration file for all bots
 ENV_PATH = Path(__file__).resolve().parent / "config" / "setup.env"
+if not ENV_PATH.exists():
+    raise SystemExit("config/setup.env missing. Run 'python install.py' first.")
 load_dotenv(ENV_PATH)
 DISCORD_TOKEN = os.getenv("BLOOM_DISCORD_TOKEN")
 BLOOM_API_KEY_1 = os.getenv("BLOOM_API_KEY_1")

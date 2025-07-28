@@ -3,14 +3,11 @@ import discord
 from discord.ext import commands, tasks
 import random
 import os
-from dotenv import load_dotenv
-from pathlib import Path
+
 import socketio
 COG_VERSION = "1.1"
 
-# Load a single shared configuration file for all bots
-ENV_PATH = Path(__file__).resolve().parents[1] / "config" / "setup.env"
-load_dotenv(ENV_PATH)
+# Environment values are read from the parent process
 DISCORD_TOKEN = os.getenv("GRIMM_DISCORD_TOKEN")
 GRIMM_API_KEY_1 = os.getenv("GRIMM_API_KEY_1")
 GRIMM_API_KEY_2 = os.getenv("GRIMM_API_KEY_2")

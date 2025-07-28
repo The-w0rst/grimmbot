@@ -22,6 +22,8 @@ import socketio
 # === ENVIRONMENT VARIABLES ===
 # Load a single shared configuration file for all bots
 ENV_PATH = Path(__file__).resolve().parent / "config" / "setup.env"
+if not ENV_PATH.exists():
+    raise SystemExit("config/setup.env missing. Run 'python install.py' first.")
 load_dotenv(ENV_PATH)
 DISCORD_TOKEN = os.getenv("GRIMM_DISCORD_TOKEN")
 GRIMM_API_KEY_1 = os.getenv("GRIMM_API_KEY_1")

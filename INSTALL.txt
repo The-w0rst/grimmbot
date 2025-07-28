@@ -6,16 +6,14 @@ This guide explains how to install and run the bots from a terminal. Each step n
 Quick install
 -------------
 1. Install Python 3.8 or newer.
-2. Run the setup helper to install packages and create `config/setup.env` if needed:
-   `./setup.sh`
-3. Run the interactive configuration helper to supply your tokens and API keys:
-   `python configure.py`
-4. Start any bot (or pass its name to `./setup.sh` to launch immediately):
+2. Run the interactive installer which installs dependencies and creates
+   `config/setup.env`:
+   `python install.py`
+3. Start any bot (the installer can also launch one for you):
    - `python grimm_bot.py`
    - `python bloom_bot.py`
    - `python curse_bot.py`
    - `python goon_bot.py`
-   - `./setup.sh goon`
 
 Detailed steps
 --------------
@@ -54,11 +52,11 @@ Detailed steps
      cp config/env_template.env config/setup.env
      ```
      (On Windows you can use `copy` instead of `cp`.)
-   - You can fill in credentials interactively by running:
-     ```
-     python configure.py
-     ```
-     This script updates `config/setup.env` for you. Example entries include:
+  - You can fill in credentials interactively by running the installer:
+    ```
+    python install.py
+    ```
+    This updates `config/setup.env` for you. Example entries include:
      ```
      GRIMM_DISCORD_TOKEN=your_grimm_token_here
      BLOOM_DISCORD_TOKEN=your_bloom_token_here

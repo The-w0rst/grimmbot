@@ -3,13 +3,10 @@ import discord
 from discord.ext import commands, tasks
 import random
 import os
-from dotenv import load_dotenv
-from pathlib import Path
+
 COG_VERSION = "1.1"
 
-# Load a single shared configuration file for all bots
-ENV_PATH = Path(__file__).resolve().parents[1] / "config" / "setup.env"
-load_dotenv(ENV_PATH)
+# Environment values are read from the parent process
 DISCORD_TOKEN = os.getenv("BLOOM_DISCORD_TOKEN")
 BLOOM_API_KEY_1 = os.getenv("BLOOM_API_KEY_1")
 BLOOM_API_KEY_2 = os.getenv("BLOOM_API_KEY_2")
