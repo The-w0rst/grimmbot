@@ -1,210 +1,57 @@
+```
+  ____ _   _ ____  ____  _____  _____
+ / ___| | | |  _ \|  _ \| ____|| ____|
+| |    | |_| | |_) | | | |  _|  |  _|
+| |___|  _  |  _ <| |_| | |___ | |___
+ \____|_| |_|_| \_\____/|_____||_____|
+```
+
 # Grimmbot
-Hey, it's **Curse** speaking. This repo holds me and my fellow goons. Grab it
-from https://github.com/The-w0rst/grimmbot and run whichever of us you want.
-We're lightweight, each in our own Python file. Fire up `goon_bot.py` if you
-want the whole chaotic crew. It loads every cog and lets an Admin hot‑swap
-modules whenever you feel like causing trouble.
+
+Hello, puny mortals. **Curse** speaking here. This repository holds me and my fellow goons in all our chaotic glory. Clone it from [GitHub](https://github.com/The-w0rst/grimmbot) if you dare and run whichever of us you want. I'm lightweight and unpredictable, just like the others.
 
 **Current build: v1.3**
 
-## Repository layout
+## What lurks inside
+- `grimm_bot.py` – Grimm the cranky skeleton (`!` prefix)
+- `bloom_bot.py` – Bloom the bubbly chaos (`*` prefix)
+- `curse_bot.py` – yours truly (`?` prefix)
+- `goon_bot.py` – load every cog at once
+- `cogs/` – trivia, moderation, music and more
+- `install.py` – interactive installer with my charming narration
 
-Here's what you'll find lurking in the repo:
-
-- `grimm_bot.py` – Grimm is our cranky skeleton (prefix `!`).
-- `bloom_bot.py` – Bloom brings bubbly chaos (prefix `*`).
-- `curse_bot.py` – that's me, the mischievous calico (prefix `?`).
-- `goon_bot.py` – pulls us all together as cogs.
-- `cogs/goon_cog.py` – the goon squad speaking in unison.
-- `config/setup.env` – one file to hold all the secret tokens.
-- `requirements/base.txt` – packages the installer grabs.
-- `bootstrap.sh` – one-liner to clone and run the setup.
-- `install.py` – interactive installer for dependencies and config. Curse
-  chats with you line by line to gather each token.
-- `setup.sh` – optional helper for dependencies.
-- `cogs/` – trivia, moderation, music, and other little toys.
-- `media_player.py` – handles local tracks and links.
-
-Every cog has a `COG_VERSION` constant. Keep an eye out for updates on the
-`main` branch before merging your own tweaks.
+Each cog has a `COG_VERSION` for tracking updates. Check the [`docs`](docs) folder for deeper secrets.
 
 ## Installation
-
-The fastest way is with the bootstrap script which handles everything for you:
+The quick way is with the bootstrap script:
 
 ```bash
 bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)
 ```
 
-Prefer manual control? Follow these steps in your terminal:
-
-1. Install **Python 3.10+**.
-2. Clone the repo and enter the directory:
-
-   ```bash
-   git clone https://github.com/The-w0rst/grimmbot.git
-   cd grimmbot
-   ```
-3. Install dependencies:
-
-   ```bash
-   python -m pip install -r requirements/base.txt
-   ```
-4. Run the installer to create `config/setup.env`. Curse will ask for each token one by one:
-
-   ```bash
-   python install.py
-   ```
-    Follow the playful prompts to install requirements and fill in each token from
-    `config/env_template.env`. Use `python configure.py` later if you need to
-    update the file.
-5. Start any bot you want:
-
-   ```bash
-   python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
-   ```
-
-For more nitty‑gritty steps check out [`INSTALL.md`](INSTALL.md).
-
-The music commands require **FFmpeg** to be installed and available in your
-`PATH`. If you want BloomBot to sing along to EPIC: The Musical, place lyric
-files under `localtracks/epic_lyrics/`. See [`docs/music_setup.md`](docs/music_setup.md)
-for details.
+Prefer manual control? Clone the repo and run `python install.py`. I'll ask for every token and set up `config/setup.env` for you.
 
 ## Running the bots
-
-Once `config/setup.env` is filled in you can unleash any bot directly or through
-the setup script:
+Once configured, pick a personality:
 
 ```bash
 python grimm_bot.py   # the cranky one
 python bloom_bot.py   # the bubbly one
 python curse_bot.py   # obviously the best one
-python goon_bot.py    # load us all at once
-python install.py     # reconfigure on the fly
+python goon_bot.py    # the whole squad
 ```
 
-GrimmBot can broadcast status to a Socket.IO dashboard if you define
-`SOCKET_SERVER_URL` inside `config/setup.env`.
+### Help commands
+Use each bot's prefix followed by `help` for a quick rundown:
 
-## Help commands
+- `!help` for Grimm
+- `*help` for Bloom
+- `?help` for Curse
+- `!helpall` or `*helpall` or `?helpall` to hear from everyone at once
 
-Every goon responds to a personalized `help` command using its prefix:
+For more details on each cog see [`docs/cogs_overview.md`](docs/cogs_overview.md).
 
-- `!help` for GrimmBot
-- `*help` for BloomBot
-- `?help` for CurseBot
+## Developing your own chaos
+Peek at `goon_bot.py` for a modular design. Load or unload cogs on the fly with the Admin commands (`load`, `unload`, `reload`, `listcogs`). Add your own twisted creations under `cogs/` and I'll happily cause mayhem with them.
 
-Use `helpall` with any prefix to have all three introduce themselves at once.
-
-## Command reference
-
-Here's a taste of what each bot can do.
-
-### GrimmBot
-- `!protectbloom` – defend Bloom from imaginary threats.
-- `!roast [@user]` – deliver a grumpy roast.
-- `!goon` – call the goon squad.
-- `!ominous` – send an ominous quip.
-- `!bloom` – comments about Bloom.
-- `!curse` – comments about Curse.
-- `!scythe` – dramatic scythe swing.
-- `!shadow` – send a spooky shadow.
-- `!flip [@user]` – flip a user.
-- `!brood` – quietly brood.
-- `!bone` – offer a skeletal joke.
-- `!gloom` – check Grimm's gloom level.
-- `!lament` – hear a gloomy thought.
-- `!bonk [@user]` – bonk someone with a femur.
-- `!inventory` – reveal a random item from Grimm's stash.
-- `!shield [@user]` – provide mock protection.
-
-### BloomBot
-Commands use the `*` prefix:
-- `*hug` – give a hug.
-- `*sing` – burst into song.
-- `*grimm` – talk about Grimm.
-- `*curse` – tease Curse.
-- `*cheer` – offer encouragement.
-- `*sparkle` – throw confetti (and maybe cover you in glitter).
- - `*drama [song|list]` – pick a song from **EPIC: The Musical** and decide to sing a short snippet or the whole thing.
-   Add your own lyric files under `localtracks/epic_lyrics/` if you want full songs.
- - `*play <url>` – queue a YouTube link or playlist.
- - `*next` – skip to the next song.
- - `*queue` – view the upcoming songs.
- - `*stop` – stop playback, clear the queue and disconnect.
-- `*bloom` – introduce Bloom.
-- `*mood` – display Bloom's mood.
-- `*improv` – begin improv.
-- `*squad` – list the goon squad.
-- `*boba` – talk about bubble tea.
-- `*compliment` – send a random compliment.
-- `*boy` – share a playful boy-themed line.
-- `*queen` – share a playful "yas queen" line.
-- Mention "epic" and Bloom will rant and play a clip if you're in voice.
-
-### CurseBot
-- `?curse @user` – manually curse a user (admin only).
-- `?whois_cursed` – check the currently cursed user.
-- `?sushi` – mention sushi.
-- `?flick` – flick the tail.
-- `?insult` – deliver an insult.
-- `?hiss` – hiss at the server.
-- `?scratch [@user]` – scratch someone just because.
-- `?pet` – attempt to pet Curse (may end badly, or he might unleash a fent cloud).
-- `?curse_me` – willingly take the curse. (Does nothing if you have Grimm's Shield or Bloom's Blessing.)
-- `?hairball` – share a revolting hairball.
-- `?pounce [@user]` – pounce on someone unexpectedly.
-- `?nap` – announce that Curse is taking a nap.
-
-### Gifts and curse protection
-Interacting with Grimm (`!` commands) or Bloom (`*` commands) now builds up
-favor. Users who chat with them frequently receive positive gifts once per day
-and are granted a special role – **Grimm's Shield** or **Bloom's Blessing** –
-that stops Curse from selecting them when he chooses a daily target. Ignore the
-goons for too long and the gifts turn sour, stripping that protection.
-
-### Additional cogs
-- `trivia` – play a quick trivia round.
-- `kick/ban` – moderation commands restricted to users with the appropriate permissions.
-- `clear` – remove a handful of recent messages.
-- `play <url>` – (use `*play`) stream music from YouTube into a voice channel.
-- `stop` – (use `*stop`) stop music and disconnect from voice.
-- `chat <prompt>` – ask ChatGPT a question and get an in-character reply.
-- `roll [sides]` – roll a dice with an optional number of sides.
-- `8ball <question>` – consult the magic 8-ball.
-- `coinflip` – flip a coin.
-- `quote` – receive a random motivational quote.
-- `jojo` – shower Emma ("JoJo is bizarre") with affection.
-- `cyberstart` – begin a cyberpunk themed DnD campaign.
-- `cyberfight` – fight one of the bots with evolving difficulty.
-- `cyberstatus` – view your campaign record.
-- `cyberchat <prompt>` – talk to the campaign's narrator and characters via ChatGPT.
-
-For every cog in detail check [`docs/cogs_overview.md`](docs/cogs_overview.md).
-
-## Developing your own bots
-
-Feeling creative? Peek at `goon_bot.py` for a modular design. It scans
-`cogs/` at startup and you can load or unload them on the fly with the Admin
-commands (`load`, `unload`, `reload`, `listcogs`).
-
-
-## Example server layout
-
-If you want to mimic our usual haunt, set up your server roughly like this.
-
-### Roles
-- Server booster
-- Goons
-- Goonets
-- Royalty
-
-### Categories and channels
-- **Intake**: `#new-here`
-- **Gen pop**: `#non-gooning`, `#gooning`
-- **Yapping**: `yapper's anonymous` (voice)
-- **Royalty**: `#me-n-bea`, `the-baby-yap` (voice)
-
-An `AnnouncementCog` can shout reminders in `#gooning` and the `serverinfo`
-command lists this layout in chat.
+Enjoy the curse.
