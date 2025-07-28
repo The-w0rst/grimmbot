@@ -145,3 +145,8 @@ class BloomCog(commands.Cog):
         ]
         await ctx.send(random.choice(compliments))
 
+
+async def setup(bot: commands.Bot):
+    """Load the cog."""
+    await bot.add_cog(BloomCog(bot))
+

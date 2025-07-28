@@ -179,3 +179,7 @@ class GrimmCog(commands.Cog):
             ]
             await message.channel.send(random.choice(grimm_responses))
 
+
+async def setup(bot: commands.Bot):
+    """Load the cog."""
+    await bot.add_cog(GrimmCog(bot))

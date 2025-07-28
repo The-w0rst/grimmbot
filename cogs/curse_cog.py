@@ -118,3 +118,8 @@ class CurseCog(commands.Cog):
         self.cursed_user_name = ctx.author.display_name
         await ctx.send(f"😾 Fine. {ctx.author.display_name} is now cursed.")
 
+
+async def setup(bot: commands.Bot):
+    """Load the cog."""
+    await bot.add_cog(CurseCog(bot))
+
