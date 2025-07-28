@@ -21,6 +21,7 @@ This mirrors the modular approach used by Red Discord Bot.
 - `cogs/trivia_cog.py` – Simple trivia mini‑game.
 - `cogs/moderation_cog.py` – Basic kick/ban/clear commands.
 - `cogs/music_cog.py` – Stream audio from YouTube links.
+- `media_player.py` – Helpers for parsing media queries and local files.
 
 The `main` branch contains the latest working bots. New ideas or additional
 robots can be developed on their own branches and merged back once stable.
@@ -30,9 +31,12 @@ robots can be developed on their own branches and merged back once stable.
 1. Ensure Python 3.8 or higher is installed.
 2. Install the required packages:
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+ ```bash
+ pip install -r requirements.txt
+ ```
+
+  The package list now includes `yt_dlp` for YouTube playback and
+  `lavalink` for media query parsing.
 
    Alternatively you can run `./setup.sh` which installs the same
    dependencies for you.
