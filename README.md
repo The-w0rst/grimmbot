@@ -1,49 +1,59 @@
-# Grimmbot Repository
+# Grimmbot
 
-This repository uses `main` as the primary branch. Any new work should branch
-from `main` and later merge back into it.
+Grimmbot is a small collection of Discord bots that make up the "Goon Squad":
+Grimm, Bloom and Curse. Each bot lives in its own Python file and has a
+slightly different personality. The project is intentionally lightweight so you
+can run one bot or all three depending on your needs.
 
-Individual robots are expected to be developed on their own branches. Example
-branch names could be:
+## Repository layout
 
-- `alpha-robot`
-- `beta-robot`
-- `gamma-robot`
+- `grimm_bot.py` – GrimmBot, the grumpy skeleton leader (command prefix `!`).
+- `bloom_bot.py` – BloomBot, cheerful chaos embodied (command prefix `*`).
+- `curse_bot.py` – CurseBot, a mischievous calico (command prefix `!`).
+- `config/*.env` – Environment variables for each bot.
+- `requirements.txt` – Python package requirements.
+- `setup.exe` – Optional Windows helper for installing dependencies.
+- `the-worst-grimbot/` – Old prototype code kept for reference.
 
-Each robot branch contains its own `setup.exe` installer. To work on a specific
-robot, check out its branch and run the installer:
-
-```bash
-git checkout <robot-branch>
-./setup.exe
-```
-
-These branches and the installers are placeholders and may not be available in
-this repository yet.
+The `main` branch contains the latest working bots. New ideas or additional
+robots can be developed on their own branches and merged back once stable.
 
 ## Setup
 
-Run `./setup.exe` to install dependencies. Configuration files for API keys and
-tokens live in the `config/` directory:
+1. Ensure Python 3.8 or higher is installed.
+2. Install the required packages:
 
-- `config/grimm.env`
-- `config/bloom.env`
-- `config/curse.env`
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Fill in each file with the three API keys and Discord token for its bot before
-starting the bots.
+   On Windows you may instead run `./setup.exe` which installs the same
+   dependencies for you.
+3. Fill in the environment files found in `config/` with your Discord token and
+   any API keys the bots rely on:
 
-## Running the Bots
+   - `config/grimm.env`
+   - `config/bloom.env`
+   - `config/curse.env`
 
-After configuring the `.env` files, launch a bot with Python:
+   Each file defines variables named like `GRIMM_DISCORD_TOKEN` or
+   `BLOOM_API_KEY_1`. The example values show what to set.
+
+## Running the bots
+
+Each bot is completely independent. Activate the corresponding environment file
+(or keep the variables in `.env` form) and launch the bot you want online:
 
 ```bash
-python grimm_bot.py    # prefix: !
-python bloom_bot.py    # prefix: *
-python curse_bot.py    # prefix: !
+python grimm_bot.py   # uses ! commands
+python bloom_bot.py   # uses * commands
+python curse_bot.py   # uses ! commands
 ```
 
-## Command Reference
+GrimmBot optionally reports its status to a Socket.IO dashboard if
+`SOCKET_SERVER_URL` is set in `config/grimm.env`.
+
+## Command reference
 
 ### GrimmBot
 - `!protectbloom` – defend Bloom from imaginary threats.
@@ -79,4 +89,10 @@ Commands use the `*` prefix:
 - `!sushi` – mention sushi.
 - `!flick` – flick the tail.
 - `!insult` – deliver an insult.
+
+## Developing your own bots
+
+The script `project_generator.sh` was once used to create prototype code inside
+`the-worst-grimbot/`. Feel free to fork this repository or create a new branch
+if you want to experiment with additional personalities.
 
