@@ -16,6 +16,7 @@ SERVER_CATEGORIES = {
     "Royalty": ["me-n-bea", "the-baby-yap (voice)"],
 }
 
+
 class AnnouncementCog(commands.Cog):
     """Send periodic announcements and list server layout."""
 
@@ -38,9 +39,11 @@ class AnnouncementCog(commands.Cog):
     async def server_info(self, ctx):
         """Display configured server roles and categories."""
         role_list = ", ".join(SERVER_ROLES)
-        category_lines = [f"{cat}: {', '.join(chs)}" for cat, chs in SERVER_CATEGORIES.items()]
+        category_lines = [
+            f"{cat}: {', '.join(chs)}" for cat, chs in SERVER_CATEGORIES.items()]
         categories = "\n".join(category_lines)
         await ctx.send(f"**Roles**: {role_list}\n**Categories**:\n{categories}")
+
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(AnnouncementCog(bot))

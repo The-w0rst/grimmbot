@@ -48,6 +48,8 @@ cursed_user_id = None
 cursed_user_name = None
 
 # === Daily Curse Scheduler ===
+
+
 @tasks.loop(hours=24)
 async def pick_daily_cursed():
     global cursed_user_id, cursed_user_name
@@ -62,7 +64,8 @@ async def pick_daily_cursed():
     chosen = random.choice(members)
     cursed_user_id = chosen.id
     cursed_user_name = chosen.display_name
-    channel = discord.utils.get(guild.text_channels, name="general") or guild.text_channels[0]
+    channel = discord.utils.get(
+        guild.text_channels, name="general") or guild.text_channels[0]
     await channel.send(f"😼 A new curse has been cast... {cursed_user_name} is now cursed for 24 hours.")
 
 # === Curse Interactions ===
@@ -106,12 +109,16 @@ curse_keywords = {
 }
 
 # === On Ready ===
+
+
 @bot.event
 async def on_ready():
     print(f"{curse_personality['name']} is here to ruin someone's day.")
     pick_daily_cursed.start()
 
 # === Passive Comments to Cursed User ===
+
+
 @bot.event
 async def on_message(message):
     if message.author == bot.user:
@@ -135,6 +142,8 @@ async def on_message(message):
     await bot.process_commands(message)
 
 # === Manual Curse Assignment ===
+
+
 @bot.command()
 @commands.has_permissions(administrator=True)
 async def curse(ctx, member: discord.Member):
@@ -144,6 +153,8 @@ async def curse(ctx, member: discord.Member):
     await ctx.send(f"😾 Manual curse activated. {member.display_name} is now cursed.")
 
 # === Other Commands ===
+
+
 @bot.command()
 async def whois_cursed(ctx):
     if cursed_user_name:
@@ -151,13 +162,16 @@ async def whois_cursed(ctx):
     else:
         await ctx.send("No one's cursed. Weak.")
 
+
 @bot.command()
 async def sushi(ctx):
     await ctx.send("🍣 You’re not worthy of the sacred tuna.")
 
+
 @bot.command()
 async def flick(ctx):
     await ctx.send("*flicks tail in mild contempt*")
+
 
 @bot.command()
 async def insult(ctx):
@@ -179,14 +193,17 @@ async def insult(ctx):
     ]
     await ctx.send(random.choice(burns))
 
+
 @bot.command()
 async def hiss(ctx):
     await ctx.send("Hissss! Keep your distance.")
+
 
 @bot.command()
 async def scratch(ctx, member: discord.Member = None):
     member = member or ctx.author
     await ctx.send(f"*scratches {member.display_name} just because*")
+
 
 @bot.command()
 async def curse_me(ctx):

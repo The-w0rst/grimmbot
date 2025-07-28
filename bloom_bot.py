@@ -11,7 +11,7 @@
 ################################################################################
 
 import discord
-from discord.ext import commands, tasks
+from discord.ext import commands
 import random
 import os
 from dotenv import load_dotenv
@@ -205,11 +205,16 @@ interactions = [
 ]
 
 # === On Ready ===
+
+
 @bot.event
 async def on_ready():
-    print(f"{bloom_personality['name']} is online and ready to hug the whole server!")
+    print(
+        f"{bloom_personality['name']} is online and ready to hug the whole server!")
 
 # === Message Handler ===
+
+
 @bot.event
 async def on_message(message):
     if message.author == bot.user:
@@ -226,13 +231,17 @@ async def on_message(message):
     await bot.process_commands(message)
 
 # === Commands ===
+
+
 @bot.command()
 async def hug(ctx):
     await ctx.send("GIANT HUG! You can't escape!")
 
+
 @bot.command()
 async def sing(ctx):
     await ctx.send("*bursts into a Broadway solo* 🎙️✨")
+
 
 @bot.command()
 async def karaoke(ctx, *, song: str | None = None):
@@ -248,13 +257,16 @@ async def karaoke(ctx, *, song: str | None = None):
     else:
         await ctx.send(random.choice(lines) + " 🎶")
 
+
 @bot.command()
 async def grimm(ctx):
     await ctx.send("He’s my favorite spooky grump. Show him some love!")
 
+
 @bot.command()
 async def curse(ctx):
     await ctx.send("Our chaos cat. Good luck surviving his teasing.")
+
 
 @bot.command()
 async def cheer(ctx):
@@ -265,34 +277,42 @@ async def cheer(ctx):
     ]
     await ctx.send(random.choice(cheers))
 
+
 @bot.command()
 async def sparkle(ctx):
     await ctx.send("*throws confetti and joy everywhere* ✨")
+
 
 @bot.command()
 async def drama(ctx):
     await ctx.send("Server musical when? Grimm can be the lead skeleton!")
 
+
 @bot.command()
 async def bloom(ctx):
     await ctx.send("That’s me! Ready to brighten your day!")
+
 
 @bot.command()
 async def mood(ctx):
     moods = ["Hyper!", "Bouncy!", "Sparkly!", "Soft & sunny!", "Chaotic Good."]
     await ctx.send(f"Bloom’s mood: {random.choice(moods)}")
 
+
 @bot.command()
 async def improv(ctx):
     await ctx.send("Quick! You’re a cat! I’m a banshee! GO!")
+
 
 @bot.command()
 async def squad(ctx):
     await ctx.send("The GOON SQUAD is: Grimm 💀, Bloom 🌸, Curse 🐾. Best crew ever!")
 
+
 @bot.command()
 async def boba(ctx):
     await ctx.send("Bubble tea break! What's your flavor?")
+
 
 @bot.command()
 async def compliment(ctx):
@@ -303,10 +323,12 @@ async def compliment(ctx):
     ]
     await ctx.send(random.choice(compliments))
 
+
 @bot.command()
 async def boy(ctx):
     """Share a playful boy-themed line."""
     await ctx.send(random.choice(boy_lines))
+
 
 @bot.command()
 async def queen(ctx):
@@ -314,4 +336,3 @@ async def queen(ctx):
     await ctx.send(random.choice(queen_lines))
 
 bot.run(DISCORD_TOKEN)
-

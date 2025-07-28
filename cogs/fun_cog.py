@@ -1,6 +1,7 @@
 from discord.ext import commands
 import random
 
+
 class FunCog(commands.Cog):
     """Random fun commands like dice rolls and an 8-ball."""
 
@@ -47,6 +48,7 @@ class FunCog(commands.Cog):
     async def quote(self, ctx):
         """Share a random motivational quote."""
         await ctx.send(random.choice(self.quotes))
+
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(FunCog(bot))

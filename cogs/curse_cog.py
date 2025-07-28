@@ -10,6 +10,7 @@ CURSE_API_KEY_1 = os.getenv("CURSE_API_KEY_1")
 CURSE_API_KEY_2 = os.getenv("CURSE_API_KEY_2")
 CURSE_API_KEY_3 = os.getenv("CURSE_API_KEY_3")
 
+
 class CurseCog(commands.Cog):
     """CurseBot personality packaged as a Cog."""
 
@@ -51,7 +52,8 @@ class CurseCog(commands.Cog):
         chosen = random.choice(members)
         self.cursed_user_id = chosen.id
         self.cursed_user_name = chosen.display_name
-        channel = discord.utils.get(guild.text_channels, name="general") or guild.text_channels[0]
+        channel = discord.utils.get(
+            guild.text_channels, name="general") or guild.text_channels[0]
         await channel.send(f"😼 A new curse has been cast... {self.cursed_user_name} is now cursed for 24 hours.")
 
     @commands.Cog.listener()
@@ -138,4 +140,3 @@ class CurseCog(commands.Cog):
 async def setup(bot: commands.Bot):
     """Load the cog."""
     await bot.add_cog(CurseCog(bot))
-
