@@ -1,4 +1,3 @@
-
 import discord
 from discord.ext import commands, tasks
 import random
@@ -89,7 +88,7 @@ class BloomCog(commands.Cog):
             "Boys, you mean the world to me!",
             "Boy oh boy, let's throw a party!",
             "Hey boy, keep being amazing!",
-            "Boys, let's conquer the day with joy!"
+            "Boys, let's conquer the day with joy!",
         ]
         self.queen_lines = [
             "Yas queen! Slay the day!",
@@ -153,24 +152,18 @@ class BloomCog(commands.Cog):
         self.keywords = {
             "grimm": [
                 "Grimm is my spooky bestie.",
-                "He acts tough, but he's a sweetheart."
+                "He acts tough, but he's a sweetheart.",
             ],
             "curse": [
                 "Curse is such a gremlin cat. I love him!",
-                "He tried to eat my controller again..."
+                "He tried to eat my controller again...",
             ],
-            "hug": [
-                "HUG TIME! Ready or not! 🥢",
-                "*wraps you in love and chaos*"
-            ],
+            "hug": ["HUG TIME! Ready or not! 🥢", "*wraps you in love and chaos*"],
             "sing": self.pretty_little_baby_lines,
-            "boba": [
-                "Bubble tea buddies unite!",
-                "I could drink boba all day!"
-            ],
+            "boba": ["Bubble tea buddies unite!", "I could drink boba all day!"],
             "compliment": [
                 "You're shining brighter than my glitter!",
-                "Compliments inbound: you're amazing!"
+                "Compliments inbound: you're amazing!",
             ],
             "queen": self.queen_lines,
             "girl": self.queen_lines,
@@ -179,7 +172,7 @@ class BloomCog(commands.Cog):
             "boys": self.boy_lines,
             "squad": [
                 "GOON SQUAD roll call: Grimm 💀, Bloom 🌸, Curse 🐾. Chaos and comfort!"
-            ]
+            ],
         }
 
     @tasks.loop(hours=24)
@@ -193,12 +186,17 @@ class BloomCog(commands.Cog):
             return
         recipient = random.choice(members)
         gift = random.choice(self.gifts)
-        channel = discord.utils.get(guild.text_channels, name="general") or guild.text_channels[0]
+        channel = (
+            discord.utils.get(guild.text_channels, name="general")
+            or guild.text_channels[0]
+        )
         if gift["positive"]:
             line = random.choice(self.positive_gift_responses)
         else:
             line = random.choice(self.negative_gift_responses)
-        await channel.send(f"🎁 {recipient.display_name}, " + line.format(gift=gift['name']))
+        await channel.send(
+            f"🎁 {recipient.display_name}, " + line.format(gift=gift["name"])
+        )
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -247,7 +245,7 @@ class BloomCog(commands.Cog):
         cheers = [
             "You are doing your best!",
             "Go Goon Squad!",
-            "Believe in yourself, or I’ll believe for you!"
+            "Believe in yourself, or I’ll believe for you!",
         ]
         await ctx.send(random.choice(cheers))
 
@@ -265,8 +263,7 @@ class BloomCog(commands.Cog):
 
     @commands.command()
     async def mood(self, ctx):
-        moods = ["Hyper!", "Bouncy!", "Sparkly!",
-                 "Soft & sunny!", "Chaotic Good."]
+        moods = ["Hyper!", "Bouncy!", "Sparkly!", "Soft & sunny!", "Chaotic Good."]
         await ctx.send(f"Bloom’s mood: {random.choice(moods)}")
 
     @commands.command()
@@ -275,7 +272,9 @@ class BloomCog(commands.Cog):
 
     @commands.command()
     async def squad(self, ctx):
-        await ctx.send("The GOON SQUAD is: Grimm 💀, Bloom 🌸, Curse 🐾. Best crew ever!")
+        await ctx.send(
+            "The GOON SQUAD is: Grimm 💀, Bloom 🌸, Curse 🐾. Best crew ever!"
+        )
 
     @commands.command()
     async def boba(self, ctx):

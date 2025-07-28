@@ -17,8 +17,9 @@ DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 
 
 async def get_prefix(bot, message):
-    prefixes = ['!', '*']
+    prefixes = ["!", "*"]
     return commands.when_mentioned_or(*prefixes)(bot, message)
+
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -38,6 +39,7 @@ async def load_startup_cogs():
             print(f"Loaded {ext}")
         except Exception as e:
             print(f"Failed to load {ext}: {e}")
+
 
 asyncio.run(load_startup_cogs())
 

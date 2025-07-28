@@ -1,4 +1,3 @@
-
 import os
 import random
 import openai
@@ -19,19 +18,22 @@ class CyberpunkCampaignCog(commands.Cog):
         self.sessions: dict[int, dict[str, int | str]] = {}
         self.opponents = {
             "Grimm": "Grimm cracks his bony knuckles. \"Let's see what you've got.\"",
-            "Bloom": "Bloom twirls a neon scythe. \"Time for dramatic heroics!\"",
-            "Curse": "Curse hisses, tail lashing. \"I'll scratch more than your ego.\"",
+            "Bloom": 'Bloom twirls a neon scythe. "Time for dramatic heroics!"',
+            "Curse": 'Curse hisses, tail lashing. "I\'ll scratch more than your ego."',
         }
         self.character_prompts = {
             "Grimm": (
                 "You are Grimm, a grumpy yet protective skeleton leader. "
-                "Respond with short, sarcastic quips."),
+                "Respond with short, sarcastic quips."
+            ),
             "Bloom": (
                 "You are Bloom, an energetic reaper who loves musicals, hugs "
-                "and glitter. Speak with enthusiasm and emojis."),
+                "and glitter. Speak with enthusiasm and emojis."
+            ),
             "Curse": (
                 "You are Curse, a mischievous talking cat obsessed with sushi "
-                "and playful snark."),
+                "and playful snark."
+            ),
         }
         self.scenarios = [
             (
@@ -229,9 +231,7 @@ class CyberpunkCampaignCog(commands.Cog):
             details.append(f"Class: {session['class']}")
         if session.get("background"):
             details.append(f"Background: {session['background']}")
-        await ctx.send(
-            ", ".join(details)
-        )
+        await ctx.send(", ".join(details))
 
 
 async def setup(bot: commands.Bot):

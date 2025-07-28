@@ -1,6 +1,6 @@
-
 import discord
 from discord.ext import commands, tasks
+
 COG_VERSION = "1.1"
 
 # Server reference information for quick access
@@ -42,7 +42,8 @@ class AnnouncementCog(commands.Cog):
         """Display configured server roles and categories."""
         role_list = ", ".join(SERVER_ROLES)
         category_lines = [
-            f"{cat}: {', '.join(chs)}" for cat, chs in SERVER_CATEGORIES.items()]
+            f"{cat}: {', '.join(chs)}" for cat, chs in SERVER_CATEGORIES.items()
+        ]
         categories = "\n".join(category_lines)
         await ctx.send(f"**Roles**: {role_list}\n**Categories**:\n{categories}")
 

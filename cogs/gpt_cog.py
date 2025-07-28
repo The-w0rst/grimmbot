@@ -1,4 +1,3 @@
-
 import os
 import openai
 from discord.ext import commands
@@ -24,7 +23,9 @@ class GPTCog(commands.Cog):
 
     def _system_prompt(self) -> str:
         name = self.bot.user.name if self.bot.user else "GoonBot"
-        return SYSTEM_MESSAGES.get(name, f"You are {name}, a helpful member of the Goon Squad.")
+        return SYSTEM_MESSAGES.get(
+            name, f"You are {name}, a helpful member of the Goon Squad."
+        )
 
     async def _chatgpt(self, prompt: str) -> str:
         if not OPENAI_API_KEY:

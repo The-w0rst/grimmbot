@@ -1,6 +1,6 @@
-
 from discord.ext import commands
 import random
+
 COG_VERSION = "1.1"
 
 JOJO_DISPLAY_NAME = "JoJo is bizarre"
@@ -17,7 +17,7 @@ class JojoCog(commands.Cog):
             "Hey JoJo is bizarre, sending you big hugs!",
             "Emma, you light up this server!",
             "Just stopping by to say we adore you, JoJo!",
-            "Stay amazing, Emma!"
+            "Stay amazing, Emma!",
         ]
 
     @commands.Cog.listener()

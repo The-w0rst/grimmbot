@@ -1,6 +1,6 @@
-
 import discord
 from discord.ext import commands
+
 COG_VERSION = "1.1"
 
 

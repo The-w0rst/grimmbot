@@ -42,9 +42,9 @@ curse_personality = {
         "loves sushi",
         "fond of mocking cursed users",
         "rolls in tuna when no one's looking",
-        "flips tail when annoyed"
+        "flips tail when annoyed",
     ],
-    "companions": ["Grimm", "Bloom"]
+    "companions": ["Grimm", "Bloom"],
 }
 
 # === Internal State ===
@@ -68,9 +68,13 @@ async def pick_daily_cursed():
     chosen = random.choice(members)
     cursed_user_id = chosen.id
     cursed_user_name = chosen.display_name
-    channel = discord.utils.get(
-        guild.text_channels, name="general") or guild.text_channels[0]
-    await channel.send(f"😼 A new curse has been cast... {cursed_user_name} is now cursed for 24 hours.")
+    channel = (
+        discord.utils.get(guild.text_channels, name="general") or guild.text_channels[0]
+    )
+    await channel.send(
+        f"😼 A new curse has been cast... {cursed_user_name} is now cursed for 24 hours."
+    )
+
 
 # === Curse Interactions ===
 curse_responses = [
@@ -146,7 +150,7 @@ curse_responses = [
     "You're as exciting as stale kibble.",
     "Grimm's scythe is impressive, but my claws are sharper.",
     "Bloom can't stop talking about musicals. Spare me.",
-    "One more word and I'll curse your playlist."
+    "One more word and I'll curse your playlist.",
 ]
 
 # === Keywords ===
@@ -159,7 +163,7 @@ curse_keywords = {
     "meow": ["I'm not cute. I’m cursed. Get it right."],
     "tuna": ["Step away from the tuna."],
     "treat": ["No treats for you."],
-    "cursed": ["Curse intensifies."]
+    "cursed": ["Curse intensifies."],
 }
 
 # === On Ready ===
@@ -169,6 +173,7 @@ curse_keywords = {
 async def on_ready():
     print(f"{curse_personality['name']} is here to ruin someone's day.")
     pick_daily_cursed.start()
+
 
 # === Passive Comments to Cursed User ===
 
@@ -185,7 +190,9 @@ async def on_message(message):
 
     if message.author.id == cursed_user_id:
         if random.random() < 0.2:
-            await message.channel.send(f"{message.author.display_name}, {random.choice(curse_responses)}")
+            await message.channel.send(
+                f"{message.author.display_name}, {random.choice(curse_responses)}"
+            )
             return
 
     for trigger, responses in curse_keywords.items():
@@ -194,6 +201,7 @@ async def on_message(message):
             return
 
     await bot.process_commands(message)
+
 
 # === Manual Curse Assignment ===
 
@@ -205,6 +213,7 @@ async def curse(ctx, member: discord.Member):
     cursed_user_id = member.id
     cursed_user_name = member.display_name
     await ctx.send(f"😾 Manual curse activated. {member.display_name} is now cursed.")
+
 
 # === Other Commands ===
 
@@ -243,7 +252,7 @@ async def insult(ctx):
         "Were you always this awkward, or is it a new talent?",
         "You're less useful than a cardboard scratching post.",
         "Your sense of humor must be on vacation.",
-        "I'd tell you to go outside, but nature deserves better."
+        "I'd tell you to go outside, but nature deserves better.",
     ]
     await ctx.send(random.choice(burns))
 
@@ -293,6 +302,7 @@ async def curse_me(ctx):
     cursed_user_id = ctx.author.id
     cursed_user_name = ctx.author.display_name
     await ctx.send(f"😾 Fine. {ctx.author.display_name} is now cursed.")
+
 
 if not DISCORD_TOKEN:
     raise RuntimeError("CURSE_DISCORD_TOKEN not set in config/setup.env")

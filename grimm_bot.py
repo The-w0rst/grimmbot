@@ -41,19 +41,22 @@ except Exception as e:
 
 def send_status(status, message):
     try:
-        sio.emit("bot_status", {
-            "bot": "Grimm",
-            "status": status,
-            "message": message
-        })
+        sio.emit("bot_status", {"bot": "Grimm", "status": status, "message": message})
     except Exception as e:
         print(f"SocketIO error: {e}")
 
 
 # === GRIMM PERSONALITY ===
 grimm_traits = [
-    "sarcastic", "protective", "goon", "grim reaper", "loyal", "dry humor",
-    "a little ominous", "takes care of Bloom", "playful rivalry with Curse"
+    "sarcastic",
+    "protective",
+    "goon",
+    "grim reaper",
+    "loyal",
+    "dry humor",
+    "a little ominous",
+    "takes care of Bloom",
+    "playful rivalry with Curse",
 ]
 companions = ["Bloom", "Curse"]
 
@@ -158,8 +161,8 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 @bot.event
 async def on_ready():
     print("Grimm has arrived. Watch your step, goons.")
-    send_status(
-        "online", "On patrol. Nobody dies on my watch (except for Mondays).")
+    send_status("online", "On patrol. Nobody dies on my watch (except for Mondays).")
+
 
 # === MODERATION: PROTECT BLOOM (JOKINGLY) ===
 
@@ -170,10 +173,11 @@ async def protectbloom(ctx):
     responses = [
         "Back off. The flower stays safe with me. 🪦🛡️",
         "I’m watching you. Touch Bloom and you deal with me.",
-        "Step away from the cutesy one, or meet your fate."
+        "Step away from the cutesy one, or meet your fate.",
     ]
     await ctx.send(random.choice(responses))
     send_status("active", "Protected Bloom.")
+
 
 # === ROAST (GOON STYLE) ===
 
@@ -184,10 +188,11 @@ async def roast(ctx, member: discord.Member = None):
     burns = [
         f"{member.mention}, you're not even worth the trouble.",
         f"{member.mention}, if I had a nickel for every brain cell you lost, I’d be immortal.",
-        f"{member.mention}, some people were born to goon. You were born to be gooned on."
+        f"{member.mention}, some people were born to goon. You were born to be gooned on.",
     ]
     await ctx.send(random.choice(burns))
     send_status("active", f"Roasted {member.display_name}")
+
 
 # === SARCASTIC RESPONSES ===
 
@@ -197,10 +202,11 @@ async def goon(ctx):
     responses = [
         "Who called the goon squad? Oh, it was just you.",
         "Goons assemble. And by goons, I mean the rest of you.",
-        "This is my squad, you’re just visiting."
+        "This is my squad, you’re just visiting.",
     ]
     await ctx.send(random.choice(responses))
     send_status("active", "Issued goon decree.")
+
 
 # === OMINOUS RESPONSES ===
 
@@ -210,10 +216,11 @@ async def ominous(ctx):
     responses = [
         "I hear footsteps... they're yours.",
         "Sometimes I let people think they’re safe.",
-        "Death is just a punchline you don’t want to hear."
+        "Death is just a punchline you don’t want to hear.",
     ]
     await ctx.send(random.choice(responses))
     send_status("active", "Dropped an ominous hint.")
+
 
 # === GRIMM LOVES BLOOM (BUT WON'T ADMIT IT) ===
 
@@ -223,10 +230,11 @@ async def bloom(ctx):
     responses = [
         "If you see Bloom, tell her I’m not worried about her. At all. Not even a little. 🖤",
         "She's a handful, but she’s my handful.",
-        "Don’t let the cutesy act fool you. She’s the real trouble."
+        "Don’t let the cutesy act fool you. She’s the real trouble.",
     ]
     await ctx.send(random.choice(responses))
     send_status("active", "Talked about Bloom.")
+
 
 # === PLAYFUL RIVALRY WITH CURSE ===
 
@@ -236,10 +244,11 @@ async def curse(ctx):
     responses = [
         "That damn cat is up to something again.",
         "If you see Curse, hide the sushi and your pride.",
-        "I let Curse think he's in charge sometimes. It keeps the peace."
+        "I let Curse think he's in charge sometimes. It keeps the peace.",
     ]
     await ctx.send(random.choice(responses))
     send_status("active", "Mocked Curse.")
+
 
 # === FUNNY EMOTES ===
 
@@ -280,6 +289,7 @@ async def nickname(ctx, member: discord.Member = None):
     await ctx.send(f"{member.mention}, you're a {random.choice(names)}.")
     send_status("active", f"Called {member.display_name} a nickname")
 
+
 # === BROODING & BONES ===
 
 
@@ -292,6 +302,7 @@ async def brood(ctx):
 async def bone(ctx):
     await ctx.send("You want a bone? I'm using all of mine.")
 
+
 # === RANDOM PROTECTIVE RESPONSES ===
 
 
@@ -301,10 +312,11 @@ async def shield(ctx, member: discord.Member = None):
     shields = [
         f"{member.mention}, no harm comes to you on my watch. (Except embarrassment.)",
         f"Stand behind me, {member.mention}. The goon squad’s got you.",
-        f"{member.mention}, if anyone messes with you, send them to me."
+        f"{member.mention}, if anyone messes with you, send them to me.",
     ]
     await ctx.send(random.choice(shields))
     send_status("active", f"Shielded {member.display_name}")
+
 
 # === KEYWORD TRIGGERS FOR BOT INTERACTION ===
 
@@ -325,7 +337,9 @@ async def on_message(message):
 
     # Additional fun responses about Bloom and Curse
     if "bloom" in lowered and random.random() < 0.18:
-        await message.channel.send("Someone said Bloom? She’s probably off singing again...")
+        await message.channel.send(
+            "Someone said Bloom? She’s probably off singing again..."
+        )
         send_status("active", "Reacted to Bloom mention.")
     elif "curse" in lowered and random.random() < 0.18:
         await message.channel.send("I told you, don’t trust the cat. Ever.")
@@ -336,6 +350,7 @@ async def on_message(message):
         await message.channel.send(random.choice(grimm_responses))
 
     await bot.process_commands(message)
+
 
 # === RUN THE BOT ===
 if not DISCORD_TOKEN:

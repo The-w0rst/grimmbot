@@ -52,9 +52,9 @@ bloom_personality = {
         "protective of friends",
         "kind-hearted",
         "bubbly",
-        "loves silly jokes"
+        "loves silly jokes",
     ],
-    "companions": ["Grimm", "Curse"]
+    "companions": ["Grimm", "Curse"],
 }
 
 # === Randomized Bloom Responses ===
@@ -77,7 +77,7 @@ bloom_responses = [
     "Someone say bubble tea? Yum!",
     "Pastel power incoming!",
     "Compliment break! You're awesome!",
-    "Who needs sleep when we have each other?"
+    "Who needs sleep when we have each other?",
 ]
 
 # === Bloom Boy Lines ===
@@ -131,7 +131,7 @@ boy_lines = [
     "Boys, you mean the world to me!",
     "Boy oh boy, let's throw a party!",
     "Hey boy, keep being amazing!",
-    "Boys, let's conquer the day with joy!"
+    "Boys, let's conquer the day with joy!",
 ]
 
 # === Bloom Queen Lines ===
@@ -175,35 +175,24 @@ pretty_little_baby_lines = [
 
 # === Keyword Triggers ===
 keywords = {
-    "grimm": [
-        "Grimm is my spooky bestie.",
-        "He acts tough, but he's a sweetheart."
-    ],
+    "grimm": ["Grimm is my spooky bestie.", "He acts tough, but he's a sweetheart."],
     "curse": [
         "Curse is such a gremlin cat. I love him!",
-        "He tried to eat my controller again..."
+        "He tried to eat my controller again...",
     ],
-    "hug": [
-        "HUG TIME! Ready or not! 🥢",
-        "*wraps you in love and chaos*"
-    ],
+    "hug": ["HUG TIME! Ready or not! 🥢", "*wraps you in love and chaos*"],
     "sing": pretty_little_baby_lines,
-    "boba": [
-        "Bubble tea buddies unite!",
-        "I could drink boba all day!"
-    ],
+    "boba": ["Bubble tea buddies unite!", "I could drink boba all day!"],
     "compliment": [
         "You're shining brighter than my glitter!",
-        "Compliments inbound: you're amazing!"
+        "Compliments inbound: you're amazing!",
     ],
     "queen": queen_lines,
     "girl": queen_lines,
     "girls": queen_lines,
     "boy": boy_lines,
     "boys": boy_lines,
-    "squad": [
-        "GOON SQUAD roll call: Grimm 💀, Bloom 🌸, Curse 🐾. Chaos and comfort!"
-    ]
+    "squad": ["GOON SQUAD roll call: Grimm 💀, Bloom 🌸, Curse 🐾. Chaos and comfort!"],
 }
 
 # === Inter-Bot Interactions ===
@@ -212,7 +201,7 @@ interactions = [
     "Bloom: Curse, put down the sushi and join the dance!",
     "Grimm: Bloom, can you stop with the glitter? No? Okay...",
     "Curse: Hiss. (But like, the friendly kind. Maybe.)",
-    "Bloom: Goon Squad! Assemble for hugs!"
+    "Bloom: Goon Squad! Assemble for hugs!",
 ]
 
 # === On Ready ===
@@ -220,8 +209,8 @@ interactions = [
 
 @bot.event
 async def on_ready():
-    print(
-        f"{bloom_personality['name']} is online and ready to hug the whole server!")
+    print(f"{bloom_personality['name']} is online and ready to hug the whole server!")
+
 
 # === Message Handler ===
 
@@ -240,6 +229,7 @@ async def on_message(message):
     if random.random() < 0.06:
         await message.channel.send(random.choice(bloom_responses))
     await bot.process_commands(message)
+
 
 # === Commands ===
 
@@ -279,7 +269,7 @@ async def cheer(ctx):
     cheers = [
         "You are doing your best!",
         "Go Goon Squad!",
-        "Believe in yourself, or I’ll believe for you!"
+        "Believe in yourself, or I’ll believe for you!",
     ]
     await ctx.send(random.choice(cheers))
 
@@ -340,6 +330,7 @@ async def boy(ctx):
 async def queen(ctx):
     """Share a playful yas queen-style line."""
     await ctx.send(random.choice(queen_lines))
+
 
 if not DISCORD_TOKEN:
     raise RuntimeError("BLOOM_DISCORD_TOKEN not set in config/setup.env")

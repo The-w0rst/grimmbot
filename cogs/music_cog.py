@@ -1,9 +1,9 @@
-
 import discord
 from discord.ext import commands
 import yt_dlp
 import requests
 from bs4 import BeautifulSoup
+
 COG_VERSION = "1.1"
 
 
