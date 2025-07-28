@@ -175,19 +175,87 @@ curse_responses = [
     "Grimm's scythe is impressive, but my claws are sharper.",
     "Bloom can't stop talking about musicals. Spare me.",
     "One more word and I'll curse your playlist.",
+    "I'd steal your soul, but it looks cheap.",
+    "Grimm snores louder than you talk.",
+    "Bloom's giggle makes my fur stand on end.",
+    "Try me again and I'll curse your coffee.",
+    "I run this squad, the others just pretend.",
 ]
 
 # === Keywords ===
 curse_keywords = {
-    "grimm": ["Oh look, it’s the spooky skeleton again."],
-    "bloom": ["Too much glitter. Not enough chaos."],
-    "sushi": ["BACK OFF. It’s mine."],
-    "pet": ["Touch me and lose a finger."],
-    "curse": ["You rang? Someone's getting hexed."],
-    "meow": ["I'm not cute. I’m cursed. Get it right."],
-    "tuna": ["Step away from the tuna."],
-    "treat": ["No treats for you."],
-    "cursed": ["Curse intensifies."],
+    "grimm": [
+        "Oh look, it’s the spooky skeleton again.",
+        "Grimm, stop rattling around.",
+        "Got bones to pick with me, Grimm?",
+        "The skull king returns.",
+        "Grimm, your scythe is showing.",
+        "Another gloomy comment from Grimm? Shocking.",
+    ],
+    "bloom": [
+        "Too much glitter. Not enough chaos.",
+        "Bloom, take your sunshine elsewhere.",
+        "If Bloom hugs me again, I'm bolting.",
+        "Bloom's energy is exhausting.",
+        "Another musical number, Bloom? Spare me.",
+        "Bloom, you're blinding me with kindness.",
+    ],
+    "sushi": [
+        "BACK OFF. It’s mine.",
+        "Touch my sushi and face my wrath.",
+        "I dream of tuna rolls.",
+        "Sushi is the only good thing in life.",
+        "Hands off my sashimi.",
+        "Did someone say sushi? Mine.",
+    ],
+    "pet": [
+        "Touch me and lose a finger.",
+        "Pet me and face the curse.",
+        "I bite those who pet without asking.",
+        "Petting fee is one tuna roll.",
+        "Petting rights revoked.",
+        "Only Bloom can pet me—maybe.",
+    ],
+    "curse": [
+        "You rang? Someone's getting hexed.",
+        "Another curse request? Fine.",
+        "Curses are on sale today.",
+        "Who wants a fresh hex?",
+        "My curses never miss.",
+        "You can't handle my curses.",
+    ],
+    "meow": [
+        "I'm not cute. I’m cursed. Get it right.",
+        "Did you just meow at me?",
+        "Meow back and I'll hiss.",
+        "I don't meow on command.",
+        "Meowing won't save you.",
+        "Only Bloom gets a purr, maybe.",
+    ],
+    "tuna": [
+        "Step away from the tuna.",
+        "Tuna is my love language.",
+        "I smell tuna. Hand it over.",
+        "No tuna? Then go away.",
+        "Tuna tribute accepted.",
+        "Keep the tuna coming.",
+    ],
+    "treat": [
+        "No treats for you.",
+        "Where are my treats?",
+        "I'll trade insults for treats.",
+        "Treats first, talk later.",
+        "You think you deserve treats? Cute.",
+        "Treats make curses better.",
+    ],
+    "cursed": [
+        "Curse intensifies.",
+        "You're cursed now, congrats.",
+        "Being cursed suits you.",
+        "Another soul joins the cursed ranks.",
+        "Once cursed, always cursed.",
+        "Feel the weight of the curse.",
+    ],
 }
 
 # Gifts Curse may randomly give users once per day
@@ -242,18 +310,33 @@ gifts = [
     {"name": "a gnarled tree branch", "positive": False},
     {"name": "a bag of sour candy", "positive": True},
     {"name": "an ominous black envelope", "positive": False},
+    {"name": "a pawful of loose bolts", "positive": False},
+    {"name": "a spooky origami crane", "positive": True},
+    {"name": "a glow-in-the-dark collar", "positive": True},
+    {"name": "a vial of cursed glitter", "positive": False},
+    {"name": "a tiny haunted painting", "positive": False},
 ]
 
 positive_gift_responses = [
     "Curse reluctantly gives you {gift}.",
     "With a sly grin, Curse drops {gift} in your lap.",
     "Curse acts indifferent but slides you {gift}.",
+    "You receive {gift} while Curse pretends not to care.",
+    "Curse gifts you {gift} and rolls his eyes.",
+    "{gift} appears at your feet courtesy of Curse.",
+    "Enjoy {gift}—don't say I never did anything nice.",
+    "{gift} is tossed your way with a bored flick of the paw.",
 ]
 
 negative_gift_responses = [
     "Curse hisses and tosses {gift} at you.",
     "You get {gift}. Curse smirks wickedly.",
     "Curse dumps {gift} on you with a laugh.",
+    "{gift} hits you square in the face. Thanks, Curse.",
+    "Curse sneers and shoves {gift} into your hands.",
+    "A disgruntled Curse gifts you {gift}. Lucky you.",
+    "{gift}? That's what you deserve, apparently.",
+    "Curse hurls {gift} then walks away snickering.",
 ]
 
 # Responses when the fent cloud knocks out a player
@@ -263,6 +346,11 @@ fent_player_responses = [
     "drops like a rock. Shadow banned for {minutes} minute(s)!",
     "coughs and fades away for {minutes} minute(s).",
     "can't handle the cloud and disappears for {minutes} minute(s).",
+    "is overwhelmed and poofs for {minutes} minute(s).",
+    "gets a face full of fent and dozes off for {minutes} minute(s).",
+    "slinks away, cursed, for {minutes} minute(s).",
+    "vanishes into the mist for {minutes} minute(s).",
+    "is whisked to the shadow realm for {minutes} minute(s).",
 ]
 
 # Responses when a bot gets hit by the fent cloud
@@ -272,6 +360,11 @@ fent_bot_responses = [
     "shrugs off the cloud—perks of undeath.",
     "mumbles that the afterlife smells better than this.",
     "laughs about undead immunity.",
+    "scoffs at your attempt to harm the undead.",
+    "grins—no lungs, no problem.",
+    "continues haunting without pause.",
+    "wonders why you bothered.",
+    "licks the air and declares it spicy.",
 ]
 
 # === On Ready ===
@@ -362,6 +455,11 @@ async def insult(ctx):
         "You're less useful than a cardboard scratching post.",
         "Your sense of humor must be on vacation.",
         "I'd tell you to go outside, but nature deserves better.",
+        "I've coughed up hairballs with more wit.",
+        "If ignorance was a sport, you'd take gold.",
+        "You're the aftertaste of stale tuna.",
+        "Even Grimm's puns are better than yours.",
+        "You're proof that evolution has a sense of humor.",
     ]
     await ctx.send(random.choice(burns))
 
