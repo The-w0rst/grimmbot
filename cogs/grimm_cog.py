@@ -83,7 +83,7 @@ class GrimmCog(commands.Cog):
         await ctx.send(random.choice(responses))
         send_status("active", "Dropped an ominous hint.")
 
-    @commands.command()
+    @commands.command(name="grimm_bloom")
     async def bloom(self, ctx):
         responses = [
             "If you see Bloom, tell her I’m not worried about her. At all. Not even a little. 🖤",
@@ -93,7 +93,7 @@ class GrimmCog(commands.Cog):
         await ctx.send(random.choice(responses))
         send_status("active", "Talked about Bloom.")
 
-    @commands.command()
+    @commands.command(name="grimm_curse")
     async def curse(self, ctx):
         responses = [
             "That cat is trouble on four paws.",
