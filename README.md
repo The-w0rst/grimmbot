@@ -21,6 +21,7 @@ This mirrors the modular approach used by Red Discord Bot.
 - `cogs/trivia_cog.py` – Simple trivia mini‑game.
 - `cogs/moderation_cog.py` – Basic kick/ban/clear commands.
 - `cogs/music_cog.py` – Stream audio from YouTube links.
+- `cogs/fun_cog.py` – Quick games like dice rolls and an 8‑ball.
 - `media_player.py` – Helpers for parsing media queries and local files.
 
 The `main` branch contains the latest working bots. New ideas or additional
@@ -115,6 +116,10 @@ Commands use the `*` prefix:
 - `play <url>` – stream music from YouTube into a voice channel.
 - `stop` – stop music and disconnect from voice.
 - `chat <prompt>` – ask ChatGPT a question and get an in-character reply.
+- `roll [sides]` – roll a dice with an optional number of sides.
+- `8ball <question>` – consult the magic 8-ball.
+- `coinflip` – flip a coin.
+- `quote` – receive a random motivational quote.
 
 ## Developing your own bots
 
