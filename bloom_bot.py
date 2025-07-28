@@ -130,6 +130,35 @@ boy_lines = [
     "Boys, let's conquer the day with joy!"
 ]
 
+# === Bloom Queen Lines ===
+queen_lines = [
+    "Yas queen! Slay the day!",
+    "Queens, keep those crowns high!",
+    "Hey girl, you're unstoppable!",
+    "Yas queen, your sparkle is unmatched!",
+    "Girls just wanna have fun and rule!",
+    "Queen vibes only, let's shine!",
+    "You go girl, absolutely iconic!",
+    "Yaaaas queen, keep shining bright!",
+    "Girls, let's conquer with kindness!",
+    "Queen energy incoming! 💖",
+    "Slay it, queen! You got this!",
+    "Hey queen, want some boba?",
+    "Queens unite for a dance party!",
+    "Yas, girls! Let's make magic happen!",
+    "Queen, your confidence is contagious!",
+    "Girls, keep being amazing!",
+    "Yas queen, the world is yours!",
+    "Queen power! Nothing can stop us!",
+    "Hey queens, time to sparkle!",
+    "Girls rule, everyone else drools!",
+    "Yas queen, show off that style!",
+    "Queen squad, assemble!",
+    "Keep that crown polished, girl!",
+    "Queens, let's turn up the glitter!",
+    "You're royalty, girl—don't forget it!",
+]
+
 # === Keyword Triggers ===
 keywords = {
     "grimm": [
@@ -156,6 +185,9 @@ keywords = {
         "You're shining brighter than my glitter!",
         "Compliments inbound: you're amazing!"
     ],
+    "queen": queen_lines,
+    "girl": queen_lines,
+    "girls": queen_lines,
     "boy": boy_lines,
     "boys": boy_lines,
     "squad": [
@@ -275,6 +307,11 @@ async def compliment(ctx):
 async def boy(ctx):
     """Share a playful boy-themed line."""
     await ctx.send(random.choice(boy_lines))
+
+@bot.command()
+async def queen(ctx):
+    """Share a playful yas queen-style line."""
+    await ctx.send(random.choice(queen_lines))
 
 bot.run(DISCORD_TOKEN)
 
