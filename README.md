@@ -78,6 +78,16 @@ python install.py     # reconfigure on the fly
 GrimmBot can broadcast status to a Socket.IO dashboard if you define
 `SOCKET_SERVER_URL` inside `config/setup.env`.
 
+## Help commands
+
+Every goon responds to a personalized `help` command using its prefix:
+
+- `!help` for GrimmBot
+- `*help` for BloomBot
+- `?help` for CurseBot
+
+Use `helpall` with any prefix to have all three introduce themselves at once.
+
 ## Command reference
 
 Here's a taste of what each bot can do.

@@ -18,6 +18,7 @@ what mischief it adds.
 | `gpt_cog.py` | ChatGPT based chat command and mention replies. Requires `OPENAI_API_KEY`. |
 | `jojo_cog.py` | Sends loving messages to a user named "JoJo is bizarre". |
 | `cyberpunk_campaign_cog.py` | Lightweight cyberpunk themed DnD campaign using ChatGPT. |
+| `help_cog.py` | Provides `help` commands for each bot and a `helpall` summary. |
 
 All cogs declare a `COG_VERSION` constant for easy tracking of updates. Load them one by one with `goon_bot.py` or the Admin commands.
 Happy gooning, - Curse

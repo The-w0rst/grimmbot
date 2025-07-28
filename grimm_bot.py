@@ -141,6 +141,23 @@ grimm_responses = [
     "Bloom says smile more. I say stop talking.",
 ]
 
+# Short help message used by the help commands
+GRIMM_HELP = (
+    "**GrimmBot** - prefix `!`\n"
+    "Try `!protectbloom`, `!roast`, `!gloom`, `!bonk` and more.\n"
+    "Use `!helpall` to see help for every goon."
+)
+
+BLOOM_HELP = (
+    "**BloomBot** - prefix `*`\n"
+    "Try `*hug`, `*sing`, `*sparkle`, `*play <url>` and more."
+)
+
+CURSE_HELP = (
+    "**CurseBot** - prefix `?`\n"
+    "Try `?insult`, `?scratch @user`, `?pounce` or `?curse_me`."
+)
+
 # Keywords that trigger short replies
 keywords = {
     "bloom": [
@@ -160,7 +177,7 @@ keywords = {
 # === DISCORD BOT SETUP ===
 intents = discord.Intents.default()
 intents.message_content = True
-bot = commands.Bot(command_prefix="!", intents=intents)
+bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 
 # === ON READY ===
 
@@ -169,6 +186,20 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 async def on_ready():
     print("Grimm has arrived. Watch your step, goons.")
     send_status("online", "On patrol. Nobody dies on my watch (except for Mondays).")
+
+
+@bot.command(name="help")
+async def help_command(ctx):
+    """Show GrimmBot help."""
+    await ctx.send(GRIMM_HELP)
+
+
+@bot.command(name="helpall")
+async def help_all(ctx):
+    """Show help for all bots."""
+    await ctx.send(GRIMM_HELP)
+    await ctx.send(BLOOM_HELP)
+    await ctx.send(CURSE_HELP)
 
 
 # === MODERATION: PROTECT BLOOM (JOKINGLY) ===
