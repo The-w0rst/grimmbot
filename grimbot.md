@@ -5,7 +5,7 @@
 Hey there, mortals. It's **Curse**, your favorite chaotic cat, here to walk you through setting up the whole Grimmbot gang. Follow these steps and you'll have Grimm, Bloom, and me running in no time.
 
 ### Quick Setup
-1. Install Python 3.8 or newer.
+1. Install Python 3.10 or newer.
 2. Run the bootstrap script directly:
    ```bash
    bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)

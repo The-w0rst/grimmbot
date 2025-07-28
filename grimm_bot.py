@@ -304,6 +304,7 @@ async def brood(ctx):
 async def bone(ctx):
     await ctx.send("You want a bone? I'm using all of mine.")
 
+
 @bot.command()
 async def gloom(ctx):
     level = grimm_utils.gloom_level()
@@ -315,14 +316,17 @@ async def gloom(ctx):
         mood = "Too bright for Grimm's taste."
     await ctx.send(f"Gloom level: {level}/100. {mood}")
 
+
 @bot.command()
 async def lament(ctx):
     await ctx.send(grimm_utils.random_lament())
+
 
 @bot.command()
 async def bonk(ctx, member: discord.Member = None):
     member = member or ctx.author
     await ctx.send(f"*bonks {member.display_name} on the head with a femur*")
+
 
 @bot.command()
 async def inventory(ctx):

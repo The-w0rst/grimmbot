@@ -34,7 +34,7 @@ bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstr
 
 Prefer manual control? Follow these steps in your terminal:
 
-1. Install **Python 3.8+**.
+1. Install **Python 3.10+**.
 2. Clone the repo and enter the directory:
 
    ```bash

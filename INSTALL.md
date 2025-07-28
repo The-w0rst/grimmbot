@@ -4,7 +4,7 @@ Curse here. Let's get these bots running on your machine. This works on
 Windows, macOS, or Linux—take your pick.
 
 ## Quick setup
-1. Install Python 3.8 or newer.
+1. Install Python 3.10 or newer.
 2. Run the bootstrap script:
    ```bash
    bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)

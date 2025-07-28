@@ -38,7 +38,7 @@ def main() -> None:
     SETUP_PATH.write_text("\n".join(lines) + "\n")
     print(f"\nSaved configuration to {SETUP_PATH}\n")
     print("Next steps:")
-    print("  1. Ensure Python 3.8+ is installed.")
+    print("  1. Ensure Python 3.10+ is installed.")
     print("  2. Install dependencies: python -m pip install -r requirements/base.txt")
     print("  3. Run a bot, e.g.: python goon_bot.py\n")
 
