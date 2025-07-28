@@ -18,6 +18,9 @@ This mirrors the modular approach used by Red Discord Bot.
 - `requirements.txt` – Python package requirements.
 - `setup.sh` – Optional helper script for installing dependencies.
 - `the-worst-grimbot/` – Old prototype code kept for reference.
+- `cogs/trivia_cog.py` – Simple trivia mini‑game.
+- `cogs/moderation_cog.py` – Basic kick/ban/clear commands.
+- `cogs/music_cog.py` – Stream audio from YouTube links.
 
 The `main` branch contains the latest working bots. New ideas or additional
 robots can be developed on their own branches and merged back once stable.
@@ -100,6 +103,13 @@ Commands use the `*` prefix:
 - `!hiss` – hiss at the server.
 - `!scratch [@user]` – scratch someone just because.
 - `!curse_me` – willingly take the curse.
+
+### Additional cogs
+- `trivia` – play a quick trivia round.
+- `kick/ban` – moderation commands restricted to users with the appropriate permissions.
+- `clear` – remove a handful of recent messages.
+- `play <url>` – stream music from YouTube into a voice channel.
+- `stop` – stop music and disconnect from voice.
 
 ## Developing your own bots
 
