@@ -26,3 +26,7 @@ replay_pid*
 # Python bytecode
 __pycache__/
 *.py[cod]
+
+# Ignore environment files that may store private credentials
+.env
+config/setup.env

@@ -3,17 +3,17 @@ from discord.ext import commands, tasks
 
 # Server reference information for quick access
 SERVER_ROLES = [
-    "Server booster",
-    "Goons",
-    "Goonets",
-    "Royalty",
+    "Boosters",
+    "Members",
+    "Guests",
+    "Admins",
 ]
 
 SERVER_CATEGORIES = {
-    "Intake": ["new-here"],
-    "Gen pop": ["non-gooning", "gooning"],
-    "Yapping": ["yapper's anonymous (voice)"],
-    "Royalty": ["me-n-bea", "the-baby-yap (voice)"],
+    "Welcome": ["newcomers"],
+    "General": ["general-chat", "random-chat"],
+    "Voice": ["lounge (voice)"],
+    "VIP": ["vip-chat", "vip-voice (voice)"],
 }
 
 
@@ -29,10 +29,10 @@ class AnnouncementCog(commands.Cog):
         guild = discord.utils.get(self.bot.guilds)
         if not guild:
             return
-        channel = discord.utils.get(guild.text_channels, name="gooning")
+        channel = discord.utils.get(guild.text_channels, name="random-chat")
         if channel:
             await channel.send(
-                "Stay chaotic, Goons and Goonets! Check #non-gooning for chill chats."
+                "Stay awesome, everyone! Check #general-chat for chill chats."
             )
 
     @commands.command(name="serverinfo")
