@@ -12,7 +12,7 @@ can run one bot or all three depending on your needs.
 - `curse_bot.py` – CurseBot, a mischievous calico (command prefix `!`).
 - `config/*.env` – Environment variables for each bot.
 - `requirements.txt` – Python package requirements.
-- `setup.exe` – Optional Windows helper for installing dependencies.
+- `setup.sh` – Optional helper script for installing dependencies.
 - `the-worst-grimbot/` – Old prototype code kept for reference.
 
 The `main` branch contains the latest working bots. New ideas or additional
@@ -27,7 +27,7 @@ robots can be developed on their own branches and merged back once stable.
    pip install -r requirements.txt
    ```
 
-   On Windows you may instead run `./setup.exe` which installs the same
+   Alternatively you can run `./setup.sh` which installs the same
    dependencies for you.
 3. Fill in the environment files found in `config/` with your Discord token and
    any API keys the bots rely on:
