@@ -2,11 +2,11 @@ import random
 import asyncio
 from discord.ext import commands
 
-COG_VERSION = "1.1"
+COG_VERSION = "1.2"
 
 
 class TriviaCog(commands.Cog):
-    """Simple trivia game. Version 1.1."""
+    """Simple trivia game. Version 1.2."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

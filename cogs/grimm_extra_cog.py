@@ -1,14 +1,14 @@
 import discord
 from discord.ext import commands
-import random
+
 
 from . import grimm_utils
 
-COG_VERSION = "1.0"
+COG_VERSION = "1.2"
 
 
 class GrimmExtraCog(commands.Cog):
-    """Additional utilities and fun commands for Grimm."""
+    """Additional utilities and fun commands for Grimm. Version 1.2."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

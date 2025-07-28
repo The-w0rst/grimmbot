@@ -26,29 +26,33 @@ Every cog has a `COG_VERSION` constant. Keep an eye out for updates on the
 
 ## Installation
 
-Want to summon us fast? Run the bootstrap script and let it claw through the
-setup for you:
+The fastest way is with the bootstrap script which handles everything for you:
 
 ```bash
 bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)
 ```
 
-Or be stubborn and do it yourself.
+Prefer manual control? Follow these steps in your terminal:
 
-1. Install **Python 3.8** or newer.
-2. Clone this repo and slink into the directory.
-3. Run the interactive installer. It'll create `config/setup.env` and ask for
-   your tokens:
+1. Install **Python 3.8+**.
+2. Clone the repo and enter the directory:
+
+   ```bash
+   git clone https://github.com/The-w0rst/grimmbot.git
+   cd grimmbot
+   ```
+3. Install dependencies:
+
+   ```bash
+   python -m pip install -r requirements/base.txt
+   ```
+4. Run the installer to create `config/setup.env` and enter all your tokens and keys:
 
    ```bash
    python install.py
    ```
-
-   It will nag you for Discord tokens and optional API keys (set
-   `OPENAI_API_KEY` if you want ChatGPT tricks). Run it again any time to tweak
-   the config. For details see [`config/README.md`](config/README.md). If you
-   only need to update `setup.env`, use `python configure.py`.
-4. Finally, pick whichever bot you want to unleash:
+   Use `python configure.py` later if you need to update the file.
+5. Start any bot you want:
 
    ```bash
    python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py

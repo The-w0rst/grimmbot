@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Interactive configuration helper for the Goon Squad bots."""
 from pathlib import Path
+
 # Project repository: https://github.com/The-w0rst/grimmbot
 
 TEMPLATE_PATH = Path("config/env_template.env")
 SETUP_PATH = Path("config/setup.env")
+VERSION = "1.2"
 
 
 def read_existing(path: Path) -> dict:
@@ -19,7 +21,7 @@ def read_existing(path: Path) -> dict:
 
 
 def main() -> None:
-    print("== Goon Squad Interactive Setup ==\n")
+    print(f"== Goon Squad Interactive Setup v{VERSION} ==\n")
     TEMPLATE_PATH.parent.mkdir(parents=True, exist_ok=True)
     existing = read_existing(SETUP_PATH)
     lines = []

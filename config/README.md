@@ -11,7 +11,7 @@ at https://github.com/The-w0rst/grimmbot
    ```bash
    python install.py
    ```
-   It'll create `config/setup.env` and nag you for each value.
+   It creates `config/setup.env` and walks you through each value.
 
 2. Prefer manual setup? Copy the template file:
 
@@ -19,11 +19,11 @@ at https://github.com/The-w0rst/grimmbot
    cp config/env_template.env config/setup.env
    ```
 
-   Open `config/setup.env` and fill everything in. Sections are grouped by bot
-   (Grimm, Bloom, me) then shared settings. Add `OPENAI_API_KEY` for ChatGPT
+   Open `config/setup.env` and fill in all the tokens and keys. Sections are grouped by bot
+   (Grimm, Bloom, Curse) and shared settings. Add `OPENAI_API_KEY` for ChatGPT
    features or `SOCKET_SERVER_URL` if you want status reporting.
 
-3. Save the file. Any bot you run will slurp up these values automatically.
+3. Save the file. Any bot you run will read these values automatically.
 
 Do **not** commit `setup.env` to git. Keep it private.
 
