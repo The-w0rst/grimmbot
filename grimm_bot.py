@@ -256,6 +256,25 @@ async def flip(ctx, member: discord.Member = None):
     await ctx.send(f"{member.mention}, you just got goon-flipped. 😈")
     send_status("active", f"Flipped off {member.display_name}")
 
+@bot.command()
+async def nickname(ctx, member: discord.Member = None):
+    """Playfully call someone a grumpy nickname."""
+    member = member or ctx.author
+    names = [
+        "Bone-for-brains",
+        "Lopsided bonehead",
+        "Spineless clank",
+        "Gloomy goon",
+        "Dusty dingbat",
+        "Clattering fool",
+        "Creaky numbskull",
+        "Rattle-boned scatterbrain",
+        "Moldy misfit",
+        "Walking pile of leftovers",
+    ]
+    await ctx.send(f"{member.mention}, you're a {random.choice(names)}.")
+    send_status("active", f"Called {member.display_name} a nickname")
+
 # === BROODING & BONES ===
 
 

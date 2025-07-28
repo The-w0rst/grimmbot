@@ -119,6 +119,25 @@ class GrimmCog(commands.Cog):
         send_status("active", f"Flipped off {member.display_name}")
 
     @commands.command()
+    async def nickname(self, ctx, member: discord.Member = None):
+        """Playfully call someone a grumpy nickname."""
+        member = member or ctx.author
+        names = [
+            "Bone-for-brains",
+            "Lopsided bonehead",
+            "Spineless clank",
+            "Gloomy goon",
+            "Dusty dingbat",
+            "Clattering fool",
+            "Creaky numbskull",
+            "Rattle-boned scatterbrain",
+            "Moldy misfit",
+            "Walking pile of leftovers",
+        ]
+        await ctx.send(f"{member.mention}, you're a {random.choice(names)}.")
+        send_status("active", f"Called {member.display_name} a nickname")
+
+    @commands.command()
     async def brood(self, ctx):
         await ctx.send("*broods quietly in a dark corner*")
 
