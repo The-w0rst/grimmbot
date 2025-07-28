@@ -14,11 +14,11 @@ if not ENV_PATH.exists():
 load_dotenv(ENV_PATH)
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 
-# Allow both '!' and '*' prefixes like the individual bots
+# Allow '!', '*', and '?' prefixes like the individual bots
 
 
 async def get_prefix(bot, message):
-    prefixes = ["!", "*"]
+    prefixes = ["!", "*", "?"]
     return commands.when_mentioned_or(*prefixes)(bot, message)
 
 

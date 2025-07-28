@@ -29,7 +29,7 @@ CURSE_API_KEY_3 = os.getenv("CURSE_API_KEY_3")
 
 intents = discord.Intents.default()
 intents.message_content = True
-bot = commands.Bot(command_prefix="!", intents=intents)
+bot = commands.Bot(command_prefix="?", intents=intents)
 
 # === CurseBot Personality ===
 curse_personality = {
