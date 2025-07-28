@@ -25,3 +25,28 @@ echo "Setup complete. Run bots with:"
 echo "  $PY grimm_bot.py"
 echo "  $PY bloom_bot.py"
 echo "  $PY curse_bot.py"
+echo "  $PY goon_bot.py"
+
+# optionally start a bot immediately when passed as an argument
+if [ $# -gt 0 ]; then
+    case "$1" in
+        grimm)
+            exec $PY grimm_bot.py
+            ;;
+        bloom)
+            exec $PY bloom_bot.py
+            ;;
+        curse)
+            exec $PY curse_bot.py
+            ;;
+        goon)
+            exec $PY goon_bot.py
+            ;;
+        *)
+            echo "Unknown bot: $1"
+            echo "Valid options are grimm, bloom, curse, or goon."
+            ;;
+    esac
+else
+    echo "Run './setup.sh <bot>' to launch one immediately."
+fi

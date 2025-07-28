@@ -29,14 +29,14 @@ robots can be developed on their own branches and merged back once stable.
 ## Quick setup
 
 1. Install Python 3.8 or newer.
-2. Install the required packages with `pip install -r requirements.txt`.
-   You can also run `./setup.sh` which performs the same step for you.
-3. Copy the example configuration and edit it once for all bots:
+2. Run the helper script which installs everything and prepares a config file:
 
    ```bash
-   cp config/env_template.env config/setup.env
-   $EDITOR config/setup.env  # fill in tokens and API keys
+   ./setup.sh
    ```
+
+3. Open `config/setup.env` and fill in your Discord tokens and API keys. The
+   setup script creates this file for you if it doesn't already exist.
 
    This single file stores every Discord token and API key. Set
    `OPENAI_API_KEY` if you want ChatGPT powered features. See
@@ -45,13 +45,14 @@ robots can be developed on their own branches and merged back once stable.
 ## Running the bots
 
 Each bot is completely independent. As long as `config/setup.env` is populated
-with your credentials you can launch any bot directly:
+with your credentials you can launch any bot directly or via the setup script:
 
 ```bash
 python grimm_bot.py   # uses ! commands
 python bloom_bot.py   # uses * commands
 python curse_bot.py   # uses ! commands
 python goon_bot.py    # loads all personalities with both prefixes
+./setup.sh goon       # install & launch in one step
 ```
 
 GrimmBot optionally reports its status to a Socket.IO dashboard if
