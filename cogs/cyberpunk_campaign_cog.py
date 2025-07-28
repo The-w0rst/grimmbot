@@ -1,4 +1,5 @@
 import random
+import pathlib
 from discord.ext import commands
 
 
@@ -28,6 +29,15 @@ class CyberpunkCampaignCog(commands.Cog):
             ),
         ]
 
+        base = pathlib.Path(__file__).resolve().parent.parent / "ascii_art"
+        self.visuals = {}
+        for name in ["grimm", "bloom", "curse"]:
+            path = base / f"{name}.txt"
+            try:
+                self.visuals[name] = path.read_text()
+            except FileNotFoundError:
+                self.visuals[name] = f"[Missing art for {name}]"
+
     @commands.command(name="cyberstart")
     async def cyber_start(self, ctx):
         """Begin or reset your campaign progress."""
@@ -39,7 +49,9 @@ class CyberpunkCampaignCog(commands.Cog):
             "background": None,
         }
         await ctx.send(
-            "Welcome to **Neon Goon City**, a sprawling hive of neon lights. "
+            "Welcome to **Neon Goon City**, a hive of neon lights. "
+            "Grimm reluctantly guides you, Bloom offers cheerful help, "
+            "and Curse schemes as the cyber villain. "
             "Use `!cybercreate <class> <background>` to craft your hero and "
             "`!cyberfight` to challenge a foe."
         )
@@ -117,6 +129,20 @@ class CyberpunkCampaignCog(commands.Cog):
         await ctx.send(
             ", ".join(details)
         )
+
+    @commands.command(name="cybervisual")
+    async def cyber_visual(self, ctx, character: str | None = None):
+        """Display cyberpunk ASCII art for a character."""
+        if character:
+            key = character.lower()
+            art = self.visuals.get(key)
+            if art:
+                await ctx.send(f"```{art}```")
+            else:
+                await ctx.send("No art for that character.")
+        else:
+            for art in self.visuals.values():
+                await ctx.send(f"```{art}```")
 
 
 async def setup(bot: commands.Bot):
