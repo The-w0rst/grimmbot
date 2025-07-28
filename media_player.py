@@ -1,6 +1,7 @@
 # Media player utilities for Grimmbot
 # Provides LocalPath and Query classes adapted from Red Discord Bot's audio module
 
+# Project repository: https://github.com/The-w0rst/grimmbot
 import contextlib
 import glob
 import ntpath

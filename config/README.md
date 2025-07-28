@@ -3,6 +3,7 @@
 All bots read their tokens and API keys from a single file:
 `config/setup.env`. Keeping everything in one place makes it easy to manage
 credentials and avoids duplicating values across multiple files.
+For source code and updates visit https://github.com/The-w0rst/grimmbot
 
 ## Creating `setup.env`
 

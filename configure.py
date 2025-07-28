@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Interactive configuration helper for the Goon Squad bots."""
 from pathlib import Path
+# Project repository: https://github.com/The-w0rst/grimmbot
 
 TEMPLATE_PATH = Path("config/env_template.env")
 SETUP_PATH = Path("config/setup.env")

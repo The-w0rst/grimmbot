@@ -9,6 +9,7 @@
 #     lives to take care of others, adores Grimm, teases Curse,              #
 #     and spreads sunshine and hugs everywhere.                              #
 ################################################################################
+# Project repository: https://github.com/The-w0rst/grimmbot
 
 import discord
 from discord.ext import commands
