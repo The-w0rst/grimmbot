@@ -339,4 +339,6 @@ async def queen(ctx):
     """Share a playful yas queen-style line."""
     await ctx.send(random.choice(queen_lines))
 
+if not DISCORD_TOKEN:
+    raise RuntimeError("BLOOM_DISCORD_TOKEN not set in config/setup.env")
 bot.run(DISCORD_TOKEN)
