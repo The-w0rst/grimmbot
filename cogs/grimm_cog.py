@@ -5,7 +5,8 @@ import os
 from dotenv import load_dotenv
 import socketio
 
-load_dotenv("config/grimm.env")
+# Load a single shared configuration file for all bots
+load_dotenv("config/setup.env")
 DISCORD_TOKEN = os.getenv("GRIMM_DISCORD_TOKEN")
 GRIMM_API_KEY_1 = os.getenv("GRIMM_API_KEY_1")
 GRIMM_API_KEY_2 = os.getenv("GRIMM_API_KEY_2")

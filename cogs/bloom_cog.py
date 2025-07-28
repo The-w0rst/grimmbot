@@ -3,7 +3,8 @@ import random
 import os
 from dotenv import load_dotenv
 
-load_dotenv("config/bloom.env")
+# Load a single shared configuration file for all bots
+load_dotenv("config/setup.env")
 DISCORD_TOKEN = os.getenv("BLOOM_DISCORD_TOKEN")
 BLOOM_API_KEY_1 = os.getenv("BLOOM_API_KEY_1")
 BLOOM_API_KEY_2 = os.getenv("BLOOM_API_KEY_2")
