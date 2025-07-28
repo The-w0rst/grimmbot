@@ -45,7 +45,11 @@ robots can be developed on their own branches and merged back once stable.
    - `config/goon.env`
 
    Each file defines variables named like `GRIMM_DISCORD_TOKEN` or
-   `BLOOM_API_KEY_1`. The example values show what to set.
+   `BLOOM_API_KEY_1`. The example values show what to set. For music
+   playback from Spotify, `config/goon.env` also includes
+   `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, and
+   `SPOTIFY_PLAYLIST_URL` which should be filled in with your Spotify API
+   credentials and desired playlist link.
 
 ## Running the bots
 
@@ -110,6 +114,7 @@ Commands use the `*` prefix:
 - `clear` – remove a handful of recent messages.
 - `play <url>` – stream music from YouTube into a voice channel.
 - `stop` – stop music and disconnect from voice.
+- `playlist` – shuffle and play songs from the configured Spotify playlist.
 
 ## Developing your own bots
 
