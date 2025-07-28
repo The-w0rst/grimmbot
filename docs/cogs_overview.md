@@ -16,7 +16,7 @@ what mischief it adds. All cogs are currently **v1.3**.
 | `music_cog.py` | Queue YouTube links or playlists with basic controls. |
 | `moderation_cog.py` | Basic moderation commands (`kick`, `ban`, `clear`). |
 | `gpt_cog.py` | ChatGPT based chat command and mention replies. Requires `OPENAI_API_KEY`. |
-| `cyberpunk_campaign_cog.py` | Lightweight cyberpunk themed DnD campaign using ChatGPT. |
+| `cyberpunk_campaign_cog.py` | Lightweight cyberpunk themed DnD campaign using ChatGPT. See [cyberpunk_adventure.md](cyberpunk_adventure.md) for expanded scenarios. |
 | `help_cog.py` | Provides `help` commands for each bot and a `helpall` summary. |
 | `goon_cog.py` | The whole squad chiming in together. |
 
