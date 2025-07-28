@@ -14,7 +14,7 @@ This mirrors the modular approach used by Red Discord Bot.
 - `bloom_bot.py` – BloomBot, cheerful chaos embodied (command prefix `*`).
 - `curse_bot.py` – CurseBot, a mischievous calico (command prefix `!`).
 - `goon_bot.py` – Unified bot that loads all personalities as cogs.
-- `config/*.env` – Environment variables for each bot.
+- `config/setup.env` – Environment variables for all bots in one place.
 - `requirements.txt` – Python package requirements.
 - `setup.sh` – Optional helper script for installing dependencies.
 - `the-worst-grimbot/` – Old prototype code kept for reference.
@@ -40,23 +40,15 @@ robots can be developed on their own branches and merged back once stable.
 
    Alternatively you can run `./setup.sh` which installs the same
    dependencies for you.
-3. Fill in the environment files found in `config/` with your Discord token and
-   any API keys the bots rely on:
-
-   - `config/grimm.env`
-   - `config/bloom.env`
-   - `config/curse.env`
-   - `config/goon.env`
-
-   Each file defines variables named like `GRIMM_DISCORD_TOKEN` or
-   `BLOOM_API_KEY_1`. The example values show what to set. A consolidated
-   template listing **all** variables is available at
-   `config/env_template.env` to make setup easier.
+3. Fill in the single environment file found in `config/setup.env` with your
+   Discord tokens and any API keys the bots rely on. A template is provided at
+   `config/env_template.env` listing variables for every bot so you only have to
+   edit one place.
 
 ## Running the bots
 
-Each bot is completely independent. Activate the corresponding environment file
-(or keep the variables in `.env` form) and launch the bot you want online:
+Each bot is completely independent. As long as `config/setup.env` is populated
+with your credentials you can launch any bot directly:
 
 ```bash
 python grimm_bot.py   # uses ! commands
@@ -66,7 +58,7 @@ python goon_bot.py    # loads all personalities with both prefixes
 ```
 
 GrimmBot optionally reports its status to a Socket.IO dashboard if
-`SOCKET_SERVER_URL` is set in `config/grimm.env`.
+`SOCKET_SERVER_URL` is defined in `config/setup.env`.
 
 ## Command reference
 

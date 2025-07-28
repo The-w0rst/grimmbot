@@ -15,8 +15,8 @@ import random
 import os
 from dotenv import load_dotenv
 
-# Load environment specific to CurseBot
-load_dotenv("config/curse.env")
+# Load a single shared configuration file for all bots
+load_dotenv("config/setup.env")
 DISCORD_TOKEN = os.getenv("CURSE_DISCORD_TOKEN")
 CURSE_API_KEY_1 = os.getenv("CURSE_API_KEY_1")
 CURSE_API_KEY_2 = os.getenv("CURSE_API_KEY_2")

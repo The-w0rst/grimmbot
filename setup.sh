@@ -16,10 +16,11 @@ $PY -m pip install --user -r requirements.txt
 # create config directory if missing
 mkdir -p config
 
-for bot in grimm bloom curse; do
-    file="config/${bot}.env"
-    echo "Edit $file to add API keys and Discord token."
-done
+file="config/setup.env"
+if [ ! -f "$file" ]; then
+    cp config/env_template.env "$file"
+fi
+echo "Edit $file to add API keys and Discord tokens for all bots."
 echo "Setup complete. Run bots with:"
 echo "  $PY grimm_bot.py"
 echo "  $PY bloom_bot.py"
