@@ -1,10 +1,10 @@
-
 import discord
 from discord.ext import commands, tasks
 import random
 import os
 
 import socketio
+
 COG_VERSION = "1.1"
 
 # Environment values are read from the parent process
@@ -23,11 +23,7 @@ except Exception as e:
 
 def send_status(status, message):
     try:
-        sio.emit("bot_status", {
-            "bot": "Grimm",
-            "status": status,
-            "message": message
-        })
+        sio.emit("bot_status", {"bot": "Grimm", "status": status, "message": message})
     except Exception as e:
         print(f"SocketIO error: {e}")
 
@@ -72,18 +68,22 @@ class GrimmCog(commands.Cog):
             return
         recipient = random.choice(members)
         gift = random.choice(self.gifts)
-        channel = discord.utils.get(guild.text_channels, name="general") or guild.text_channels[0]
+        channel = (
+            discord.utils.get(guild.text_channels, name="general")
+            or guild.text_channels[0]
+        )
         if gift["positive"]:
             line = random.choice(self.positive_gift_responses)
         else:
             line = random.choice(self.negative_gift_responses)
-        await channel.send(f"🎁 {recipient.display_name}, " + line.format(gift=gift['name']))
+        await channel.send(
+            f"🎁 {recipient.display_name}, " + line.format(gift=gift["name"])
+        )
 
     @commands.Cog.listener()
     async def on_ready(self):
         print("Grimm cog loaded.")
-        send_status(
-            "online", "On patrol. Nobody dies on my watch (except Mondays).")
+        send_status("online", "On patrol. Nobody dies on my watch (except Mondays).")
 
     @commands.command()
     async def protectbloom(self, ctx):
@@ -91,7 +91,7 @@ class GrimmCog(commands.Cog):
         responses = [
             "Back off. The flower stays safe with me. 🪦🛡️",
             "I’m watching you. Touch Bloom and you deal with me.",
-            "Step away from the cutesy one, or meet your fate."
+            "Step away from the cutesy one, or meet your fate.",
         ]
         await ctx.send(random.choice(responses))
         send_status("active", "Protected Bloom.")
@@ -102,7 +102,7 @@ class GrimmCog(commands.Cog):
         burns = [
             f"{member.mention}, you're not even worth the trouble.",
             f"{member.mention}, if I had a nickel for every brain cell you lost, I’d be immortal.",
-            f"{member.mention}, some people were born to goon. You were born to be gooned on."
+            f"{member.mention}, some people were born to goon. You were born to be gooned on.",
         ]
         await ctx.send(random.choice(burns))
         send_status("active", f"Roasted {member.display_name}")
@@ -112,7 +112,7 @@ class GrimmCog(commands.Cog):
         responses = [
             "Who called the goon squad? Oh, it was just you.",
             "Goons assemble. And by goons, I mean the rest of you.",
-            "This is my squad, you’re just visiting."
+            "This is my squad, you’re just visiting.",
         ]
         await ctx.send(random.choice(responses))
         send_status("active", "Issued goon decree.")
@@ -122,7 +122,7 @@ class GrimmCog(commands.Cog):
         responses = [
             "I hear footsteps... they're yours.",
             "Sometimes I let people think they’re safe.",
-            "Death is just a punchline you don’t want to hear."
+            "Death is just a punchline you don’t want to hear.",
         ]
         await ctx.send(random.choice(responses))
         send_status("active", "Dropped an ominous hint.")
@@ -132,7 +132,7 @@ class GrimmCog(commands.Cog):
         responses = [
             "If you see Bloom, tell her I’m not worried about her. At all. Not even a little. 🖤",
             "She's a handful, but she’s my handful.",
-            "Don’t let the cutesy act fool you. She’s the real trouble."
+            "Don’t let the cutesy act fool you. She’s the real trouble.",
         ]
         await ctx.send(random.choice(responses))
         send_status("active", "Talked about Bloom.")
@@ -142,7 +142,7 @@ class GrimmCog(commands.Cog):
         responses = [
             "That cat is trouble on four paws.",
             "If you see Curse, hide the sushi and your pride.",
-            "I let Curse think he's in charge sometimes. It keeps the peace."
+            "I let Curse think he's in charge sometimes. It keeps the peace.",
         ]
         await ctx.send(random.choice(responses))
         send_status("active", "Mocked Curse.")
@@ -198,7 +198,9 @@ class GrimmCog(commands.Cog):
     async def guard(self, ctx, member: discord.Member | None = None):
         """Grimm stands guard for the specified member."""
         member = member or ctx.author
-        await ctx.send(f"Standing guard for {member.display_name}. Nothing gets past me.")
+        await ctx.send(
+            f"Standing guard for {member.display_name}. Nothing gets past me."
+        )
 
     @commands.command()
     async def haunt(self, ctx, member: discord.Member | None = None):
@@ -212,7 +214,7 @@ class GrimmCog(commands.Cog):
         shields = [
             f"{member.mention}, no harm comes to you on my watch. (Except embarrassment.)",
             f"Stand behind me, {member.mention}. The goon squad’s got you.",
-            f"{member.mention}, if anyone messes with you, send them to me."
+            f"{member.mention}, if anyone messes with you, send them to me.",
         ]
         await ctx.send(random.choice(shields))
         send_status("active", f"Shielded {member.display_name}")
@@ -243,7 +245,9 @@ class GrimmCog(commands.Cog):
                 return
 
         if "bloom" in lowered and random.random() < 0.18:
-            await message.channel.send("Someone said Bloom? She’s probably off singing again...")
+            await message.channel.send(
+                "Someone said Bloom? She’s probably off singing again..."
+            )
             send_status("active", "Reacted to Bloom mention.")
         elif "curse" in lowered and random.random() < 0.18:
             await message.channel.send("I told you, don’t trust the cat. Ever.")

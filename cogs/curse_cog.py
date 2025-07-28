@@ -1,4 +1,3 @@
-
 import discord
 from discord.ext import commands, tasks
 import random
@@ -28,7 +27,7 @@ class CurseCog(commands.Cog):
             "Lick my paw and mind your business.",
             "Hope you like hairballs in your shoes.",
             "Your luck is as bad as your taste in cat food.",
-            "May your pillow forever smell of catnip."
+            "May your pillow forever smell of catnip.",
         ]
         self.curse_keywords = {
             "grimm": ["Oh look, it’s the spooky skeleton again."],
@@ -39,7 +38,7 @@ class CurseCog(commands.Cog):
             "meow": ["I'm not cute. I’m cursed. Get it right."],
             "tuna": ["Step away from the tuna."],
             "treat": ["No treats for you."],
-            "cursed": ["Curse intensifies."]
+            "cursed": ["Curse intensifies."],
         }
         self.gifts = [
             {"name": "a bucket of fent", "positive": False},
@@ -117,9 +116,13 @@ class CurseCog(commands.Cog):
         chosen = random.choice(members)
         self.cursed_user_id = chosen.id
         self.cursed_user_name = chosen.display_name
-        channel = discord.utils.get(
-            guild.text_channels, name="general") or guild.text_channels[0]
-        await channel.send(f"😼 A new curse has been cast... {self.cursed_user_name} is now cursed for 24 hours.")
+        channel = (
+            discord.utils.get(guild.text_channels, name="general")
+            or guild.text_channels[0]
+        )
+        await channel.send(
+            f"😼 A new curse has been cast... {self.cursed_user_name} is now cursed for 24 hours."
+        )
 
     @tasks.loop(hours=24)
     async def daily_gift(self):
@@ -132,12 +135,17 @@ class CurseCog(commands.Cog):
             return
         recipient = random.choice(members)
         gift = random.choice(self.gifts)
-        channel = discord.utils.get(guild.text_channels, name="general") or guild.text_channels[0]
+        channel = (
+            discord.utils.get(guild.text_channels, name="general")
+            or guild.text_channels[0]
+        )
         if gift["positive"]:
             line = random.choice(self.positive_gift_responses)
         else:
             line = random.choice(self.negative_gift_responses)
-        await channel.send(f"🎁 {recipient.display_name}, " + line.format(gift=gift['name']))
+        await channel.send(
+            f"🎁 {recipient.display_name}, " + line.format(gift=gift["name"])
+        )
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -149,7 +157,9 @@ class CurseCog(commands.Cog):
             return
         lowered = message.content.lower()
         if message.author.id == self.cursed_user_id and random.random() < 0.2:
-            await message.channel.send(f"{message.author.display_name}, {random.choice(self.curse_responses)}")
+            await message.channel.send(
+                f"{message.author.display_name}, {random.choice(self.curse_responses)}"
+            )
             return
         for trigger, responses in self.curse_keywords.items():
             if trigger in lowered:
@@ -161,7 +171,9 @@ class CurseCog(commands.Cog):
     async def curse(self, ctx, member: discord.Member):
         self.cursed_user_id = member.id
         self.cursed_user_name = member.display_name
-        await ctx.send(f"😾 Manual curse activated. {member.display_name} is now cursed.")
+        await ctx.send(
+            f"😾 Manual curse activated. {member.display_name} is now cursed."
+        )
 
     @commands.command()
     async def whois_cursed(self, ctx):
@@ -184,7 +196,7 @@ class CurseCog(commands.Cog):
             "You're the reason instructions exist.",
             "If I had feelings, you'd hurt them.",
             "You bring shame to sushi lovers everywhere.",
-            "Your aura is soggy cardboard."
+            "Your aura is soggy cardboard.",
         ]
         await ctx.send(random.choice(burns))
 

@@ -31,7 +31,9 @@ def install_requirements() -> None:
     print("Step 2/4: Installing dependencies from requirements/base.txt")
     choice = input("Install dependencies now? [Y/n] ").strip().lower()
     if choice in ("", "y", "yes"):
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements/base.txt"])
+        subprocess.check_call(
+            [sys.executable, "-m", "pip", "install", "-r", "requirements/base.txt"]
+        )
     print()
 
 

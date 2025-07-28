@@ -14,11 +14,12 @@ def get_requirements(path: Path):
     ]
 
 
-install_requires = get_requirements(REQ_FOLDER/"base.txt")
+install_requires = get_requirements(REQ_FOLDER / "base.txt")
 
 extras_require = {}
 for file in REQ_FOLDER.glob("extra-*.txt"):
-    extras_require[file.stem[len("extra-"):]] = get_requirements(file)
+    prefix_len = len("extra-")
+    extras_require[file.stem[prefix_len:]] = get_requirements(file)
 
 
 def extras_combined(*extra_names):
