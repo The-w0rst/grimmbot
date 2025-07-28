@@ -2,3 +2,4 @@ discord.py==2.5.2
 python-dotenv==1.1.1
 python-socketio==5.13.0
 openai==1.97.1
+lavalink==5.9.0
