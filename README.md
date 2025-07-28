@@ -125,6 +125,7 @@ Commands use the `*` prefix:
 - `cyberstart` – begin a cyberpunk themed DnD campaign.
 - `cyberfight` – fight one of the bots with evolving difficulty.
 - `cyberstatus` – view your campaign record.
+- `cybervisual` – show ASCII art of the cast.
 
 ## Developing your own bots
 
