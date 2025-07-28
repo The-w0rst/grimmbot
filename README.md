@@ -98,6 +98,7 @@ Commands use the `*` prefix:
 - `*squad` – list the goon squad.
 - `*boba` – talk about bubble tea.
 - `*compliment` – send a random compliment.
+- `*boy` – share a playful boy-themed line.
 
 ### CurseBot
 - `!curse @user` – manually curse a user (admin only).

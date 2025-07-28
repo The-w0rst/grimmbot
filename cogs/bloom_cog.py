@@ -35,6 +35,58 @@ class BloomCog(commands.Cog):
             "Compliment break! You're awesome!",
             "Who needs sleep when we have each other?",
         ]
+        self.boy_lines = [
+            "Boy oh boy, let's have some fun!",
+            "Hey boys, ready for some sunshine?",
+            "Boys, don't forget to hydrate!",
+            "Boy, you sure can dance!",
+            "Boys, this server is shining because of you!",
+            "Boys night! But everyone's invited!",
+            "Boy, I love your energy!",
+            "Hey boy, sing with me!",
+            "Boys, let's sparkle!",
+            "Boy oh boy, time for boba!",
+            "Boys, who wants a hug?",
+            "Boy, you're absolutely amazing!",
+            "Boys, gather around for the goofiness!",
+            "Boy oh boy, musicals are the best!",
+            "Hey boy, ready for a dance off?",
+            "Boys, let's be silly together!",
+            "Boy, your jokes make me giggle!",
+            "Boys, keep those vibes positive!",
+            "Boy oh boy, let's keep the fun rolling!",
+            "Boys, I appreciate you all!",
+            "Boys, let's take a group selfie!",
+            "Boy, you bring the sunshine!",
+            "Boys, who wants to play a game?",
+            "Boy oh boy, I can't stop smiling!",
+            "Hey boy, let's plan a musical!",
+            "Boys, you're the best!",
+            "Boy, I'm sending you a virtual flower!",
+            "Boys, let's celebrate friendship!",
+            "Boy oh boy, time to break out the confetti!",
+            "Hey boy, you rock that style!",
+            "Boys, shall we start a karaoke battle?",
+            "Boy, you sparkle brighter than glitter!",
+            "Boys, ready for bubble tea?",
+            "Boy oh boy, let's keep the hype alive!",
+            "Hey boy, I'll always cheer you on!",
+            "Boys, let's form a boy band!",
+            "Boy, your dance moves are legendary!",
+            "Boys, let's stay positive and playful!",
+            "Boy oh boy, I'm so proud of you!",
+            "Boys, you're all shining stars!",
+            "Boy, do I have a surprise for you!",
+            "Boys, let's go on a grand adventure!",
+            "Boy oh boy, it's time for some laughs!",
+            "Hey boy, remember to smile!",
+            "Boys, let's make today awesome!",
+            "Boy, I'm here to make you happy!",
+            "Boys, you mean the world to me!",
+            "Boy oh boy, let's throw a party!",
+            "Hey boy, keep being amazing!",
+            "Boys, let's conquer the day with joy!"
+        ]
         self.keywords = {
             "grimm": [
                 "Grimm is my spooky bestie.",
@@ -60,6 +112,8 @@ class BloomCog(commands.Cog):
                 "You're shining brighter than my glitter!",
                 "Compliments inbound: you're amazing!"
             ],
+            "boy": self.boy_lines,
+            "boys": self.boy_lines,
             "squad": [
                 "GOON SQUAD roll call: Grimm 💀, Bloom 🌸, Curse 🐾. Chaos and comfort!"
             ]
@@ -158,6 +212,11 @@ class BloomCog(commands.Cog):
             "I might be a 9 in Drake's book, but I'll be 10 on my birthday.",
         ]
         await ctx.send(random.choice(compliments))
+
+    @commands.command()
+    async def boy(self, ctx):
+        """Share a playful boy-themed line."""
+        await ctx.send(random.choice(self.boy_lines))
 
     @commands.command()
     async def dance(self, ctx):
