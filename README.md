@@ -3,13 +3,16 @@
 Grimmbot is a small collection of Discord bots that make up the "Goon Squad":
 Grimm, Bloom and Curse. Each bot lives in its own Python file and has a
 slightly different personality. The project is intentionally lightweight so you
-can run one bot or all three depending on your needs.
+can run one bot or all three depending on your needs. A new optional script
+`goon_bot.py` allows loading every personality as modular cogs, inspired by the
+Red Discord Bot style of customization.
 
 ## Repository layout
 
 - `grimm_bot.py` – GrimmBot, the grumpy skeleton leader (command prefix `!`).
 - `bloom_bot.py` – BloomBot, cheerful chaos embodied (command prefix `*`).
 - `curse_bot.py` – CurseBot, a mischievous calico (command prefix `!`).
+- `goon_bot.py` – Unified bot that loads all personalities as cogs.
 - `config/*.env` – Environment variables for each bot.
 - `requirements.txt` – Python package requirements.
 - `setup.sh` – Optional helper script for installing dependencies.
@@ -35,6 +38,7 @@ robots can be developed on their own branches and merged back once stable.
    - `config/grimm.env`
    - `config/bloom.env`
    - `config/curse.env`
+   - `config/goon.env`
 
    Each file defines variables named like `GRIMM_DISCORD_TOKEN` or
    `BLOOM_API_KEY_1`. The example values show what to set.
@@ -48,6 +52,7 @@ Each bot is completely independent. Activate the corresponding environment file
 python grimm_bot.py   # uses ! commands
 python bloom_bot.py   # uses * commands
 python curse_bot.py   # uses ! commands
+python goon_bot.py    # loads all personalities with both prefixes
 ```
 
 GrimmBot optionally reports its status to a Socket.IO dashboard if
@@ -100,4 +105,8 @@ Commands use the `*` prefix:
 The script `project_generator.sh` was once used to create prototype code inside
 `the-worst-grimbot/`. Feel free to fork this repository or create a new branch
 if you want to experiment with additional personalities.
+
+For a modular approach similar to the Red Discord Bot, check out
+`goon_bot.py`. It loads each personality as a cog so you can enable or disable
+them as you like.
 
