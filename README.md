@@ -27,30 +27,21 @@ This mirrors the modular approach used by Red Discord Bot.
 The `main` branch contains the latest working bots. New ideas or additional
 robots can be developed on their own branches and merged back once stable.
 
-## Setup
+## Quick setup
 
-1. Ensure Python 3.8 or higher is installed.
-2. Install the required packages:
-
- ```bash
- pip install -r requirements.txt
- ```
-
-  The package list now includes `yt_dlp` for YouTube playback and
-  `lavalink` for media query parsing.
-
-   Alternatively you can run `./setup.sh` which installs the same
-   dependencies for you.
-3. Create the environment file used by every bot:
+1. Install Python 3.8 or newer.
+2. Install the required packages with `pip install -r requirements.txt`.
+   You can also run `./setup.sh` which performs the same step for you.
+3. Copy the example configuration and edit it once for all bots:
 
    ```bash
    cp config/env_template.env config/setup.env
+   $EDITOR config/setup.env  # fill in tokens and API keys
    ```
 
-   Open `config/setup.env` and fill in your Discord tokens and API keys. This
-   single file is shared across all bots so you only have to edit it once. Set
-   `OPENAI_API_KEY` if you want ChatGPT-powered replies. See
-   [`config/README.md`](config/README.md) for details.
+   This single file stores every Discord token and API key. Set
+   `OPENAI_API_KEY` if you want ChatGPT powered features. See
+   [`config/README.md`](config/README.md) for a line-by-line explanation.
 
 ## Running the bots
 

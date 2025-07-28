@@ -1,0 +1,11 @@
+Goon Squad Bots Quick Install
+=============================
+
+1. Install Python 3.8 or newer.
+2. Run `pip install -r requirements.txt` (or execute `./setup.sh`).
+3. Copy `config/env_template.env` to `config/setup.env` and edit your tokens and API keys.
+4. Start any bot:
+   - `python grimm_bot.py`
+   - `python bloom_bot.py`
+   - `python curse_bot.py`
+   - `python goon_bot.py`
