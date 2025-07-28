@@ -126,6 +126,7 @@ class BloomCog(commands.Cog):
             "Ask your mama, your papa, your sister or your brother",
             "If they've ever loved another like I love you",
         ]
+        self.user_interactions = {}
         self.gifts = [
             {"name": "a bright flower crown", "positive": True},
             {"name": "a jar of glitter", "positive": True},
@@ -137,6 +138,46 @@ class BloomCog(commands.Cog):
             {"name": "a bag of expired confetti", "positive": False},
             {"name": "a cheerful sticker pack", "positive": True},
             {"name": "a broken bubble tea straw", "positive": False},
+            {"name": "a pastel hair clip", "positive": True},
+            {"name": "a mini unicorn plush", "positive": True},
+            {"name": "a jar of rainbow sprinkles", "positive": True},
+            {"name": "a wilted bouquet", "positive": False},
+            {"name": "a chipped teacup with hearts", "positive": False},
+            {"name": "a sparkly friendship bracelet", "positive": True},
+            {"name": "a cracked disco ball piece", "positive": False},
+            {"name": "a jar of scented bubbles", "positive": True},
+            {"name": "a lost page from a diary", "positive": False},
+            {"name": "a pastel rainbow scarf", "positive": True},
+            {"name": "a dried-out marker", "positive": False},
+            {"name": "a sticker of a smiling sun", "positive": True},
+            {"name": "a squeaky toy microphone", "positive": True},
+            {"name": "a half-eaten cupcake", "positive": False},
+            {"name": "a handmade glitter card", "positive": True},
+            {"name": "a tangle of fairy lights", "positive": True},
+            {"name": "a wilted daisy chain", "positive": False},
+            {"name": "a bubble tea coupon", "positive": True},
+            {"name": "a broken lollipop", "positive": False},
+            {"name": "a jar of star-shaped confetti", "positive": True},
+            {"name": "a pair of cute socks", "positive": True},
+            {"name": "a leaky glitter pen", "positive": False},
+            {"name": "a pastel notepad", "positive": True},
+            {"name": "a bent party hat", "positive": False},
+            {"name": "a handful of rainbow ribbons", "positive": True},
+            {"name": "a mismatched earring", "positive": False},
+            {"name": "a charming keychain", "positive": True},
+            {"name": "a deflated beach ball", "positive": False},
+            {"name": "a cookie cutter shaped like a heart", "positive": True},
+            {"name": "a cracked phone charm", "positive": False},
+            {"name": "a jar of lemonade mix", "positive": True},
+            {"name": "a small plush heart", "positive": True},
+            {"name": "a smudged autograph from Bloom", "positive": True},
+            {"name": "a broken kazoo", "positive": False},
+            {"name": "a jar of edible glitter", "positive": True},
+            {"name": "a burnt pan from baking", "positive": False},
+            {"name": "a rainbow sticker sheet", "positive": True},
+            {"name": "a pair of sparkly shoelaces", "positive": True},
+            {"name": "a dusty cheerleading pompom", "positive": False},
+            {"name": "a bag of pastel chalk", "positive": True},
         ]
         self.positive_gift_responses = [
             "Bloom squeals and gives you {gift}!",
@@ -185,18 +226,41 @@ class BloomCog(commands.Cog):
         if not members:
             return
         recipient = random.choice(members)
-        gift = random.choice(self.gifts)
+        interactions = self.user_interactions.get(recipient.id, 0)
+        positive = interactions >= 5
+        choices = [g for g in self.gifts if g["positive"] == positive]
+        gift = random.choice(choices)
         channel = (
             discord.utils.get(guild.text_channels, name="general")
             or guild.text_channels[0]
         )
-        if gift["positive"]:
+        if positive:
             line = random.choice(self.positive_gift_responses)
+            await self.apply_positive_effect(recipient)
         else:
             line = random.choice(self.negative_gift_responses)
+            await self.apply_negative_effect(recipient)
         await channel.send(
             f"🎁 {recipient.display_name}, " + line.format(gift=gift["name"])
         )
+
+    async def apply_positive_effect(self, member: discord.Member):
+        guild = member.guild
+        role = discord.utils.get(guild.roles, name="Bloom's Blessing")
+        if role is None:
+            role = await guild.create_role(name="Bloom's Blessing", colour=discord.Colour.magenta())
+        try:
+            await member.add_roles(role)
+        except discord.Forbidden:
+            pass
+
+    async def apply_negative_effect(self, member: discord.Member):
+        role = discord.utils.get(member.guild.roles, name="Bloom's Blessing")
+        if role:
+            try:
+                await member.remove_roles(role)
+            except discord.Forbidden:
+                pass
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -206,6 +270,9 @@ class BloomCog(commands.Cog):
     async def on_message(self, message):
         if message.author == self.bot.user or message.author.bot:
             return
+        self.user_interactions[message.author.id] = (
+            self.user_interactions.get(message.author.id, 0) + 1
+        )
         lowered = message.content.lower()
         for trigger, responses in self.keywords.items():
             if trigger in lowered:

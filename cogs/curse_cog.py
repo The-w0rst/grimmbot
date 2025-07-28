@@ -11,6 +11,8 @@ CURSE_API_KEY_1 = os.getenv("CURSE_API_KEY_1")
 CURSE_API_KEY_2 = os.getenv("CURSE_API_KEY_2")
 CURSE_API_KEY_3 = os.getenv("CURSE_API_KEY_3")
 
+CURSE_BLOCK_ROLES = ["Grimm's Shield", "Bloom's Blessing"]
+
 
 class CurseCog(commands.Cog):
     """CurseBot personality packaged as a Cog. Version 1.2."""
@@ -180,7 +182,12 @@ class CurseCog(commands.Cog):
         guild = discord.utils.get(self.bot.guilds)
         if not guild:
             return
-        members = [m for m in guild.members if not m.bot]
+        members = [
+            m
+            for m in guild.members
+            if not m.bot
+            and not any(role.name in CURSE_BLOCK_ROLES for role in m.roles)
+        ]
         if not members:
             return
         chosen = random.choice(members)
@@ -239,6 +246,9 @@ class CurseCog(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def curse(self, ctx, member: discord.Member):
+        if any(role.name in CURSE_BLOCK_ROLES for role in member.roles):
+            await ctx.send(f"{member.display_name} is protected from curses.")
+            return
         self.cursed_user_id = member.id
         self.cursed_user_name = member.display_name
         await ctx.send(
