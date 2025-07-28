@@ -40,10 +40,16 @@ robots can be developed on their own branches and merged back once stable.
 
    Alternatively you can run `./setup.sh` which installs the same
    dependencies for you.
-3. Fill in the single environment file found in `config/setup.env` with your
-   Discord tokens and any API keys the bots rely on. A template is provided at
-   `config/env_template.env` listing variables for every bot so you only have to
-   edit one place. Set `OPENAI_API_KEY` if you want ChatGPT-powered replies.
+3. Create the environment file used by every bot:
+
+   ```bash
+   cp config/env_template.env config/setup.env
+   ```
+
+   Open `config/setup.env` and fill in your Discord tokens and API keys. This
+   single file is shared across all bots so you only have to edit it once. Set
+   `OPENAI_API_KEY` if you want ChatGPT-powered replies. See
+   [`config/README.md`](config/README.md) for details.
 
 ## Running the bots
 
