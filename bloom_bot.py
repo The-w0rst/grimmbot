@@ -18,6 +18,7 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 import yt_dlp
+import asyncio
 
 # Load a single shared configuration file for all bots
 ENV_PATH = Path(__file__).resolve().parent / "config" / "setup.env"
@@ -260,6 +261,13 @@ epic_songs = {
     ],
 }
 
+# Optional lyrics for EPIC songs. Add actual lyrics if you have permission.
+# Each song maps to a list of lines that can be sung.
+epic_lyrics: dict[str, list[str]] = {
+    "The Horse and the Infant": ["[Lyric line 1]", "[Lyric line 2]"],
+    # Add more songs here
+}
+
 # Lines from Bloom's favorite song "Pretty Little Baby" by Connie Francis
 pretty_little_baby_lines = [
     "Pretty little baby (ya-ya)",
@@ -419,13 +427,19 @@ async def sparkle(ctx):
 
 @bot.command()
 async def drama(ctx):
-    """Geek out about EPIC: The Musical and list every song."""
-    await ctx.send(
-        "🎭 **EPIC: The Musical** by Jorge Rivera-Herrans! Here are all the sagas and songs so far:"
-    )
-    for saga, songs in epic_songs.items():
-        song_list = "\n".join(f"• {song}" for song in songs)
-        await ctx.send(f"__{saga}__:\n{song_list}")
+    """Sing a random snippet from EPIC: The Musical."""
+    # Gather all song titles
+    all_songs = [song for songs in epic_songs.values() for song in songs]
+    song = random.choice(all_songs)
+    await ctx.send(f"🎭 **EPIC: The Musical** – let's sing **{song}**!")
+    lyrics = epic_lyrics.get(song)
+    if not lyrics:
+        await ctx.send("(Lyrics missing – add them in epic_lyrics to sing along!)")
+        return
+    line_count = random.randint(1, len(lyrics))
+    for line in lyrics[:line_count]:
+        await ctx.send(line)
+        await asyncio.sleep(1)
 
 
 @bot.command()
