@@ -120,7 +120,8 @@ Commands use the `*` prefix:
 - `*curse` – tease Curse.
 - `*cheer` – offer encouragement.
 - `*sparkle` – throw confetti (and maybe cover you in glitter).
- - `*drama` – sing a random snippet from **EPIC: The Musical**.
+ - `*drama [song|list]` – pick a song from **EPIC: The Musical** and decide to sing a short snippet or the whole thing.
+   Add your own lyric files under `localtracks/epic_lyrics/` if you want full songs.
  - `*play <url>` – queue a YouTube link or playlist.
  - `*next` – skip to the next song.
  - `*queue` – view the upcoming songs.

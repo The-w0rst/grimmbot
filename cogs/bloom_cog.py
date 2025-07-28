@@ -3,8 +3,7 @@ from discord.ext import commands, tasks
 import random
 import os
 import yt_dlp
-import asyncio
-from bloom_bot import epic_songs, epic_lyrics
+from bloom_bot import perform_drama
 
 COG_VERSION = "1.3"
 
@@ -369,18 +368,9 @@ class BloomCog(commands.Cog):
             )
 
     @commands.command()
-    async def drama(self, ctx):
-        all_songs = [song for songs in epic_songs.values() for song in songs]
-        song = random.choice(all_songs)
-        await ctx.send(f"🎭 **EPIC: The Musical** – let's sing **{song}**!")
-        lyrics = epic_lyrics.get(song)
-        if not lyrics:
-            await ctx.send("(Lyrics missing – add them in epic_lyrics to sing along!)")
-            return
-        line_count = random.randint(1, len(lyrics))
-        for line in lyrics[:line_count]:
-            await ctx.send(line)
-            await asyncio.sleep(1)
+    async def drama(self, ctx, *, song: str | None = None):
+        """Perform an EPIC song with interactive prompts."""
+        await perform_drama(self.bot, ctx, song)
 
     @commands.command()
     async def bloom(self, ctx):
