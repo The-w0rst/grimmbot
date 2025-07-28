@@ -1,0 +1,94 @@
+Goon Squad Bots - Windows Installation Guide
+===========================================
+
+This guide walks through installing and launching the bots on Windows using a
+terminal (Command Prompt, PowerShell or Git Bash). Each step notes which
+folders you will modify.
+
+1. **Install Python**
+   - Download and install Python 3.8 or newer from <https://www.python.org>.
+     During the installer, **check _Add Python to PATH_** so the `py` command
+     works from any terminal.
+
+2. **Clone the repository**
+   - Open a terminal and run:
+     ```cmd
+     git clone <repo-url>
+     cd grimmbot
+     ```
+     Replace `<repo-url>` with the URL of this repository. All commands below
+     assume you stay inside this `grimmbot` folder.
+
+3. **Create and activate a virtual environment** (optional but recommended)
+   - Run the following commands to keep dependencies isolated:
+     ```cmd
+     py -3 -m venv venv
+     venv\Scripts\activate
+     ```
+     Your prompt should change to show the `venv` is active.
+
+4. **Install Python packages** (`requirements` folder)
+   - With the virtual environment active, install dependencies:
+     ```cmd
+     pip install -r requirements\base.txt
+     ```
+     This installs `discord.py`, `python-dotenv` and other required libraries.
+     If you want developer tools such as `flake8` and `pytest`, also run:
+     ```cmd
+     pip install -r requirements\extra-dev.txt
+     ```
+
+5. **Create the configuration file** (`config` folder)
+   - Copy the provided template:
+     ```cmd
+     copy config\env_template.env config\setup.env
+     ```
+   - Edit `config\setup.env` in a text editor such as Notepad:
+     ```cmd
+     notepad config\setup.env
+     ```
+     Fill in your Discord tokens and any API keys. Example entries:
+     ```
+     GRIMM_DISCORD_TOKEN=your_grimm_token_here
+     BLOOM_DISCORD_TOKEN=your_bloom_token_here
+     CURSE_DISCORD_TOKEN=your_curse_token_here
+     OPENAI_API_KEY=your_openai_key
+     ```
+     This file is used by all bots and should **not** be committed to version
+     control.
+
+6. **Optional: Add local media** (`localtracks` folder)
+   - Place any music or sound files you want the bots to play into the
+     `localtracks` directory. The `media_player.py` helper can load files from
+     here when responding to music commands.
+
+7. **Running the bots**
+   - From the repository root, start a bot with one of the following commands:
+     ```cmd
+     py -3 grimm_bot.py   # prefix: !
+     py -3 bloom_bot.py   # prefix: *
+     py -3 curse_bot.py   # prefix: !
+     py -3 goon_bot.py    # unified bot loading all cogs
+     ```
+   - Each bot reads from `config\setup.env` and loads extensions from the
+     `cogs` directory.
+
+8. **Customizing cogs** (`cogs` folder)
+   - The `cogs` folder contains modules such as `grimm_cog.py`, `bloom_cog.py`
+     and `music_cog.py`. Modify or add files here to extend the bots. Reload a
+     cog at runtime using the Admin commands if you run `goon_bot.py`.
+
+9. **Directory overview**
+   - `config/` – environment variable templates and your `setup.env` file.
+   - `localtracks/` – place custom music or sound clips here.
+   - `cogs/` – bot features organized as modules.
+   - `requirements/` – dependency lists used by `pip`.
+
+That's it! After completing these steps you can run any of the bots directly
+from your Windows terminal. Make sure `config\setup.env` is populated with the
+required tokens before launching. If you created a virtual environment, reactivate
+it before running the bots in a new terminal session using:
+```cmd
+venv\Scripts\activate
+```
+
