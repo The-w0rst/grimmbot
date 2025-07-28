@@ -22,6 +22,17 @@ class CyberpunkCampaignCog(commands.Cog):
             "Bloom": "Bloom twirls a neon scythe. \"Time for dramatic heroics!\"",
             "Curse": "Curse hisses, tail lashing. \"I'll scratch more than your ego.\"",
         }
+        self.character_prompts = {
+            "Grimm": (
+                "You are Grimm, a grumpy yet protective skeleton leader. "
+                "Respond with short, sarcastic quips."),
+            "Bloom": (
+                "You are Bloom, an energetic reaper who loves musicals, hugs "
+                "and glitter. Speak with enthusiasm and emojis."),
+            "Curse": (
+                "You are Curse, a mischievous talking cat obsessed with sushi "
+                "and playful snark."),
+        }
         self.scenarios = [
             (
                 "You wander the rain-soaked alleys of **Neon Goon City**. Grimm"
@@ -35,6 +46,14 @@ class CyberpunkCampaignCog(commands.Cog):
                 "Curse darts across a flickering sign. 'Break it and you buy it,'"
                 " the cat snarls."
             ),
+            (
+                "A towering vending machine whirs to life, dispensing neon noodles "
+                "while Bloom hums a tune and Grimm keeps watch."
+            ),
+            (
+                "You duck into an abandoned arcade. Curse prowls among the dusty "
+                "games, eyeing your pockets for snacks."
+            ),
         ]
 
     def _system_prompt(self, author: str, session: dict | None) -> str:
@@ -45,10 +64,12 @@ class CyberpunkCampaignCog(commands.Cog):
             if session.get("background"):
                 player += f" from {session['background']}"
         return (
-            "You are the narrator for a lighthearted cyberpunk campaign in Neon "
-            "Goon City. Characters include Grimm (grumpy skeleton), Bloom (cheerful reaper), "
-            "Curse (mischievous cat), and "
-            f"{author}, {player}. Encourage playful interactions among them and keep replies brief."
+            "You are the narrator guiding an upbeat cyberpunk adventure in Neon "
+            "Goon City. The cast features Grimm, a sarcastic but loyal skeleton; "
+            "Bloom, a musical reaper bursting with energy; and Curse, a snarky "
+            "cat who loves sushi. "
+            f"You also narrate for {author}, {player}. Encourage playful "
+            "interactions and keep replies brief."
         )
 
     async def _chatgpt(self, session: dict | None, author: str, prompt: str) -> str:
@@ -59,6 +80,28 @@ class CyberpunkCampaignCog(commands.Cog):
                 model="gpt-3.5-turbo",
                 messages=[
                     {"role": "system", "content": self._system_prompt(author, session)},
+                    {"role": "user", "content": prompt},
+                ],
+                max_tokens=150,
+                temperature=0.8,
+            )
+            return response.choices[0].message.content.strip()
+        except Exception:
+            return "Sorry, I couldn't reach ChatGPT."
+
+    async def _character_chat(self, character: str, author: str, prompt: str) -> str:
+        """Chat directly with a specific bot character."""
+        if not OPENAI_API_KEY:
+            return "OpenAI API key not configured."
+        system = (
+            f"{self.character_prompts[character]} The setting is Neon Goon City. "
+            f"You are speaking with {author}. Keep replies brief and in character."
+        )
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": system},
                     {"role": "user", "content": prompt},
                 ],
                 max_tokens=150,
@@ -136,7 +179,15 @@ class CyberpunkCampaignCog(commands.Cog):
         if not session:
             await ctx.send("Start a campaign first with `!cyberstart`.")
             return
-        await ctx.send(random.choice(self.scenarios))
+        if OPENAI_API_KEY:
+            prompt = (
+                "Describe a short scene the party encounters next in Neon Goon City. "
+                "Include Grimm, Bloom and Curse reacting in character."
+            )
+            reply = await self._chatgpt(session, ctx.author.display_name, prompt)
+            await ctx.send(reply)
+        else:
+            await ctx.send(random.choice(self.scenarios))
 
     @commands.command(name="cyberchat")
     async def cyber_chat(self, ctx, *, prompt: str):
@@ -146,6 +197,20 @@ class CyberpunkCampaignCog(commands.Cog):
             await ctx.send("Start a campaign first with `!cyberstart`.")
             return
         reply = await self._chatgpt(session, ctx.author.display_name, prompt)
+        await ctx.send(reply)
+
+    @commands.command(name="cybertalk")
+    async def cyber_talk(self, ctx, character: str, *, prompt: str):
+        """Chat with a specific bot character."""
+        char = character.title()
+        if char not in self.character_prompts:
+            await ctx.send("Choose Grimm, Bloom, or Curse.")
+            return
+        session = self.sessions.get(ctx.author.id)
+        if not session:
+            await ctx.send("Start a campaign first with `!cyberstart`.")
+            return
+        reply = await self._character_chat(char, ctx.author.display_name, prompt)
         await ctx.send(reply)
 
     @commands.command(name="cyberstatus")
