@@ -1,6 +1,6 @@
 
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 import random
 import os
 from dotenv import load_dotenv
@@ -40,6 +40,47 @@ class GrimmCog(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+        self.gifts = [
+            {"name": "a polished bone charm", "positive": True},
+            {"name": "a dusty old cloak", "positive": False},
+            {"name": "a jar of graveyard soil", "positive": False},
+            {"name": "a sharpened mini scythe", "positive": True},
+            {"name": "a gloom-infused candle", "positive": False},
+            {"name": "a protective talisman", "positive": True},
+            {"name": "a cracked skull mug", "positive": True},
+            {"name": "a batch of burnt cookies from Bloom", "positive": False},
+            {"name": "a heavy tome of doom", "positive": False},
+            {"name": "a friendly pat on the back", "positive": True},
+        ]
+        self.positive_gift_responses = [
+            "Grimm grumbles but offers {gift}.",
+            "With a hint of kindness, Grimm hands you {gift}.",
+            "Grimm nods solemnly and gives you {gift}.",
+        ]
+        self.negative_gift_responses = [
+            "Grimm tosses {gift} at your feet with disdain.",
+            "Without much care, Grimm drops {gift} near you.",
+            "Grimm sighs heavily and gifts you {gift}.",
+        ]
+        self.daily_gift.start()
+
+    @tasks.loop(hours=24)
+    async def daily_gift(self):
+        """Give a random user a Grimm-style gift."""
+        guild = discord.utils.get(self.bot.guilds)
+        if not guild:
+            return
+        members = [m for m in guild.members if not m.bot]
+        if not members:
+            return
+        recipient = random.choice(members)
+        gift = random.choice(self.gifts)
+        channel = discord.utils.get(guild.text_channels, name="general") or guild.text_channels[0]
+        if gift["positive"]:
+            line = random.choice(self.positive_gift_responses)
+        else:
+            line = random.choice(self.negative_gift_responses)
+        await channel.send(f"🎁 {recipient.display_name}, " + line.format(gift=gift['name']))
 
     @commands.Cog.listener()
     async def on_ready(self):
