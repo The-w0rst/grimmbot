@@ -74,7 +74,22 @@ curse_responses = [
     "Lick my paw and mind your business.",
     "Hope you like hairballs in your shoes.",
     "Your luck is as bad as your taste in cat food.",
-    "May your pillow forever smell of catnip."
+    "May your pillow forever smell of catnip.",
+    "Ever consider just staying quiet? We all support that idea.",
+    "Did your brain take a day off or is this permanent?",
+    "I've met hairballs with more charisma.",
+    "You're proof that evolution can go in reverse.",
+    "Keep talking, maybe eventually you'll say something smart.",
+    "If laziness were an art form, you'd be a masterpiece.",
+    "Somewhere a village is missing its clown.",
+    "You're about as sharp as a rubber ball.",
+    "Were you this annoying before the curse?",
+    "If I rolled my eyes any harder, they'd fall out.",
+    "You remind me why cats nap so much—so we don't have to listen.",
+    "You're like a broken scratching post—useless and in the way.",
+    "Why chase laser pointers when mocking you is free?",
+    "You're living proof that nine lives are too many.",
+    "I've heard furbies with more dignity."
 ]
 
 # === Keywords ===
@@ -150,7 +165,17 @@ async def insult(ctx):
         "You're the reason instructions exist.",
         "If I had feelings, you'd hurt them.",
         "You bring shame to sushi lovers everywhere.",
-        "Your aura is soggy cardboard." 
+        "Your aura is soggy cardboard.",
+        "You're the human equivalent of a software bug.",
+        "If I wanted to hear from you, I'd hiss.",
+        "You have the personality of damp bread.",
+        "I'd call you dull, but that's an insult to dull things.",
+        "Even my litter box smells better than your takes.",
+        "I could agree with you, but then we'd both be wrong.",
+        "Were you always this awkward, or is it a new talent?",
+        "You're less useful than a cardboard scratching post.",
+        "Your sense of humor must be on vacation.",
+        "I'd tell you to go outside, but nature deserves better."
     ]
     await ctx.send(random.choice(burns))
 
