@@ -5,6 +5,8 @@ We're lightweight, each in our own Python file. Fire up `goon_bot.py` if you
 want the whole chaotic crew. It loads every cog and lets an Admin hot‑swap
 modules whenever you feel like causing trouble.
 
+**Current build: v1.3**
+
 ## Repository layout
 
 Here's what you'll find lurking in the repo:
