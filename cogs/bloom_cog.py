@@ -140,7 +140,7 @@ class BloomCog(commands.Cog):
         compliments = [
             "You're the sparkle in my day!",
             "You make the server shine!",
-            "Never forget how amazing you are!",
+            "I might be a 9 in Drake's book, but I'll be 10 on my birthday.",
         ]
         await ctx.send(random.choice(compliments))
 
