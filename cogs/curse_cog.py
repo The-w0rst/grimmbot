@@ -92,6 +92,60 @@ class CurseCog(commands.Cog):
             {"name": "a bag of sour candy", "positive": True},
             {"name": "an ominous black envelope", "positive": False},
         ]
+        # Additional curses that administrators can inflict. These only tweak
+        # nicknames or roles and never ban or kick a user.
+        self.admin_curses = [
+            "Fish-Breath",
+            "Glitter-Paws",
+            "Captain Hairball",
+            "Tuna Breath",
+            "Sir Whiskers",
+            "Meow Master",
+            "Sneaky Paws",
+            "Fuzzy Brain",
+            "Noodle Cat",
+            "Sock Stealer",
+            "Pillow Hog",
+            "Dust Bunny",
+            "Lint Licker",
+            "Yarn Chaser",
+            "Biscuit Bandit",
+            "Cranky Claws",
+            "Fent Sniffer",
+            "Sardine Breath",
+            "Laser Dodger",
+            "Couch Shredder",
+            "Midnight Muncher",
+            "Ghost Whisperer",
+            "Soggy Paws",
+            "Sleepy Tail",
+            "Glitter Magnet",
+            "Tuna Troublemaker",
+            "Whisker Wiggler",
+            "Sock Nibbler",
+            "Furball Frenzy",
+            "Shadow Sneaker",
+            "Yawn Master",
+            "Snack Thief",
+            "Paw Licker",
+            "Cuddle Dodger",
+            "Dream Chaser",
+            "Purr Monster",
+            "Tail Biter",
+            "Glitter Dodger",
+            "Scarf Snuggler",
+            "Crate Hider",
+            "Nap Champ",
+            "Spooky Snoozer",
+            "Bacon Beggar",
+            "Puzzle Whiskers",
+            "Nickname Nuisance",
+            "Whisker Wizard",
+            "Sleepy Sprite",
+            "Fancy Fangs",
+            "Cloud Hopper",
+            "Soft Stepper",
+        ]
         self.positive_gift_responses = [
             "Curse reluctantly gives you {gift}.",
             "With a sly grin, Curse drops {gift} in your lap.",
@@ -293,6 +347,24 @@ class CurseCog(commands.Cog):
     async def nap(self, ctx):
         """Announce that Curse is taking a nap."""
         await ctx.send("😼 Curling up for a nap. Don't bother me.")
+
+    @commands.command(name="admin_curse")
+    @commands.has_permissions(administrator=True)
+    async def admin_curse(self, ctx, member: discord.Member):
+        """Apply a random harmless curse to a member."""
+        curse = random.choice(self.admin_curses)
+        new_nick = f"{curse} {member.display_name}"
+        try:
+            await member.edit(nick=new_nick[:32])
+        except discord.Forbidden:
+            pass
+        await ctx.send(f"🔮 {member.display_name} is now known as {new_nick}!")
+
+    @commands.command(name="list_curses")
+    async def list_curses(self, ctx):
+        """List available admin curses."""
+        curses_text = ", ".join(self.admin_curses)
+        await ctx.send("Available curses: " + curses_text)
 
 
 async def setup(bot: commands.Bot):
