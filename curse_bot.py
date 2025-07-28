@@ -29,6 +29,8 @@ CURSE_API_KEY_3 = os.getenv("CURSE_API_KEY_3")
 
 intents = discord.Intents.default()
 intents.message_content = True
+intents.members = True
+intents.presences = True
 bot = commands.Bot(command_prefix="?", intents=intents)
 
 # === CurseBot Personality ===
@@ -254,6 +256,24 @@ negative_gift_responses = [
     "Curse dumps {gift} on you with a laugh.",
 ]
 
+# Responses when the fent cloud knocks out a player
+fent_player_responses = [
+    "is knocked out by the fent cloud and vanishes for {minutes} minute(s).",
+    "succumbs to the haze. See you in {minutes} minute(s).",
+    "drops like a rock. Shadow banned for {minutes} minute(s)!",
+    "coughs and fades away for {minutes} minute(s).",
+    "can't handle the cloud and disappears for {minutes} minute(s).",
+]
+
+# Responses when a bot gets hit by the fent cloud
+fent_bot_responses = [
+    "wheezes but is glad to already be dead.",
+    "chuckles from beyond the grave.",
+    "shrugs off the cloud—perks of undeath.",
+    "mumbles that the afterlife smells better than this.",
+    "laughs about undead immunity.",
+]
+
 # === On Ready ===
 
 
@@ -361,7 +381,28 @@ async def scratch(ctx, member: discord.Member = None):
 async def pet(ctx):
     """Attempt to pet Curse."""
     global cursed_user_id, cursed_user_name
-    if random.random() < 0.5:
+    outcome = random.random()
+    if outcome < 0.33:
+        await ctx.send(
+            "😼 Curse hurls a fent brick into the ceiling fan! A cloud of fent fills the room."
+        )
+        for member in ctx.guild.members:
+            if member == bot.user:
+                continue
+            if member.status == discord.Status.offline:
+                continue
+            if random.random() < 0.5:
+                if member.bot:
+                    await ctx.send(
+                        f"{member.display_name} {random.choice(fent_bot_responses)}"
+                    )
+                else:
+                    minutes = random.randint(1, 3)
+                    await ctx.send(
+                        f"{member.display_name} "
+                        + random.choice(fent_player_responses).format(minutes=minutes)
+                    )
+    elif outcome < 0.66:
         await ctx.send("😼 *purrs softly* Maybe I'll spare you... for now.")
     else:
         await ctx.send(

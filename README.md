@@ -124,7 +124,7 @@ Commands use the `*` prefix:
 - `?insult` – deliver an insult.
 - `?hiss` – hiss at the server.
 - `?scratch [@user]` – scratch someone just because.
-- `?pet` – attempt to pet Curse (may end badly).
+- `?pet` – attempt to pet Curse (may end badly, or he might unleash a fent cloud).
 - `?curse_me` – willingly take the curse.
 - `?hairball` – share a revolting hairball.
 - `?pounce [@user]` – pounce on someone unexpectedly.
