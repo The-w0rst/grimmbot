@@ -108,7 +108,9 @@ Commands use the `*` prefix:
 - `*curse` – tease Curse.
 - `*cheer` – offer encouragement.
 - `*sparkle` – throw confetti (and maybe cover you in glitter).
-- `*drama` – start a musical.
+- `*drama` – gush about **EPIC: The Musical** and list every song.
+- `*play <url>` – stream audio from a YouTube link.
+- `*stop` – stop playback and disconnect.
 - `*bloom` – introduce Bloom.
 - `*mood` – display Bloom's mood.
 - `*improv` – begin improv.
@@ -117,6 +119,7 @@ Commands use the `*` prefix:
 - `*compliment` – send a random compliment.
 - `*boy` – share a playful boy-themed line.
 - `*queen` – share a playful "yas queen" line.
+- Mention "epic" and Bloom will rant and play a clip if you're in voice.
 
 ### CurseBot
 - `?curse @user` – manually curse a user (admin only).
@@ -143,8 +146,8 @@ goons for too long and the gifts turn sour, stripping that protection.
 - `trivia` – play a quick trivia round.
 - `kick/ban` – moderation commands restricted to users with the appropriate permissions.
 - `clear` – remove a handful of recent messages.
-- `play <url>` – stream music from YouTube into a voice channel.
-- `stop` – stop music and disconnect from voice.
+- `play <url>` – (use `*play`) stream music from YouTube into a voice channel.
+- `stop` – (use `*stop`) stop music and disconnect from voice.
 - `chat <prompt>` – ask ChatGPT a question and get an in-character reply.
 - `roll [sides]` – roll a dice with an optional number of sides.
 - `8ball <question>` – consult the magic 8-ball.

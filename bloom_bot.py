@@ -17,6 +17,7 @@ import random
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+import yt_dlp
 
 # Load a single shared configuration file for all bots
 ENV_PATH = Path(__file__).resolve().parent / "config" / "setup.env"
@@ -394,6 +395,34 @@ async def drama(ctx):
     for saga, songs in epic_songs.items():
         song_list = "\n".join(f"• {song}" for song in songs)
         await ctx.send(f"__{saga}__:\n{song_list}")
+
+
+@bot.command()
+async def play(ctx, url: str):
+    """Stream audio from a YouTube URL into your voice channel."""
+    if ctx.author.voice is None or ctx.author.voice.channel is None:
+        await ctx.send("Join a voice channel first.")
+        return
+    voice = ctx.voice_client
+    if voice is None:
+        voice = await ctx.author.voice.channel.connect()
+    elif voice.channel != ctx.author.voice.channel:
+        await voice.move_to(ctx.author.voice.channel)
+    ydl_opts = {"format": "bestaudio", "quiet": True}
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(url, download=False)
+        audio_url = info["url"]
+    source = await discord.FFmpegOpusAudio.from_probe(audio_url)
+    voice.play(source)
+    await ctx.send(f"Now playing: {info.get('title', 'unknown')}")
+
+
+@bot.command()
+async def stop(ctx):
+    """Stop playback and disconnect."""
+    if ctx.voice_client:
+        await ctx.voice_client.disconnect()
+        await ctx.send("Disconnected.")
 
 
 @bot.command()
