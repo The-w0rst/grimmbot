@@ -3,7 +3,7 @@ from discord.ext import commands, tasks
 import random
 import os
 
-COG_VERSION = "1.2"
+COG_VERSION = "1.3"
 
 # Environment values are read from the parent process
 DISCORD_TOKEN = os.getenv("CURSE_DISCORD_TOKEN")
@@ -14,8 +14,13 @@ CURSE_API_KEY_3 = os.getenv("CURSE_API_KEY_3")
 CURSE_BLOCK_ROLES = ["Grimm's Shield", "Bloom's Blessing"]
 
 
+def is_protected(member: discord.Member) -> bool:
+    """Check if a member has a role that blocks Curse."""
+    return any(role.name in CURSE_BLOCK_ROLES for role in member.roles)
+
+
 class CurseCog(commands.Cog):
-    """CurseBot personality packaged as a Cog. Version 1.2."""
+    """CurseBot personality packaged as a Cog. Version 1.3."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
@@ -182,12 +187,7 @@ class CurseCog(commands.Cog):
         guild = discord.utils.get(self.bot.guilds)
         if not guild:
             return
-        members = [
-            m
-            for m in guild.members
-            if not m.bot
-            and not any(role.name in CURSE_BLOCK_ROLES for role in m.roles)
-        ]
+        members = [m for m in guild.members if not m.bot and not is_protected(m)]
         if not members:
             return
         chosen = random.choice(members)
@@ -246,7 +246,7 @@ class CurseCog(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def curse(self, ctx, member: discord.Member):
-        if any(role.name in CURSE_BLOCK_ROLES for role in member.roles):
+        if is_protected(member):
             await ctx.send(f"{member.display_name} is protected from curses.")
             return
         self.cursed_user_id = member.id
@@ -316,6 +316,9 @@ class CurseCog(commands.Cog):
         elif outcome < 0.66:
             await ctx.send("😼 *purrs softly* Maybe I'll spare you... for now.")
         else:
+            if is_protected(ctx.author):
+                await ctx.send(f"{ctx.author.display_name} is protected from curses.")
+                return
             await ctx.send(
                 f"*scratches {ctx.author.display_name} and hisses.* You're cursed now!"
             )
@@ -338,6 +341,9 @@ class CurseCog(commands.Cog):
 
     @commands.command()
     async def curse_me(self, ctx):
+        if is_protected(ctx.author):
+            await ctx.send(f"{ctx.author.display_name} is protected from curses.")
+            return
         self.cursed_user_id = ctx.author.id
         self.cursed_user_name = ctx.author.display_name
         await ctx.send(f"😾 Fine. {ctx.author.display_name} is now cursed.")
