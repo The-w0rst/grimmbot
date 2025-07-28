@@ -34,6 +34,17 @@ class TriviaCog(commands.Cog):
             else:
                 await ctx.send(f"Nope! The answer was **{qa['answer']}**.")
 
+    @commands.command(name="addtrivia")
+    @commands.is_owner()
+    async def add_trivia(self, ctx, *, qa: str):
+        """Add a new trivia question. Use `question | answer` format."""
+        if "|" not in qa:
+            await ctx.send("Format should be: question | answer")
+            return
+        question, answer = [part.strip() for part in qa.split("|", 1)]
+        self.questions.append({"question": question, "answer": answer.lower()})
+        await ctx.send("Trivia question added.")
+
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(TriviaCog(bot))
