@@ -1,5 +1,3 @@
-import os
-import glob
 from discord.ext import commands
 
 class AdminCog(commands.Cog):
