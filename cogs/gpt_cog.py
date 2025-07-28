@@ -2,8 +2,10 @@ import os
 import openai
 from discord.ext import commands
 from dotenv import load_dotenv
+from pathlib import Path
 
-load_dotenv("config/setup.env")
+ENV_PATH = Path(__file__).resolve().parents[1] / "config" / "setup.env"
+load_dotenv(ENV_PATH)
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 openai.api_key = OPENAI_API_KEY
 

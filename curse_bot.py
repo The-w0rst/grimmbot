@@ -14,9 +14,11 @@ from discord.ext import commands, tasks
 import random
 import os
 from dotenv import load_dotenv
+from pathlib import Path
 
 # Load a single shared configuration file for all bots
-load_dotenv("config/setup.env")
+ENV_PATH = Path(__file__).resolve().parent / "config" / "setup.env"
+load_dotenv(ENV_PATH)
 DISCORD_TOKEN = os.getenv("CURSE_DISCORD_TOKEN")
 CURSE_API_KEY_1 = os.getenv("CURSE_API_KEY_1")
 CURSE_API_KEY_2 = os.getenv("CURSE_API_KEY_2")
