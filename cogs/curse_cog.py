@@ -5,7 +5,7 @@ import random
 import os
 from dotenv import load_dotenv
 from pathlib import Path
-COG_VERSION = "1.1"
+COG_VERSION = "1.2"
 
 # Load a single shared configuration file for all bots
 ENV_PATH = Path(__file__).resolve().parents[1] / "config" / "setup.env"
@@ -44,7 +44,60 @@ class CurseCog(commands.Cog):
             "treat": ["No treats for you."],
             "cursed": ["Curse intensifies."]
         }
+        self.gifts = [
+            "a bucket of fent",
+            "some fresh sushi",
+            "a cursed hairball",
+            "a shiny fish scale",
+            "a slightly chewed toy mouse",
+            "a jar of ghost peppers",
+            "a mysterious paw print",
+            "a half-empty bottle of catnip",
+            "a tiny scythe keychain",
+            "a worn out scratching post",
+            "a glitter bomb from Bloom",
+            "a sardine-scented candle",
+            "a skeleton shaped cookie",
+            "a bottle of midnight ink",
+            "a creepy lullaby record",
+            "a stack of ominous fortunes",
+            "a black lace collar",
+            "a box of ancient bones",
+            "a cracked mirror shard",
+            "a haunted feather toy",
+            "a whispering seashell",
+            "a mysterious potion vial",
+            "a cursed collar bell",
+            "a pair of glow-in-the-dark eyes",
+            "a bag of shadow dust",
+            "a mini spellbook",
+            "a jar of swirling mist",
+            "a spiky chew toy",
+            "a midnight-blue ribbon",
+            "a scratched-up diary",
+            "a sinister plush bat",
+            "a tattered pirate flag",
+            "a small potion of mischief",
+            "a cursed fortune cookie",
+            "a cracked crystal ball",
+            "a pinch of phantom fur",
+            "a haunted treat bag",
+            "a glow stick stash",
+            "a vial of spooky slime",
+            "a lock of spectral hair",
+            "a weathered treasure map",
+            "a bowl of strange soup",
+            "a ball of tangled yarn",
+            "a rogue lightning bug",
+            "a packet of dry ice",
+            "a cat-shaped voodoo doll",
+            "a cursed sticker pack",
+            "a gnarled tree branch",
+            "a bag of sour candy",
+            "an ominous black envelope",
+        ]
         self.pick_daily_cursed.start()
+        self.daily_gift.start()
 
     @tasks.loop(hours=24)
     async def pick_daily_cursed(self):
@@ -60,6 +113,20 @@ class CurseCog(commands.Cog):
         channel = discord.utils.get(
             guild.text_channels, name="general") or guild.text_channels[0]
         await channel.send(f"😼 A new curse has been cast... {self.cursed_user_name} is now cursed for 24 hours.")
+
+    @tasks.loop(hours=24)
+    async def daily_gift(self):
+        """Give a random user a random gift from Curse."""
+        guild = discord.utils.get(self.bot.guilds)
+        if not guild:
+            return
+        members = [m for m in guild.members if not m.bot]
+        if not members:
+            return
+        recipient = random.choice(members)
+        gift = random.choice(self.gifts)
+        channel = discord.utils.get(guild.text_channels, name="general") or guild.text_channels[0]
+        await channel.send(f"🎁 {recipient.display_name}, Curse begrudgingly gifts you {gift}!")
 
     @commands.Cog.listener()
     async def on_ready(self):
