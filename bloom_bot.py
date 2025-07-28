@@ -79,6 +79,11 @@ bloom_responses = [
     "Pastel power incoming!",
     "Compliment break! You're awesome!",
     "Who needs sleep when we have each other?",
+    "Let's paint the town pastel!",
+    "I'm mailing you a virtual hug right now!",
+    "Any excuse for a dance break, right?",
+    "Glitter makes everything better, trust me!",
+    "Let's turn this chat into a mini musical!",
 ]
 
 # === Bloom Boy Lines ===
@@ -133,6 +138,11 @@ boy_lines = [
     "Boy oh boy, let's throw a party!",
     "Hey boy, keep being amazing!",
     "Boys, let's conquer the day with joy!",
+    "Boy, you're rocking those vibes!",
+    "Boys, more jokes, less worries!",
+    "Boy oh boy, let's level up the fun!",
+    "Boys, let's spam Grimm with selfies!",
+    "Boy, keep shining like the star you are!",
 ]
 
 # === Bloom Queen Lines ===
@@ -162,6 +172,11 @@ queen_lines = [
     "Keep that crown polished, girl!",
     "Queens, let's turn up the glitter!",
     "You're royalty, girl—don't forget it!",
+    "Yas queen, strut your stuff!",
+    "Queens, bring on the sparkle storm!",
+    "Hey girl, your crown looks amazing today!",
+    "Queens rise above the drama!",
+    "Yas queen, keep slaying with kindness!",
 ]
 
 # Lines from Bloom's favorite song "Pretty Little Baby" by Connie Francis
@@ -172,6 +187,11 @@ pretty_little_baby_lines = [
     "Pretty little baby, I'm hoping that you do",
     "Ask your mama, your papa, your sister or your brother",
     "If they've ever loved another like I love you",
+    "Come closer, pretty baby, and whisper softly",
+    "Hold me tight and never let me go",
+    "Pretty little baby, let your love light shine",
+    "Don't you know I'm waiting just for you",
+    "Pretty little baby, I'll always be true",
 ]
 
 # === Keyword Triggers ===
@@ -203,6 +223,11 @@ interactions = [
     "Grimm: Bloom, can you stop with the glitter? No? Okay...",
     "Curse: Hiss. (But like, the friendly kind. Maybe.)",
     "Bloom: Goon Squad! Assemble for hugs!",
+    "Grimm: Bloom, no more musicals during meetings.",
+    "Curse: I'll trade you sushi for silence, Bloom.",
+    "Bloom: Curse, quit shedding on my costumes!",
+    "Grimm: Both of you, behave for five minutes.",
+    "Curse: Only if Bloom stops singing.",
 ]
 
 # === On Ready ===
@@ -271,6 +296,11 @@ async def cheer(ctx):
         "You are doing your best!",
         "Go Goon Squad!",
         "Believe in yourself, or I’ll believe for you!",
+        "You've got this, superstar!",
+        "Every step you take is awesome!",
+        "Smile big, you're amazing!",
+        "Cheering for you from the digital sidelines!",
+        "You're a goon squad legend in the making!",
     ]
     await ctx.send(random.choice(cheers))
 
@@ -329,6 +359,11 @@ async def compliment(ctx):
         "You're the sparkle in my day!",
         "You make the server shine!",
         "I might be a 9 in Drake's book, but I'll be 10 on my birthday.",
+        "You're sweeter than all the bubble tea!",
+        "Your positivity is contagious!",
+        "You glow brighter than neon lights!",
+        "Your creativity inspires me!",
+        "You're the heart of this squad!",
     ]
     await ctx.send(random.choice(compliments))
 

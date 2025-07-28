@@ -51,7 +51,9 @@ Prefer manual control? Follow these steps in your terminal:
    ```bash
    python install.py
    ```
-   Use `python configure.py` later if you need to update the file.
+   Follow the prompts to install requirements and fill in each token from
+   `config/env_template.env`. Use `python configure.py` later if you need to
+   update the file.
 5. Start any bot you want:
 
    ```bash

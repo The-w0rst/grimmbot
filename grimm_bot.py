@@ -134,6 +134,11 @@ grimm_responses = [
     "If you want hugs, go to Bloom. If you want doom, come to me.",
     "Curse tried to sell my scythe on eBay.",
     "One day I'll retire to a quiet graveyard.",
+    "The living never stop whining, do they?",
+    "Bloom threatened to knit me a sweater. I'm horrified.",
+    "Curse stole my jaw again. Typical.",
+    "I didn't wake up on the wrong side—there is no bed.",
+    "Bloom says smile more. I say stop talking.",
 ]
 
 # Keywords that trigger short replies
@@ -176,6 +181,11 @@ async def protectbloom(ctx):
         "Back off. The flower stays safe with me. 🪦🛡️",
         "I’m watching you. Touch Bloom and you deal with me.",
         "Step away from the cutesy one, or meet your fate.",
+        "Bloom's under my wing. Move along.",
+        "Try anything and you'll face my scythe.",
+        "Bloom's singing may be loud, but my threats are louder.",
+        "Mess with Bloom and you mess with all of us.",
+        "She's annoying, but she's ours. Hands off.",
     ]
     await ctx.send(random.choice(responses))
     send_status("active", "Protected Bloom.")
@@ -191,6 +201,11 @@ async def roast(ctx, member: discord.Member = None):
         f"{member.mention}, you're not even worth the trouble.",
         f"{member.mention}, if I had a nickel for every brain cell you lost, I’d be immortal.",
         f"{member.mention}, some people were born to goon. You were born to be gooned on.",
+        f"{member.mention}, I’ve seen skeletons with more backbone than you.",
+        f"{member.mention}, you make Curse look polite.",
+        f"{member.mention}, keep talking and I'll fall asleep—again.",
+        f"{member.mention}, even Bloom can't cheer you up.",
+        f"{member.mention}, I'd roast you harder, but I'm lazy.",
     ]
     await ctx.send(random.choice(burns))
     send_status("active", f"Roasted {member.display_name}")
@@ -205,6 +220,11 @@ async def goon(ctx):
         "Who called the goon squad? Oh, it was just you.",
         "Goons assemble. And by goons, I mean the rest of you.",
         "This is my squad, you’re just visiting.",
+        "Gooning isn't a hobby, it's a lifestyle.",
+        "Another meeting of the goon squad? Fine.",
+        "You're honorary goons for the next five minutes.",
+        "Goon mode activated. Try to keep up.",
+        "I lead, you follow. Classic goon dynamics.",
     ]
     await ctx.send(random.choice(responses))
     send_status("active", "Issued goon decree.")
@@ -219,6 +239,11 @@ async def ominous(ctx):
         "I hear footsteps... they're yours.",
         "Sometimes I let people think they’re safe.",
         "Death is just a punchline you don’t want to hear.",
+        "The shadows whisper your name.",
+        "I collect souls like others collect stamps.",
+        "Knock knock. It's doom.",
+        "Your fate just took a darker turn.",
+        "Ever danced with the reaper in the pale moonlight?",
     ]
     await ctx.send(random.choice(responses))
     send_status("active", "Dropped an ominous hint.")
@@ -233,6 +258,11 @@ async def bloom(ctx):
         "If you see Bloom, tell her I’m not worried about her. At all. Not even a little. 🖤",
         "She's a handful, but she’s my handful.",
         "Don’t let the cutesy act fool you. She’s the real trouble.",
+        "Bloom thinks glitter solves everything. She's wrong.",
+        "If Bloom starts a song, I'm leaving the room.",
+        "She's the heart of this crew, whether I admit it or not.",
+        "Tell Bloom I said hi, but don't make it weird.",
+        "Bloom once tried to give me a makeover. Never again.",
     ]
     await ctx.send(random.choice(responses))
     send_status("active", "Talked about Bloom.")
@@ -247,6 +277,11 @@ async def curse(ctx):
         "That damn cat is up to something again.",
         "If you see Curse, hide the sushi and your pride.",
         "I let Curse think he's in charge sometimes. It keeps the peace.",
+        "Curse swiped my tibia yesterday. I'm still mad.",
+        "If Curse hisses, just run.",
+        "One day Curse will learn manners, but not today.",
+        "Bloom spoils that cat. I just tolerate him.",
+        "I've seen friendlier ghouls than Curse.",
     ]
     await ctx.send(random.choice(responses))
     send_status("active", "Mocked Curse.")
@@ -287,6 +322,11 @@ async def nickname(ctx, member: discord.Member = None):
         "Rattle-boned scatterbrain",
         "Moldy misfit",
         "Walking pile of leftovers",
+        "Half-baked horror",
+        "Crooked cranium",
+        "Shaky shinbone",
+        "Dust-covered dunce",
+        "Wobbly wishbone",
     ]
     await ctx.send(f"{member.mention}, you're a {random.choice(names)}.")
     send_status("active", f"Called {member.display_name} a nickname")
@@ -343,6 +383,11 @@ async def shield(ctx, member: discord.Member = None):
         f"{member.mention}, no harm comes to you on my watch. (Except embarrassment.)",
         f"Stand behind me, {member.mention}. The goon squad’s got you.",
         f"{member.mention}, if anyone messes with you, send them to me.",
+        f"I've got your back, {member.mention}. Don't make me regret it.",
+        f"Stay close, {member.mention}. I tolerate you.",
+        f"{member.mention}, I'm your shield...begrudgingly.",
+        f"Anyone crosses you, {member.mention}, they answer to my scythe.",
+        f"Consider yourself guarded, {member.mention}. For now.",
     ]
     await ctx.send(random.choice(shields))
     send_status("active", f"Shielded {member.display_name}")
