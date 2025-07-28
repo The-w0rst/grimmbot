@@ -122,6 +122,9 @@ Commands use the `*` prefix:
 - `coinflip` – flip a coin.
 - `quote` – receive a random motivational quote.
 - `jojo` – shower Emma ("JoJo is bizarre") with affection.
+- `cyberstart` – begin a cyberpunk themed DnD campaign.
+- `cyberfight` – fight one of the bots with evolving difficulty.
+- `cyberstatus` – view your campaign record.
 
 ## Developing your own bots
 
