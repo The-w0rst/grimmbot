@@ -16,6 +16,7 @@ This mirrors the modular approach used by Red Discord Bot.
 - `goon_bot.py` – Unified bot that loads all personalities as cogs.
 - `config/setup.env` – Environment variables for all bots in one place.
 - `requirements.txt` – Python package requirements.
+- `install.py` – Interactive installer for dependencies and config.
 - `setup.sh` – Optional helper script for installing dependencies.
 - `cogs/trivia_cog.py` – Simple trivia mini‑game.
 - `cogs/moderation_cog.py` – Basic kick/ban/clear commands.
@@ -34,23 +35,16 @@ robots can be developed on their own branches and merged back once stable.
 ## Quick setup
 
 1. Install Python 3.8 or newer.
-2. Run the helper script to install dependencies from `requirements.txt` and
-   create `config/setup.env` if it doesn't exist:
+2. Run the interactive installer which guides you through installing
+   dependencies and creating `config/setup.env`:
 
    ```bash
-   ./setup.sh
+   python install.py
    ```
 
-3. Run the interactive configuration tool to fill in your Discord tokens and
-   API keys:
-
-   ```bash
-   python configure.py
-   ```
-
-   This writes your details to `config/setup.env`. You can rerun the script at
-   any time to update values. Set `OPENAI_API_KEY` if you want ChatGPT powered
-   features. See
+   The installer walks you through each required value. You can rerun it at
+   any time to update the configuration. Set `OPENAI_API_KEY` if you want
+   ChatGPT powered features. See
 
    [`config/README.md`](config/README.md) provides a line-by-line explanation.
 
@@ -67,7 +61,7 @@ python grimm_bot.py   # uses ! commands
 python bloom_bot.py   # uses * commands
 python curse_bot.py   # uses ! commands
 python goon_bot.py    # loads all personalities with both prefixes
-./setup.sh goon       # install & launch in one step
+python install.py     # optional installer with launch option
 ```
 
 GrimmBot optionally reports its status to a Socket.IO dashboard if

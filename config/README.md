@@ -6,13 +6,20 @@ credentials and avoids duplicating values across multiple files.
 
 ## Creating `setup.env`
 
-1. Copy the template file:
+1. The easiest way is to run the interactive installer:
+
+   ```bash
+   python install.py
+   ```
+   This will create `config/setup.env` and prompt for each value.
+
+2. If you prefer manual setup, copy the template file:
 
    ```bash
    cp config/env_template.env config/setup.env
    ```
 
-2. Open `config/setup.env` in your editor and fill in each value. The sections
+   Then open `config/setup.env` in your editor and fill in each value. The sections
    are grouped by bot (Grimm, Bloom, Curse) followed by shared settings. Set
    `OPENAI_API_KEY` if you want ChatGPT features. Optionally define
    `SOCKET_SERVER_URL` to enable status reporting to a Socket.IO dashboard.
