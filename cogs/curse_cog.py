@@ -1,9 +1,11 @@
+
 import discord
 from discord.ext import commands, tasks
 import random
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+COG_VERSION = "1.1"
 
 # Load a single shared configuration file for all bots
 ENV_PATH = Path(__file__).resolve().parents[1] / "config" / "setup.env"
@@ -15,7 +17,7 @@ CURSE_API_KEY_3 = os.getenv("CURSE_API_KEY_3")
 
 
 class CurseCog(commands.Cog):
-    """CurseBot personality packaged as a Cog."""
+    """CurseBot personality packaged as a Cog. Version 1.1."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

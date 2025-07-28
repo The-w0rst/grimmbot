@@ -101,3 +101,4 @@ before running the bots in a new terminal session using:
 ```
 source venv/bin/activate       # or venv\Scripts\activate on Windows
 ```
+Each cog defines a COG_VERSION constant so you can see when modules change.

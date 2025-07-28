@@ -66,7 +66,12 @@ _PARTIALLY_SUPPORTED_VIDEO_EXT: Tuple[str, ...] = (
     ".mka",
     ".mks",
 )
-_PARTIALLY_SUPPORTED_MUSIC_EXT += _PARTIALLY_SUPPORTED_VIDEO_EXT
+
+
+def is_supported_extension(path: str) -> bool:
+    """Return True if path has a supported media extension."""
+    ext = Path(path).suffix.lower()
+    return ext in _FULLY_SUPPORTED_MUSIC_EXT + _PARTIALLY_SUPPORTED_MUSIC_EXT
 
 
 class AsyncIter:

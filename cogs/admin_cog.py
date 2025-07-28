@@ -1,8 +1,10 @@
+
 from discord.ext import commands
+COG_VERSION = "1.1"
 
 
 class AdminCog(commands.Cog):
-    """Administration utilities for managing cogs."""
+    """Administration utilities for managing cogs. Version 1.1."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

@@ -1,9 +1,11 @@
+
 import os
 import random
 import openai
 from discord.ext import commands
 from dotenv import load_dotenv
 from pathlib import Path
+COG_VERSION = "1.1"
 
 ENV_PATH = Path(__file__).resolve().parents[1] / "config" / "setup.env"
 load_dotenv(ENV_PATH)
@@ -12,7 +14,7 @@ openai.api_key = OPENAI_API_KEY
 
 
 class CyberpunkCampaignCog(commands.Cog):
-    """Cyberpunk themed mini DnD campaign with simple character sheets."""
+    """Cyberpunk themed mini DnD campaign with simple character sheets. Version 1.1."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

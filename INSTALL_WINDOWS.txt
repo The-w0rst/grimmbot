@@ -60,3 +60,4 @@ folders you will modify. Linux and macOS users should refer to `INSTALL.txt`.
 That's it! After completing these steps you can run any of the bots directly
 from your Windows terminal. Make sure `config\setup.env` is populated with the
 required tokens before launching.
+Each cog defines a COG_VERSION constant so you can see when modules change.

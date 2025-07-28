@@ -22,6 +22,8 @@ This mirrors the modular approach used by Red Discord Bot.
 - `cogs/music_cog.py` – Stream audio from YouTube links.
 - `cogs/fun_cog.py` – Quick games like dice rolls and an 8‑ball.
 - `media_player.py` – Helpers for parsing media queries and local files.
+- `media_player.is_supported_extension()` checks media file extensions.
+- Each cog now declares `COG_VERSION` for easy tracking of updates.
 - `INSTALL.txt` – step-by-step setup instructions for Linux/macOS.
 - `INSTALL_WINDOWS.txt` – Windows-specific installation guide.
 

@@ -1,8 +1,10 @@
+
 from discord.ext import commands
 import random
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+COG_VERSION = "1.1"
 
 # Load a single shared configuration file for all bots
 ENV_PATH = Path(__file__).resolve().parents[1] / "config" / "setup.env"
@@ -14,7 +16,7 @@ BLOOM_API_KEY_3 = os.getenv("BLOOM_API_KEY_3")
 
 
 class BloomCog(commands.Cog):
-    """BloomBot personality packaged as a Cog."""
+    """BloomBot personality packaged as a Cog. Version 1.1."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
