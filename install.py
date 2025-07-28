@@ -26,8 +26,8 @@ def read_existing(path: Path) -> dict:
 
 def check_python() -> None:
     print("Step 1/4: Checking Python version...")
-    if sys.version_info < (3, 8):
-        sys.exit("Python 3.8 or newer is required. Aborting.")
+    if sys.version_info < (3, 10):
+        sys.exit("Python 3.10 or newer is required. Aborting.")
     print(f"✔ Python {sys.version_info.major}.{sys.version_info.minor} detected.\n")
 
 

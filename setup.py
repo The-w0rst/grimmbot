@@ -35,7 +35,7 @@ def extras_combined(*extra_names):
 
 
 extras_require["dev"] = extras_combined()
-python_requires = ">=3.8"
+python_requires = ">=3.10"
 
 setup(
     name="grimmbot",
