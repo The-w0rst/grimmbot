@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 import yt_dlp
+import requests
+from bs4 import BeautifulSoup
 
 
 class MusicCog(commands.Cog):
@@ -33,6 +35,22 @@ class MusicCog(commands.Cog):
         source = await discord.FFmpegOpusAudio.from_probe(audio_url)
         voice.play(source)
         await ctx.send(f"Now playing: {info.get('title', 'unknown')}")
+
+    @commands.command()
+    async def spotify(self, ctx, url: str):
+        """Fetch track info from a Spotify URL and respond creatively."""
+        if "spotify" not in url:
+            await ctx.send("Please provide a valid Spotify link.")
+            return
+        try:
+            html = requests.get(url).text
+            soup = BeautifulSoup(html, "html.parser")
+            title = soup.title.text
+            track = title.split(" | ")[0]
+        except Exception:
+            await ctx.send("Couldn't fetch that track, but imagine something epic!")
+            return
+        await ctx.send(f"Pretending to play **{track}** from Spotify. Feel the vibes!")
 
     @commands.command()
     async def stop(self, ctx):
