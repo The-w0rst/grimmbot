@@ -17,7 +17,6 @@ This mirrors the modular approach used by Red Discord Bot.
 - `config/setup.env` – Environment variables for all bots in one place.
 - `requirements.txt` – Python package requirements.
 - `setup.sh` – Optional helper script for installing dependencies.
-- `the-worst-grimbot/` – Old prototype code kept for reference.
 - `cogs/trivia_cog.py` – Simple trivia mini‑game.
 - `cogs/moderation_cog.py` – Basic kick/ban/clear commands.
 - `cogs/music_cog.py` – Stream audio from YouTube links.
@@ -117,10 +116,6 @@ Commands use the `*` prefix:
 - `jojo` – shower Emma ("JoJo is bizarre") with affection.
 
 ## Developing your own bots
-
-The script `project_generator.sh` was once used to create prototype code inside
-`the-worst-grimbot/`. Feel free to fork this repository or create a new branch
-if you want to experiment with additional personalities.
 
 For a modular approach similar to the Red Discord Bot, check out
 `goon_bot.py`. It now scans the `cogs/` directory on startup and loads every
