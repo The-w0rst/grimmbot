@@ -118,7 +118,7 @@ Commands use the `*` prefix:
 - `*curse` – tease Curse.
 - `*cheer` – offer encouragement.
 - `*sparkle` – throw confetti (and maybe cover you in glitter).
- - `*drama` – gush about **EPIC: The Musical** and list every song.
+ - `*drama` – sing a random snippet from **EPIC: The Musical**.
  - `*play <url>` – queue a YouTube link or playlist.
  - `*next` – skip to the next song.
  - `*queue` – view the upcoming songs.
