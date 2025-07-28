@@ -15,6 +15,7 @@ Here's what you'll find lurking in the repo:
 - `bloom_bot.py` – Bloom brings bubbly chaos (prefix `*`).
 - `curse_bot.py` – that's me, the mischievous calico (prefix `?`).
 - `goon_bot.py` – pulls us all together as cogs.
+- `cogs/goon_cog.py` – the goon squad speaking in unison.
 - `config/setup.env` – one file to hold all the secret tokens.
 - `requirements/base.txt` – packages the installer grabs.
 - `bootstrap.sh` – one-liner to clone and run the setup.
