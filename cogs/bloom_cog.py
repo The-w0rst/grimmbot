@@ -115,6 +115,15 @@ class BloomCog(commands.Cog):
             "Queens, let's turn up the glitter!",
             "You're royalty, girl—don't forget it!",
         ]
+        # Lines from Bloom's favorite song "Pretty Little Baby"
+        self.pretty_little_baby_lines = [
+            "Pretty little baby (ya-ya)",
+            "You say that maybe you'll be thinkin' of me",
+            "And tryin' to love me",
+            "Pretty little baby, I'm hoping that you do",
+            "Ask your mama, your papa, your sister or your brother",
+            "If they've ever loved another like I love you",
+        ]
         self.keywords = {
             "grimm": [
                 "Grimm is my spooky bestie.",
@@ -128,10 +137,7 @@ class BloomCog(commands.Cog):
                 "HUG TIME! Ready or not! 🥢",
                 "*wraps you in love and chaos*"
             ],
-            "sing": [
-                "Let’s karaoke! I call lead!",
-                "SING IT OUT! LOUDER!"
-            ],
+            "sing": self.pretty_little_baby_lines,
             "boba": [
                 "Bubble tea buddies unite!",
                 "I could drink boba all day!"
@@ -172,17 +178,12 @@ class BloomCog(commands.Cog):
 
     @commands.command()
     async def sing(self, ctx):
-        await ctx.send("*bursts into a Broadway solo* 🎙️✨")
+        await ctx.send(random.choice(self.pretty_little_baby_lines) + " 🎶")
 
     @commands.command()
     async def karaoke(self, ctx, *, song: str | None = None):
         """Start a mini karaoke moment."""
-        lines = [
-            "Don’t stop believin’!",
-            "Let it gooooooo!",
-            "Mamma mia, here I go again!",
-            "Just a small-town girl, living in a lonely world…",
-        ]
+        lines = self.pretty_little_baby_lines
         if song:
             await ctx.send(f"🎤 Singing **{song}** together!")
         else:
