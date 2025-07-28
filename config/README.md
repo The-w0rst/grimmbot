@@ -14,7 +14,8 @@ credentials and avoids duplicating values across multiple files.
 
 2. Open `config/setup.env` in your editor and fill in each value. The sections
    are grouped by bot (Grimm, Bloom, Curse) followed by shared settings. Set
-   `OPENAI_API_KEY` if you want ChatGPT features.
+   `OPENAI_API_KEY` if you want ChatGPT features. Optionally define
+   `SOCKET_SERVER_URL` to enable status reporting to a Socket.IO dashboard.
 
 3. Save the file. When you run any bot it automatically loads these values.
 
