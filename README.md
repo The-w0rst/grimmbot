@@ -43,7 +43,7 @@ robots can be developed on their own branches and merged back once stable.
 3. Fill in the single environment file found in `config/setup.env` with your
    Discord tokens and any API keys the bots rely on. A template is provided at
    `config/env_template.env` listing variables for every bot so you only have to
-   edit one place.
+   edit one place. Set `OPENAI_API_KEY` if you want ChatGPT-powered replies.
 
 ## Running the bots
 
@@ -108,6 +108,7 @@ Commands use the `*` prefix:
 - `clear` – remove a handful of recent messages.
 - `play <url>` – stream music from YouTube into a voice channel.
 - `stop` – stop music and disconnect from voice.
+- `chat <prompt>` – ask ChatGPT a question and get an in-character reply.
 
 ## Developing your own bots
 
