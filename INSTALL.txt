@@ -1,7 +1,7 @@
 Goon Squad Bots - Installation Guide
 ====================================
 
-This guide explains how to install and run the bots from a terminal. Each step notes which folders you will modify.
+This guide explains how to install and run the bots from a terminal. Each step notes which folders you will modify. Windows users should see `INSTALL_WINDOWS.txt` for a platform-specific walkthrough.
 
 Quick install
 -------------

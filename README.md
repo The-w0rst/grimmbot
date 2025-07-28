@@ -22,6 +22,8 @@ This mirrors the modular approach used by Red Discord Bot.
 - `cogs/music_cog.py` – Stream audio from YouTube links.
 - `cogs/fun_cog.py` – Quick games like dice rolls and an 8‑ball.
 - `media_player.py` – Helpers for parsing media queries and local files.
+- `INSTALL.txt` – step-by-step setup instructions for Linux/macOS.
+- `INSTALL_WINDOWS.txt` – Windows-specific installation guide.
 
 The `main` branch contains the latest working bots. New ideas or additional
 robots can be developed on their own branches and merged back once stable.
@@ -29,7 +31,8 @@ robots can be developed on their own branches and merged back once stable.
 ## Quick setup
 
 1. Install Python 3.8 or newer.
-2. Run the helper script which installs everything and prepares a config file:
+2. Run the helper script to install dependencies from `requirements.txt` and
+   create `config/setup.env` if it doesn't exist:
 
    ```bash
    ./setup.sh
@@ -40,7 +43,11 @@ robots can be developed on their own branches and merged back once stable.
 
    This single file stores every Discord token and API key. Set
    `OPENAI_API_KEY` if you want ChatGPT powered features. See
-   [`config/README.md`](config/README.md) for a line-by-line explanation.
+
+   [`config/README.md`](config/README.md) provides a line-by-line explanation.
+
+For a step-by-step installation guide see [`INSTALL.txt`](INSTALL.txt). Windows
+users should follow [`INSTALL_WINDOWS.txt`](INSTALL_WINDOWS.txt).
 
 ## Running the bots
 
