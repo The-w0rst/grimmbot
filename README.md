@@ -20,3 +20,15 @@ git checkout <robot-branch>
 
 These branches and the installers are placeholders and may not be available in
 this repository yet.
+
+## Setup
+
+Run `./setup.exe` to install dependencies. Configuration files for API keys and
+tokens live in the `config/` directory:
+
+- `config/grimm.env`
+- `config/bloom.env`
+- `config/curse.env`
+
+Fill in each file with the three API keys and Discord token for its bot before
+starting the bots.

@@ -15,8 +15,12 @@ import random
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+# Load environment specific to CurseBot
+load_dotenv("config/curse.env")
 DISCORD_TOKEN = os.getenv("CURSE_DISCORD_TOKEN")
+CURSE_API_KEY_1 = os.getenv("CURSE_API_KEY_1")
+CURSE_API_KEY_2 = os.getenv("CURSE_API_KEY_2")
+CURSE_API_KEY_3 = os.getenv("CURSE_API_KEY_3")
 
 intents = discord.Intents.default()
 intents.message_content = True
