@@ -1,3 +1,4 @@
+# Project repository: https://github.com/The-w0rst/grimmbot
 import asyncio
 import os
 import glob

@@ -1,4 +1,5 @@
 # Grimmbot
+This project lives at https://github.com/The-w0rst/grimmbot
 
 Grimmbot is a small collection of Discord bots that make up the "Goon Squad":
 Grimm, Bloom and Curse. Each bot lives in its own Python file and has a

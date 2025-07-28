@@ -9,6 +9,7 @@
 #      Gruff, protective, secretly soft on the inside.                        #
 #
 ###############################################################################
+# Project repository: https://github.com/The-w0rst/grimmbot
 
 import discord
 from discord.ext import commands

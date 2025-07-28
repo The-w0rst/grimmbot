@@ -8,6 +8,7 @@
 #      Snarky. Indifferent. Fond of sushi. Hates being cute.                  #
 #      Will bully you when cursed. Loves tormenting Grimm & teasing Bloom.    #
 ################################################################################
+# Project repository: https://github.com/The-w0rst/grimmbot
 
 import discord
 from discord.ext import commands, tasks

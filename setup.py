@@ -1,3 +1,4 @@
+# Project repository: https://github.com/The-w0rst/grimmbot
 from pathlib import Path
 
 from setuptools import find_packages, setup

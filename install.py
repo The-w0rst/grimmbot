@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Interactive installer for the Goon Squad bots."""
 import sys
+# Project repository: https://github.com/The-w0rst/grimmbot
 import subprocess
 from pathlib import Path
 import shutil
