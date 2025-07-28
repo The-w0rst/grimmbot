@@ -24,6 +24,7 @@ This mirrors the modular approach used by Red Discord Bot.
 - `media_player.py` – Helpers for parsing media queries and local files.
 - `media_player.is_supported_extension()` checks media file extensions.
 - Each cog now declares `COG_VERSION` for easy tracking of updates.
+- Each personality gives out a small daily gift if the bot stays online.
 - `INSTALL.txt` – step-by-step setup instructions for Linux/macOS.
 - `INSTALL_WINDOWS.txt` – Windows-specific installation guide.
 
