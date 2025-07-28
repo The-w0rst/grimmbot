@@ -13,7 +13,7 @@ what mischief it adds.
 | `grimm_extra_cog.py` | Extra utilities for Grimm: gloom meter, laments and bonks. |
 | `fun_cog.py` | Provides quick games like dice rolls, coin flips and an 8‑ball. |
 | `trivia_cog.py` | Simple trivia mini‑game. |
-| `music_cog.py` | Stream audio from YouTube links into voice channels. |
+| `music_cog.py` | Queue YouTube links or playlists with basic controls. |
 | `moderation_cog.py` | Basic moderation commands (`kick`, `ban`, `clear`). |
 | `gpt_cog.py` | ChatGPT based chat command and mention replies. Requires `OPENAI_API_KEY`. |
 | `jojo_cog.py` | Sends loving messages to a user named "JoJo is bizarre". |
