@@ -4,11 +4,11 @@ from discord.ext import commands
 
 from . import grimm_utils
 
-COG_VERSION = "1.2"
+COG_VERSION = "1.3"
 
 
 class GrimmExtraCog(commands.Cog):
-    """Additional utilities and fun commands for Grimm. Version 1.2."""
+    """Additional utilities and fun commands for Grimm. Version 1.3."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
