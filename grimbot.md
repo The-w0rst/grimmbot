@@ -32,6 +32,7 @@ Prefer to do things yourself? Fine.
    ```bash
    cp config/env_template.env config/setup.env
    ```
-4. Run any of the bot files above and you're done.
+4. Run `python install.py` to fill in the file interactively, or edit it manually.
+5. Launch any of the bot files above and you're done.
 
 Enjoy the chaos, courtesy of yours truly.

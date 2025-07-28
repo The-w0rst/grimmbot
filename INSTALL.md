@@ -5,20 +5,17 @@ Windows, macOS, or Linux—take your pick.
 
 ## Quick setup
 1. Install Python 3.8 or newer.
-2. Run the bootstrap script right from your terminal:
+2. Run the bootstrap script:
    ```bash
    bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)
    ```
-   That pulls down the repo, installs everything, and launches the interactive
-   installer. Windows folks can use `py -3 install.py` instead if you clone
-   manually.
-3. When asked, toss in your Discord tokens and any API keys. You'll get a
-   shiny `config/setup.env` file out of it.
-4. Launch whichever bot you fancy:
+   It clones the repo, installs dependencies, and starts the installer. On Windows run `py -3 install.py` after cloning instead.
+3. Enter your Discord tokens and API keys when prompted. They are saved to `config/setup.env`.
+4. Start a bot of your choice:
    ```bash
    python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
    ```
-   Windows users can replace `python` with `py -3`.
+   (Use `py -3` instead of `python` on Windows.)
 
 ## Manual steps
 Prefer to get your paws dirty?
@@ -38,7 +35,8 @@ Prefer to get your paws dirty?
    ```
    On Windows use `copy` instead of `cp`. Fill in your Discord tokens and API
    keys.
-4. Run any bot as shown above. All bots read from `config/setup.env`.
+4. Run `python install.py` to walk through the prompts.
+5. Launch any bot as shown above. All bots read from `config/setup.env`.
 
 Place optional media files in the `localtracks` directory.
 Cogs live under `cogs/` and can be customized or reloaded when using `goon_bot.py`.

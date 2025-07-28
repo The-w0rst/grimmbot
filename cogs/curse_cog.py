@@ -13,7 +13,7 @@ CURSE_API_KEY_3 = os.getenv("CURSE_API_KEY_3")
 
 
 class CurseCog(commands.Cog):
-    """CurseBot personality packaged as a Cog. Version 1.1."""
+    """CurseBot personality packaged as a Cog. Version 1.2."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

@@ -3,7 +3,7 @@ from discord.ext import commands, tasks
 import random
 import os
 
-COG_VERSION = "1.1"
+COG_VERSION = "1.2"
 
 # Environment values are read from the parent process
 DISCORD_TOKEN = os.getenv("BLOOM_DISCORD_TOKEN")
@@ -13,7 +13,7 @@ BLOOM_API_KEY_3 = os.getenv("BLOOM_API_KEY_3")
 
 
 class BloomCog(commands.Cog):
-    """BloomBot personality packaged as a Cog. Version 1.1."""
+    """BloomBot personality packaged as a Cog. Version 1.2."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

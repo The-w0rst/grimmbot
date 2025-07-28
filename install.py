@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Interactive installer for the Goon Squad bots."""
 import sys
+
 # Project repository: https://github.com/The-w0rst/grimmbot
 import subprocess
 from pathlib import Path
 import shutil
+
+VERSION = "1.2"
 
 TEMPLATE_PATH = Path("config/env_template.env")
 SETUP_PATH = Path("config/setup.env")
@@ -39,7 +42,7 @@ def install_requirements() -> None:
 
 
 def configure_env() -> None:
-    print("Step 3/4: Setting up configuration file")
+    print("Step 3/4: Enter your Discord tokens and API keys")
     TEMPLATE_PATH.parent.mkdir(parents=True, exist_ok=True)
     if not SETUP_PATH.exists():
         shutil.copyfile(TEMPLATE_PATH, SETUP_PATH)
@@ -74,10 +77,12 @@ def choose_bot() -> None:
     script = options.get(choice, (None, None))[1]
     if script:
         subprocess.call([sys.executable, script])
+    else:
+        print("You can start a bot later using one of the python commands above.")
 
 
 def main() -> None:
-    print("== Goon Squad Bot Installer ==\n")
+    print(f"== Goon Squad Bot Installer v{VERSION} ==\n")
     check_python()
     install_requirements()
     configure_env()

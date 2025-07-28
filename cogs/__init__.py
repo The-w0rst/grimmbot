@@ -2,5 +2,5 @@
 
 from pathlib import Path
 
-PACKAGE_VERSION = "1.1"
+PACKAGE_VERSION = "1.2"
 __all__ = [p.stem for p in Path(__file__).parent.glob("*_cog.py")]

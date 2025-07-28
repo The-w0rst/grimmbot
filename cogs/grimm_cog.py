@@ -5,7 +5,7 @@ import os
 
 import socketio
 
-COG_VERSION = "1.1"
+COG_VERSION = "1.2"
 
 # Environment values are read from the parent process
 DISCORD_TOKEN = os.getenv("GRIMM_DISCORD_TOKEN")
@@ -29,7 +29,7 @@ def send_status(status, message):
 
 
 class GrimmCog(commands.Cog):
-    """GrimmBot personality packaged as a Cog. Version 1.1."""
+    """GrimmBot personality packaged as a Cog. Version 1.2."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

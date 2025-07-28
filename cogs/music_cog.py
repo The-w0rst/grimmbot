@@ -4,11 +4,11 @@ import yt_dlp
 import requests
 from bs4 import BeautifulSoup
 
-COG_VERSION = "1.1"
+COG_VERSION = "1.2"
 
 
 class MusicCog(commands.Cog):
-    """Basic music playback commands. Version 1.1."""
+    """Basic music playback commands. Version 1.2."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
