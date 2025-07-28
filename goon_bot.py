@@ -1,11 +1,9 @@
+import asyncio
+import os
+import glob
 import discord
 from discord.ext import commands
-import os
 from dotenv import load_dotenv
-
-from cogs.grimm_cog import GrimmCog
-from cogs.bloom_cog import BloomCog
-from cogs.curse_cog import CurseCog
 
 # Load environment for the unified bot
 load_dotenv("config/goon.env")
@@ -24,9 +22,15 @@ bot = commands.Bot(command_prefix=get_prefix, intents=intents)
 async def on_ready():
     print("Goon Bot online with cogs loaded.")
 
-# Load cogs
-bot.add_cog(GrimmCog(bot))
-bot.add_cog(BloomCog(bot))
-bot.add_cog(CurseCog(bot))
+async def load_startup_cogs():
+    for file in glob.glob("cogs/*_cog.py"):
+        ext = f"cogs.{os.path.splitext(os.path.basename(file))[0]}"
+        try:
+            await bot.load_extension(ext)
+            print(f"Loaded {ext}")
+        except Exception as e:
+            print(f"Failed to load {ext}: {e}")
+
+asyncio.run(load_startup_cogs())
 
 bot.run(DISCORD_TOKEN)

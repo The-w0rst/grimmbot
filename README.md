@@ -4,8 +4,9 @@ Grimmbot is a small collection of Discord bots that make up the "Goon Squad":
 Grimm, Bloom and Curse. Each bot lives in its own Python file and has a
 slightly different personality. The project is intentionally lightweight so you
 can run one bot or all three depending on your needs. A new optional script
-`goon_bot.py` allows loading every personality as modular cogs, inspired by the
-Red Discord Bot style of customization.
+`goon_bot.py` automatically loads every personality from the `cogs/` folder and
+includes an Admin cog for dynamically loading/unloading modules at runtime.
+This mirrors the modular approach used by Red Discord Bot.
 
 ## Repository layout
 
@@ -107,6 +108,7 @@ The script `project_generator.sh` was once used to create prototype code inside
 if you want to experiment with additional personalities.
 
 For a modular approach similar to the Red Discord Bot, check out
-`goon_bot.py`. It loads each personality as a cog so you can enable or disable
-them as you like.
+`goon_bot.py`. It now scans the `cogs/` directory on startup and loads every
+extension it finds. You can enable or disable cogs at runtime with the Admin
+commands (`load`, `unload`, `reload`, and `listcogs`).
 
