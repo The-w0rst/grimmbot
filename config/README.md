@@ -1,9 +1,8 @@
 # Configuration Guide
 
-All bots read their tokens and API keys from a single file:
-`config/setup.env`. Keeping everything in one place makes it easy to manage
-credentials and avoids duplicating values across multiple files.
-For source code and updates visit https://github.com/The-w0rst/grimmbot
+Listen up, I'm **Curse**. Every bot sniffs out its tokens and API keys from one
+file: `config/setup.env`. Keep it tidy and your secrets stay safe. Grab updates
+at https://github.com/The-w0rst/grimmbot
 
 ## Creating `setup.env`
 
@@ -12,22 +11,21 @@ For source code and updates visit https://github.com/The-w0rst/grimmbot
    ```bash
    python install.py
    ```
-   This will create `config/setup.env` and prompt for each value.
+   It'll create `config/setup.env` and nag you for each value.
 
-2. If you prefer manual setup, copy the template file:
+2. Prefer manual setup? Copy the template file:
 
    ```bash
    cp config/env_template.env config/setup.env
    ```
 
-   Then open `config/setup.env` in your editor and fill in each value. The sections
-   are grouped by bot (Grimm, Bloom, Curse) followed by shared settings. Set
-   `OPENAI_API_KEY` if you want ChatGPT features. Optionally define
-   `SOCKET_SERVER_URL` to enable status reporting to a Socket.IO dashboard.
+   Open `config/setup.env` and fill everything in. Sections are grouped by bot
+   (Grimm, Bloom, me) then shared settings. Add `OPENAI_API_KEY` for ChatGPT
+   features or `SOCKET_SERVER_URL` if you want status reporting.
 
-3. Save the file. When you run any bot it automatically loads these values.
+3. Save the file. Any bot you run will slurp up these values automatically.
 
-Do **not** commit `setup.env` to version control. It should remain private.
+Do **not** commit `setup.env` to git. Keep it private.
 
 Refer to [`../INSTALL.md`](../INSTALL.md) for instructions on installing the
 required Python packages.
