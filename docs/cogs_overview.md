@@ -1,6 +1,7 @@
 # Cogs Overview
 
-This page gives a quick summary of each cog included with Grimmbot and the features it provides.
+Curse here again. Here's a quick summary of each cog bundled with Grimmbot and
+what mischief it adds.
 
 | Cog | Purpose |
 | --- | ------- |
@@ -17,4 +18,5 @@ This page gives a quick summary of each cog included with Grimmbot and the featu
 | `jojo_cog.py` | Sends loving messages to a user named "JoJo is bizarre". |
 | `cyberpunk_campaign_cog.py` | Lightweight cyberpunk themed DnD campaign using ChatGPT. |
 
-All cogs declare a `COG_VERSION` constant for easy tracking of updates. To load them individually see `goon_bot.py` or use the Admin cog commands.
+All cogs declare a `COG_VERSION` constant for easy tracking of updates. Load them one by one with `goon_bot.py` or the Admin commands.
+Happy gooning, - Curse

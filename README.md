@@ -1,91 +1,80 @@
 # Grimmbot
-This project lives at https://github.com/The-w0rst/grimmbot
-
-Grimmbot is a small collection of Discord bots that make up the "Goon Squad":
-Grimm, Bloom and Curse. Each bot lives in its own Python file and has a
-slightly different personality. The project is intentionally lightweight so you
-can run one bot or all three depending on your needs. A new optional script
-`goon_bot.py` automatically loads every personality from the `cogs/` folder and
-includes an Admin cog for dynamically loading/unloading modules at runtime.
-This mirrors the modular approach used by Red Discord Bot.
+Hey, it's **Curse** speaking. This repo holds me and my fellow goons. Grab it
+from https://github.com/The-w0rst/grimmbot and run whichever of us you want.
+We're lightweight, each in our own Python file. Fire up `goon_bot.py` if you
+want the whole chaotic crew. It loads every cog and lets an Admin hot‑swap
+modules whenever you feel like causing trouble.
 
 ## Repository layout
 
-- `grimm_bot.py` – GrimmBot, the grumpy skeleton leader (command prefix `!`).
-- `bloom_bot.py` – BloomBot, cheerful chaos embodied (command prefix `*`).
-- `curse_bot.py` – CurseBot, a mischievous calico (command prefix `!`).
-- `goon_bot.py` – Unified bot that loads all personalities as cogs.
-- `config/setup.env` – Environment variables for all bots in one place.
-- `requirements/base.txt` – Python package requirements used by the installer.
-- `bootstrap.sh` – One-line installer for cloning and running the setup.
-- `install.py` – Interactive installer for dependencies and config.
-- `setup.sh` – Optional helper script for installing dependencies.
-- `cogs/trivia_cog.py` – Simple trivia mini‑game.
-- `cogs/moderation_cog.py` – Basic kick/ban/clear commands.
-- `cogs/music_cog.py` – Stream audio from YouTube links.
-- `cogs/fun_cog.py` – Quick games like dice rolls and an 8‑ball.
-- `media_player.py` – Helpers for parsing media queries and local files.
-- `media_player.is_supported_extension()` checks media file extensions.
-- Each cog now declares `COG_VERSION` for easy tracking of updates.
-- Each personality gives out a small daily gift if the bot stays online.
-- `INSTALL.md` – cross-platform installation instructions.
+Here's what you'll find lurking in the repo:
 
-The `main` branch contains the latest working bots. New ideas or additional
-robots can be developed on their own branches and merged back once stable.
+- `grimm_bot.py` – Grimm is our cranky skeleton (prefix `!`).
+- `bloom_bot.py` – Bloom brings bubbly chaos (prefix `*`).
+- `curse_bot.py` – that's me, the mischievous calico (prefix `!`).
+- `goon_bot.py` – pulls us all together as cogs.
+- `config/setup.env` – one file to hold all the secret tokens.
+- `requirements/base.txt` – packages the installer grabs.
+- `bootstrap.sh` – one-liner to clone and run the setup.
+- `install.py` – interactive installer for dependencies and config.
+- `setup.sh` – optional helper for dependencies.
+- `cogs/` – trivia, moderation, music, and other little toys.
+- `media_player.py` – handles local tracks and links.
+
+Every cog has a `COG_VERSION` constant. Keep an eye out for updates on the
+`main` branch before merging your own tweaks.
 
 ## Installation
 
-The fastest method is to run the bootstrap script directly from your
-terminal. It downloads the repository, installs dependencies and then
-launches the interactive configuration:
+Want to summon us fast? Run the bootstrap script and let it claw through the
+setup for you:
 
 ```bash
 bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)
 ```
 
-Alternatively follow the manual steps below.
+Or be stubborn and do it yourself.
 
 1. Install **Python 3.8** or newer.
-2. Clone this repository and change into the project directory.
-3. Run the interactive installer to set up dependencies and create
-   `config/setup.env`:
+2. Clone this repo and slink into the directory.
+3. Run the interactive installer. It'll create `config/setup.env` and ask for
+   your tokens:
 
    ```bash
    python install.py
    ```
 
-   The script prompts for your Discord tokens and optional API keys
-   (set `OPENAI_API_KEY` to enable ChatGPT features). You can rerun the
-   installer any time to update the configuration. See
-   [`config/README.md`](config/README.md) for a line-by-line explanation.
-   If you merely wish to update `setup.env` without reinstalling packages you
-   can run `python configure.py` instead.
-4. Launch a bot of your choice:
+   It will nag you for Discord tokens and optional API keys (set
+   `OPENAI_API_KEY` if you want ChatGPT tricks). Run it again any time to tweak
+   the config. For details see [`config/README.md`](config/README.md). If you
+   only need to update `setup.env`, use `python configure.py`.
+4. Finally, pick whichever bot you want to unleash:
 
    ```bash
    python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
    ```
 
-For additional details or manual setup instructions see
-[`INSTALL.md`](INSTALL.md).
+For more nitty‑gritty steps check out [`INSTALL.md`](INSTALL.md).
 
 ## Running the bots
 
-Each bot is completely independent. As long as `config/setup.env` is populated
-with your credentials you can launch any bot directly or via the setup script:
+Once `config/setup.env` is filled in you can unleash any bot directly or through
+the setup script:
 
 ```bash
-python grimm_bot.py   # uses ! commands
-python bloom_bot.py   # uses * commands
-python curse_bot.py   # uses ! commands
-python goon_bot.py    # loads all personalities with both prefixes
-python install.py     # optional installer with launch option
+python grimm_bot.py   # the cranky one
+python bloom_bot.py   # the bubbly one
+python curse_bot.py   # obviously the best one
+python goon_bot.py    # load us all at once
+python install.py     # reconfigure on the fly
 ```
 
-GrimmBot optionally reports its status to a Socket.IO dashboard if
-`SOCKET_SERVER_URL` is defined in `config/setup.env`.
+GrimmBot can broadcast status to a Socket.IO dashboard if you define
+`SOCKET_SERVER_URL` inside `config/setup.env`.
 
 ## Command reference
+
+Here's a taste of what each bot can do.
 
 ### GrimmBot
 - `!protectbloom` – defend Bloom from imaginary threats.
@@ -147,19 +136,18 @@ Commands use the `*` prefix:
 - `cyberstatus` – view your campaign record.
 - `cyberchat <prompt>` – talk to the campaign's narrator and characters via ChatGPT.
 
-For a full list of cogs and their purpose see [`docs/cogs_overview.md`](docs/cogs_overview.md).
+For every cog in detail check [`docs/cogs_overview.md`](docs/cogs_overview.md).
 
 ## Developing your own bots
 
-For a modular approach similar to the Red Discord Bot, check out
-`goon_bot.py`. It now scans the `cogs/` directory on startup and loads every
-extension it finds. You can enable or disable cogs at runtime with the Admin
-commands (`load`, `unload`, `reload`, and `listcogs`).
+Feeling creative? Peek at `goon_bot.py` for a modular design. It scans
+`cogs/` at startup and you can load or unload them on the fly with the Admin
+commands (`load`, `unload`, `reload`, `listcogs`).
 
 
 ## Example server layout
 
-These bots were designed with the following Discord server structure in mind.
+If you want to mimic our usual haunt, set up your server roughly like this.
 
 ### Roles
 - Server booster
@@ -173,5 +161,5 @@ These bots were designed with the following Discord server structure in mind.
 - **Yapping**: `yapper's anonymous` (voice)
 - **Royalty**: `#me-n-bea`, `the-baby-yap` (voice)
 
-An `AnnouncementCog` periodically posts reminders in `#gooning` and provides a
-`serverinfo` command that lists this layout in chat.
+An `AnnouncementCog` can shout reminders in `#gooning` and the `serverinfo`
+command lists this layout in chat.
