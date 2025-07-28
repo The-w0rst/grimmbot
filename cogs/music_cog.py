@@ -1,12 +1,14 @@
+
 import discord
 from discord.ext import commands
 import yt_dlp
 import requests
 from bs4 import BeautifulSoup
+COG_VERSION = "1.1"
 
 
 class MusicCog(commands.Cog):
-    """Basic music playback commands."""
+    """Basic music playback commands. Version 1.1."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

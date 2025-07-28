@@ -1,8 +1,10 @@
+
 import os
 import openai
 from discord.ext import commands
 from dotenv import load_dotenv
 from pathlib import Path
+COG_VERSION = "1.1"
 
 ENV_PATH = Path(__file__).resolve().parents[1] / "config" / "setup.env"
 load_dotenv(ENV_PATH)
@@ -17,7 +19,7 @@ SYSTEM_MESSAGES = {
 
 
 class GPTCog(commands.Cog):
-    """Cog that adds a ChatGPT-based chat command and mention replies."""
+    """Cog that adds a ChatGPT-based chat command and mention replies. Version 1.1."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
