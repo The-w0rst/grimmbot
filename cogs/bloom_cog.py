@@ -158,6 +158,28 @@ class BloomCog(commands.Cog):
         ]
         await ctx.send(random.choice(compliments))
 
+    @commands.command()
+    async def dance(self, ctx):
+        """Start a random dance party."""
+        moves = ["Cha-cha-cha!", "Time to boogie!", "Let's breakdance!"]
+        await ctx.send(random.choice(moves) + " 💃")
+
+    @commands.command()
+    async def sunshine(self, ctx):
+        """Shower the chat with sunshine."""
+        quotes = [
+            "Sunshine, lollipops, and rainbows!",
+            "You're my little ray of light!",
+            "Let's chase the clouds away!",
+        ]
+        await ctx.send(random.choice(quotes))
+
+    @commands.command()
+    async def flower(self, ctx):
+        """Share a virtual flower."""
+        flowers = ["🌸", "🌺", "🌷", "🌻", "💮"]
+        await ctx.send(random.choice(flowers) + " for you!")
+
 
 async def setup(bot: commands.Bot):
     """Load the cog."""

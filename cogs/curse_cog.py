@@ -118,6 +118,22 @@ class CurseCog(commands.Cog):
         self.cursed_user_name = ctx.author.display_name
         await ctx.send(f"😾 Fine. {ctx.author.display_name} is now cursed.")
 
+    @commands.command()
+    async def hairball(self, ctx):
+        """Share a lovely hairball."""
+        await ctx.send("*coughs up a hairball on your shoes*")
+
+    @commands.command()
+    async def pounce(self, ctx, member: discord.Member | None = None):
+        """Pounce on someone."""
+        member = member or ctx.author
+        await ctx.send(f"*pounces on {member.display_name} unexpectedly*")
+
+    @commands.command()
+    async def nap(self, ctx):
+        """Announce that Curse is taking a nap."""
+        await ctx.send("😼 Curling up for a nap. Don't bother me.")
+
 
 async def setup(bot: commands.Bot):
     """Load the cog."""

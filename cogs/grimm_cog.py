@@ -126,6 +126,24 @@ class GrimmCog(commands.Cog):
         await ctx.send("You want a bone? I'm using all of mine.")
 
     @commands.command()
+    async def doom(self, ctx):
+        """Announce an ominous countdown to doom."""
+        hours = random.randint(1, 24)
+        await ctx.send(f"Doom arrives in {hours} hours. Or not. We'll see.")
+
+    @commands.command()
+    async def guard(self, ctx, member: discord.Member | None = None):
+        """Grimm stands guard for the specified member."""
+        member = member or ctx.author
+        await ctx.send(f"Standing guard for {member.display_name}. Nothing gets past me.")
+
+    @commands.command()
+    async def haunt(self, ctx, member: discord.Member | None = None):
+        """Playfully haunt a user."""
+        member = member or ctx.author
+        await ctx.send(f"*haunts {member.display_name} for fun*")
+
+    @commands.command()
     async def shield(self, ctx, member: discord.Member = None):
         member = member or ctx.author
         shields = [
