@@ -256,6 +256,34 @@ async def scratch(ctx, member: discord.Member = None):
 
 
 @bot.command()
+async def pet(ctx):
+    """Attempt to pet Curse."""
+    global cursed_user_id, cursed_user_name
+    if random.random() < 0.5:
+        await ctx.send("😼 *purrs softly* Maybe I'll spare you... for now.")
+    else:
+        await ctx.send(
+            f"*scratches {ctx.author.display_name} and hisses.* You're cursed now!"
+        )
+        cursed_user_id = ctx.author.id
+        cursed_user_name = ctx.author.display_name
+        try:
+            await ctx.author.edit(nick=f"Cursed {ctx.author.display_name}")
+        except discord.Forbidden:
+            pass
+        guild = ctx.guild
+        role = discord.utils.get(guild.roles, name="Cursed")
+        if role is None:
+            role = await guild.create_role(
+                name="Cursed", colour=discord.Colour.purple()
+            )
+        try:
+            await ctx.author.add_roles(role)
+        except discord.Forbidden:
+            pass
+
+
+@bot.command()
 async def curse_me(ctx):
     global cursed_user_id, cursed_user_name
     cursed_user_id = ctx.author.id

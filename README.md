@@ -100,6 +100,7 @@ Commands use the `*` prefix:
 - `!insult` – deliver an insult.
 - `!hiss` – hiss at the server.
 - `!scratch [@user]` – scratch someone just because.
+- `!pet` – attempt to pet Curse (may end badly).
 - `!curse_me` – willingly take the curse.
 
 ### Additional cogs
