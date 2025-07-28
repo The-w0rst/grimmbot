@@ -31,23 +31,31 @@ This mirrors the modular approach used by Red Discord Bot.
 The `main` branch contains the latest working bots. New ideas or additional
 robots can be developed on their own branches and merged back once stable.
 
-## Quick setup
+## Installation
 
-1. Install Python 3.8 or newer.
-2. Run the interactive installer which guides you through installing
-   dependencies and creating `config/setup.env`:
+Follow these steps to get a bot running.
+
+1. Install **Python 3.8** or newer.
+2. Clone this repository and change into the project directory.
+3. Run the interactive installer to set up dependencies and create
+   `config/setup.env`:
 
    ```bash
    python install.py
    ```
 
-   The installer walks you through each required value. You can rerun it at
-   any time to update the configuration. Set `OPENAI_API_KEY` if you want
-   ChatGPT powered features. See
+   The script prompts for your Discord tokens and optional API keys
+   (set `OPENAI_API_KEY` to enable ChatGPT features). You can rerun the
+   installer any time to update the configuration. See
+   [`config/README.md`](config/README.md) for a line-by-line explanation.
+4. Launch a bot of your choice:
 
-   [`config/README.md`](config/README.md) provides a line-by-line explanation.
+   ```bash
+   python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
+   ```
 
-For a step-by-step installation guide see [`INSTALL.md`](INSTALL.md).
+For additional details or manual setup instructions see
+[`INSTALL.md`](INSTALL.md).
 
 ## Running the bots
 
