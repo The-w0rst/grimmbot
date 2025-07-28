@@ -107,8 +107,9 @@ class BloomCog(commands.Cog):
     async def grimm(self, ctx):
         await ctx.send("He’s my favorite spooky grump. Show him some love!")
 
-    @commands.command()
+    @commands.command(name="curse_cat")
     async def curse(self, ctx):
+        """Talk about Curse without conflicting command names."""
         await ctx.send("Our chaos cat. Good luck surviving his teasing.")
 
     @commands.command()
