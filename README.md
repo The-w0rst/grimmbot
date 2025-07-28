@@ -122,6 +122,7 @@ Commands use the `*` prefix:
 - `8ball <question>` – consult the magic 8-ball.
 - `coinflip` – flip a coin.
 - `quote` – receive a random motivational quote.
+- `jojo` – shower Emma ("JoJo is bizarre") with affection.
 
 ## Developing your own bots
 
