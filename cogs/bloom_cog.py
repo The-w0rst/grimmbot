@@ -35,6 +35,7 @@ class BloomCog(commands.Cog):
             "Pastel power incoming!",
             "Compliment break! You're awesome!",
             "Who needs sleep when we have each other?",
+            "Hehe, I might be a ten in Drake's book, but I'll be TEN on my birthday!!! 🎂✨",
         ]
         self.keywords = {
             "grimm": [
