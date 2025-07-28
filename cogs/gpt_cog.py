@@ -13,6 +13,7 @@ SYSTEM_MESSAGES = {
     "Curse": "You are Curse, a mischievous cat. Respond with playful snark and cat-like behavior.",
 }
 
+
 class GPTCog(commands.Cog):
     """Cog that adds a ChatGPT-based chat command and mention replies."""
 
@@ -55,6 +56,7 @@ class GPTCog(commands.Cog):
             return
         reply = await self._chatgpt(prompt)
         await message.channel.send(reply)
+
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(GPTCog(bot))

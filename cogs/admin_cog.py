@@ -1,5 +1,6 @@
 from discord.ext import commands
 
+
 class AdminCog(commands.Cog):
     """Administration utilities for managing cogs."""
 
@@ -44,6 +45,7 @@ class AdminCog(commands.Cog):
     async def list_cogs(self, ctx):
         """List loaded cogs."""
         await ctx.send("Cogs loaded: " + ", ".join(self.bot.extensions.keys()))
+
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(AdminCog(bot))

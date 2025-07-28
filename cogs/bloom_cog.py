@@ -9,6 +9,7 @@ BLOOM_API_KEY_1 = os.getenv("BLOOM_API_KEY_1")
 BLOOM_API_KEY_2 = os.getenv("BLOOM_API_KEY_2")
 BLOOM_API_KEY_3 = os.getenv("BLOOM_API_KEY_3")
 
+
 class BloomCog(commands.Cog):
     """BloomBot personality packaged as a Cog."""
 
@@ -219,7 +220,8 @@ class BloomCog(commands.Cog):
 
     @commands.command()
     async def mood(self, ctx):
-        moods = ["Hyper!", "Bouncy!", "Sparkly!", "Soft & sunny!", "Chaotic Good."]
+        moods = ["Hyper!", "Bouncy!", "Sparkly!",
+                 "Soft & sunny!", "Chaotic Good."]
         await ctx.send(f"Bloom’s mood: {random.choice(moods)}")
 
     @commands.command()
@@ -279,4 +281,3 @@ class BloomCog(commands.Cog):
 async def setup(bot: commands.Bot):
     """Load the cog."""
     await bot.add_cog(BloomCog(bot))
-

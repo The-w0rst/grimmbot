@@ -45,6 +45,7 @@ def send_status(status, message):
     except Exception as e:
         print(f"SocketIO error: {e}")
 
+
 # === GRIMM PERSONALITY ===
 grimm_traits = [
     "sarcastic", "protective", "goon", "grim reaper", "loyal", "dry humor",
@@ -98,12 +99,17 @@ intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 # === ON READY ===
+
+
 @bot.event
 async def on_ready():
     print("Grimm has arrived. Watch your step, goons.")
-    send_status("online", "On patrol. Nobody dies on my watch (except for Mondays).")
+    send_status(
+        "online", "On patrol. Nobody dies on my watch (except for Mondays).")
 
 # === MODERATION: PROTECT BLOOM (JOKINGLY) ===
+
+
 @bot.command()
 async def protectbloom(ctx):
     """Grimm stands guard for Bloom."""
@@ -116,6 +122,8 @@ async def protectbloom(ctx):
     send_status("active", "Protected Bloom.")
 
 # === ROAST (GOON STYLE) ===
+
+
 @bot.command()
 async def roast(ctx, member: discord.Member = None):
     member = member or ctx.author
@@ -128,6 +136,8 @@ async def roast(ctx, member: discord.Member = None):
     send_status("active", f"Roasted {member.display_name}")
 
 # === SARCASTIC RESPONSES ===
+
+
 @bot.command()
 async def goon(ctx):
     responses = [
@@ -139,6 +149,8 @@ async def goon(ctx):
     send_status("active", "Issued goon decree.")
 
 # === OMINOUS RESPONSES ===
+
+
 @bot.command()
 async def ominous(ctx):
     responses = [
@@ -150,6 +162,8 @@ async def ominous(ctx):
     send_status("active", "Dropped an ominous hint.")
 
 # === GRIMM LOVES BLOOM (BUT WON'T ADMIT IT) ===
+
+
 @bot.command()
 async def bloom(ctx):
     responses = [
@@ -161,6 +175,8 @@ async def bloom(ctx):
     send_status("active", "Talked about Bloom.")
 
 # === PLAYFUL RIVALRY WITH CURSE ===
+
+
 @bot.command()
 async def curse(ctx):
     responses = [
@@ -172,13 +188,17 @@ async def curse(ctx):
     send_status("active", "Mocked Curse.")
 
 # === FUNNY EMOTES ===
+
+
 @bot.command()
 async def scythe(ctx):
     await ctx.send("⚰️ *Swings the scythe dramatically, but misses on purpose.*")
 
+
 @bot.command()
 async def shadow(ctx):
     await ctx.send("*You feel a cold chill. Grimm winks.*")
+
 
 @bot.command()
 async def flip(ctx, member: discord.Member = None):
@@ -187,15 +207,20 @@ async def flip(ctx, member: discord.Member = None):
     send_status("active", f"Flipped off {member.display_name}")
 
 # === BROODING & BONES ===
+
+
 @bot.command()
 async def brood(ctx):
     await ctx.send("*broods quietly in a dark corner*")
+
 
 @bot.command()
 async def bone(ctx):
     await ctx.send("You want a bone? I'm using all of mine.")
 
 # === RANDOM PROTECTIVE RESPONSES ===
+
+
 @bot.command()
 async def shield(ctx, member: discord.Member = None):
     member = member or ctx.author
@@ -208,6 +233,8 @@ async def shield(ctx, member: discord.Member = None):
     send_status("active", f"Shielded {member.display_name}")
 
 # === KEYWORD TRIGGERS FOR BOT INTERACTION ===
+
+
 @bot.event
 async def on_message(message):
     if message.author == bot.user or message.author.bot:

@@ -10,6 +10,8 @@ load_dotenv("config/setup.env")
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 
 # Allow both '!' and '*' prefixes like the individual bots
+
+
 async def get_prefix(bot, message):
     prefixes = ['!', '*']
     return commands.when_mentioned_or(*prefixes)(bot, message)
@@ -18,9 +20,11 @@ intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix=get_prefix, intents=intents)
 
+
 @bot.event
 async def on_ready():
     print("Goon Bot online with cogs loaded.")
+
 
 async def load_startup_cogs():
     for file in glob.glob("cogs/*_cog.py"):

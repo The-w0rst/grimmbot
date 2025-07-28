@@ -21,6 +21,7 @@ try:
 except Exception as e:
     print(f"Failed to connect to Socket.IO dashboard: {e}")
 
+
 def send_status(status, message):
     try:
         sio.emit("bot_status", {
@@ -30,6 +31,7 @@ def send_status(status, message):
         })
     except Exception as e:
         print(f"SocketIO error: {e}")
+
 
 # === BLOOM PERSONALITY ===
 bloom_traits = [
@@ -45,12 +47,16 @@ intents.message_content = True
 bot = commands.Bot(command_prefix="*", intents=intents)
 
 # === ON READY ===
+
+
 @bot.event
 async def on_ready():
     print("Bloom has entered the server and is ready to brighten your day! 🌼")
     send_status("online", "Blooming and ready to hug everyone!")
 
 # === BLOOM CHAT (OpenAI Integration) ===
+
+
 @bot.command()
 async def chat(ctx, *, prompt: str):
     """Chat with Bloom!"""
@@ -71,10 +77,11 @@ async def chat(ctx, *, prompt: str):
         )
         reply = response.choices[0].message.content.strip()
         await ctx.send(reply)
-    except Exception as e:
+    except Exception:
         await ctx.send("Oops! My flower got tangled. I can't chat right now.")
 
 # === CUTESY, PLAYFUL, FUN COMMANDS ===
+
 
 @bot.command()
 async def hug(ctx, member: discord.Member = None):
@@ -88,6 +95,7 @@ async def hug(ctx, member: discord.Member = None):
     await ctx.send(random.choice(hugs))
     send_status("active", f"Hugged {member.display_name}")
 
+
 @bot.command()
 async def sing(ctx):
     """Bloom sings for you!"""
@@ -99,6 +107,7 @@ async def sing(ctx):
     await ctx.send(random.choice(tunes))
     send_status("active", "Sang a song!")
 
+
 @bot.command()
 async def energy(ctx):
     """Bloom boosts your energy!"""
@@ -109,6 +118,7 @@ async def energy(ctx):
     ]
     await ctx.send(random.choice(boosts))
     send_status("active", "Gave an energy boost!")
+
 
 @bot.command()
 async def compliment(ctx, member: discord.Member = None):
@@ -124,15 +134,18 @@ async def compliment(ctx, member: discord.Member = None):
 
 # === FUN EMOTES ===
 
+
 @bot.command()
 async def flower(ctx):
     """Bloom drops a flower!"""
     await ctx.send("🌸🌼🌸 *Bloom drops a handful of magical flowers!*")
 
+
 @bot.command()
 async def lovegrimm(ctx):
     await ctx.send("Grimm is the best! 🖤🌼 (Don’t tell him I said that...)")
     send_status("active", "Mentioned Grimm lovingly.")
+
 
 @bot.command()
 async def annoycurse(ctx):
@@ -140,6 +153,7 @@ async def annoycurse(ctx):
     send_status("active", "Annoyed Curse.")
 
 # === KEYWORD INTERACTIONS WITH OTHER BOTS ===
+
 
 @bot.event
 async def on_message(message):

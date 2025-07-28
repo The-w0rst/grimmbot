@@ -39,7 +39,8 @@ class GrimmCog(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print("Grimm cog loaded.")
-        send_status("online", "On patrol. Nobody dies on my watch (except Mondays).")
+        send_status(
+            "online", "On patrol. Nobody dies on my watch (except Mondays).")
 
     @commands.command()
     async def protectbloom(self, ctx):
