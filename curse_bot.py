@@ -292,4 +292,6 @@ async def curse_me(ctx):
     cursed_user_name = ctx.author.display_name
     await ctx.send(f"😾 Fine. {ctx.author.display_name} is now cursed.")
 
+if not DISCORD_TOKEN:
+    raise RuntimeError("CURSE_DISCORD_TOKEN not set in config/setup.env")
 bot.run(DISCORD_TOKEN)

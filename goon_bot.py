@@ -39,4 +39,6 @@ async def load_startup_cogs():
 
 asyncio.run(load_startup_cogs())
 
+if not DISCORD_TOKEN:
+    raise RuntimeError("DISCORD_TOKEN not set in config/setup.env")
 bot.run(DISCORD_TOKEN)

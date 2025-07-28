@@ -336,4 +336,6 @@ async def on_message(message):
     await bot.process_commands(message)
 
 # === RUN THE BOT ===
+if not DISCORD_TOKEN:
+    raise RuntimeError("GRIMM_DISCORD_TOKEN not set in config/setup.env")
 bot.run(DISCORD_TOKEN)
