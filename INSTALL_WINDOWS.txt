@@ -1,0 +1,62 @@
+Goon Squad Bots - Windows Installation Guide
+===========================================
+
+This guide walks through installing and launching the bots on Windows using a
+terminal (Command Prompt, PowerShell or Git Bash). Each step notes which
+folders you will modify.
+
+1. **Install Python**
+   - Download and install Python 3.8 or newer from <https://www.python.org>. Make
+     sure to check "Add Python to PATH" during installation.
+
+2. **Clone or download the repository**
+   - Open a terminal and run:
+     ```cmd
+     git clone <repo-url>
+     cd grimmbot
+     ```
+     Replace `<repo-url>` with the URL of this repository. All other steps assume
+     you are inside this `grimmbot` folder.
+
+3. **Install Python packages** (requirements folder)
+   - Run:
+     ```cmd
+     py -3 -m pip install -r requirements\base.txt
+     ```
+     This installs `discord.py`, `python-dotenv`, and the other required
+     libraries. The `requirements` directory also contains `extra-dev.txt` for
+     development tools (optional).
+
+4. **Create the configuration file** (config folder)
+   - Copy the provided template:
+     ```cmd
+     copy config\env_template.env config\setup.env
+     ```
+   - Open `config\setup.env` in a text editor and fill in your Discord tokens and
+     any API keys. These values are used by all bots. Do not commit this file to
+     version control.
+
+5. **Optional: Add local media** (localtracks folder)
+   - Place any music or sound files you want the bots to play into the
+     `localtracks` directory. The `media_player.py` helper can load files from
+     here when responding to music commands.
+
+6. **Running the bots**
+   - From the repository root, start a bot with one of the following commands:
+     ```cmd
+     py -3 grimm_bot.py   # uses ! commands
+     py -3 bloom_bot.py   # uses * commands
+     py -3 curse_bot.py   # uses ! commands
+     py -3 goon_bot.py    # unified bot loading all cogs
+     ```
+   - Each bot reads from `config\setup.env` and loads extensions from the `cogs`
+     directory.
+
+7. **Customizing cogs** (cogs folder)
+   - The `cogs` folder contains modules such as `grimm_cog.py`, `bloom_cog.py`,
+     and `music_cog.py`. Modify or add files here to extend the bots. Reload a
+     cog at runtime using the Admin commands if you run `goon_bot.py`.
+
+That's it! After completing these steps you can run any of the bots directly
+from your Windows terminal. Make sure `config\setup.env` is populated with the
+required tokens before launching.
