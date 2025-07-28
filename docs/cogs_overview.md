@@ -19,6 +19,7 @@ what mischief it adds. All cogs are currently **v1.3**.
 | `jojo_cog.py` | Sends loving messages to a user named "JoJo is bizarre". |
 | `cyberpunk_campaign_cog.py` | Lightweight cyberpunk themed DnD campaign using ChatGPT. |
 | `help_cog.py` | Provides `help` commands for each bot and a `helpall` summary. |
+| `goon_cog.py` | The whole squad chiming in together. |
 
 All cogs declare a `COG_VERSION` constant for easy tracking of updates. Load them one by one with `goon_bot.py` or the Admin commands.
 Happy gooning, - Curse
