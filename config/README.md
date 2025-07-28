@@ -19,3 +19,6 @@ credentials and avoids duplicating values across multiple files.
 3. Save the file. When you run any bot it automatically loads these values.
 
 Do **not** commit `setup.env` to version control. It should remain private.
+
+Refer to [`../INSTALL.txt`](../INSTALL.txt) for instructions on installing the
+required Python packages.
