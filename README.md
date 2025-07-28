@@ -66,6 +66,11 @@ Prefer manual control? Follow these steps in your terminal:
 
 For more nitty‑gritty steps check out [`INSTALL.md`](INSTALL.md).
 
+The music commands require **FFmpeg** to be installed and available in your
+`PATH`. If you want BloomBot to sing along to EPIC: The Musical, place lyric
+files under `localtracks/epic_lyrics/`. See [`docs/music_setup.md`](docs/music_setup.md)
+for details.
+
 ## Running the bots
 
 Once `config/setup.env` is filled in you can unleash any bot directly or through

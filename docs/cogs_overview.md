@@ -22,4 +22,5 @@ what mischief it adds. All cogs are currently **v1.3**.
 | `goon_cog.py` | The whole squad chiming in together. |
 
 All cogs declare a `COG_VERSION` constant for easy tracking of updates. Load them one by one with `goon_bot.py` or the Admin commands.
+For music playback details see [`music_setup.md`](music_setup.md).
 Happy gooning, - Curse
