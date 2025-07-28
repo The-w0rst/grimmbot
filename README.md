@@ -18,7 +18,8 @@ Here's what you'll find lurking in the repo:
 - `config/setup.env` – one file to hold all the secret tokens.
 - `requirements/base.txt` – packages the installer grabs.
 - `bootstrap.sh` – one-liner to clone and run the setup.
-- `install.py` – interactive installer for dependencies and config.
+- `install.py` – interactive installer for dependencies and config. Curse
+  chats with you line by line to gather each token.
 - `setup.sh` – optional helper for dependencies.
 - `cogs/` – trivia, moderation, music, and other little toys.
 - `media_player.py` – handles local tracks and links.
@@ -48,14 +49,14 @@ Prefer manual control? Follow these steps in your terminal:
    ```bash
    python -m pip install -r requirements/base.txt
    ```
-4. Run the installer to create `config/setup.env` and enter all your tokens and keys:
+4. Run the installer to create `config/setup.env`. Curse will ask for each token one by one:
 
    ```bash
    python install.py
    ```
-   Follow the prompts to install requirements and fill in each token from
-   `config/env_template.env`. Use `python configure.py` later if you need to
-   update the file.
+    Follow the playful prompts to install requirements and fill in each token from
+    `config/env_template.env`. Use `python configure.py` later if you need to
+    update the file.
 5. Start any bot you want:
 
    ```bash

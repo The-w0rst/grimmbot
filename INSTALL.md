@@ -10,7 +10,7 @@ Windows, macOS, or Linux—take your pick.
    bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)
    ```
    It clones the repo, installs dependencies, and starts the installer. On Windows run `py -3 install.py` after cloning instead.
-3. Enter your Discord tokens and API keys when prompted. They are saved to `config/setup.env`.
+3. Run the installer and hand over your Discord tokens and API keys when Curse asks. They are saved to `config/setup.env`.
 4. Start a bot of your choice:
    ```bash
    python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
@@ -35,7 +35,7 @@ Prefer to get your paws dirty?
    ```
    On Windows use `copy` instead of `cp`. Fill in your Discord tokens and API
    keys.
-4. Run `python install.py` to walk through the prompts.
+4. Run `python install.py` and follow Curse's friendly prompts.
    The installer guides you through four steps:
    1. **Python check** – verifies you're running Python 3.10 or newer.
    2. **Dependencies** – when asked `Install dependencies now? [Y/n]` press
