@@ -261,12 +261,84 @@ epic_songs = {
     ],
 }
 
-# Optional lyrics for EPIC songs. Add actual lyrics if you have permission.
-# Each song maps to a list of lines that can be sung.
-epic_lyrics: dict[str, list[str]] = {
-    "The Horse and the Infant": ["[Lyric line 1]", "[Lyric line 2]"],
-    # Add more songs here
-}
+# Optional lyrics for EPIC songs. This dictionary can be filled with full
+# lyrics if you have permission to use them. Each song maps to a list of
+# lines that can be sung.  By default it is left empty so you can provide
+# your own files in ``localtracks/epic_lyrics``.
+epic_lyrics: dict[str, list[str]] = {}
+
+# Directory containing optional lyric text files.  Each file should be named
+# after the song, lowercase with spaces replaced by underscores and a
+# ``.txt`` extension, e.g. ``the_horse_and_the_infant.txt``.  Lines in the
+# file are sent one by one when singing.
+EPIC_LYRICS_DIR = Path(__file__).resolve().parent / "localtracks" / "epic_lyrics"
+EPIC_LYRICS_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def load_epic_lyrics(song: str) -> list[str]:
+    """Return lyric lines for ``song`` loaded from ``EPIC_LYRICS_DIR``."""
+    slug = song.lower().replace(" ", "_")
+    path = EPIC_LYRICS_DIR / f"{slug}.txt"
+    if not path.exists():
+        return []
+    with path.open(encoding="utf-8") as f:
+        return [line.strip() for line in f if line.strip()]
+
+
+async def perform_drama(bot: commands.Bot, ctx: commands.Context, song: str | None = None):
+    """Interactive EPIC sing-along helper."""
+    all_songs = [s for songs in epic_songs.values() for s in songs]
+
+    if song and song.lower() == "list":
+        msg_lines = ["**Available EPIC songs:**"]
+        for saga, songs in epic_songs.items():
+            msg_lines.append(f"__{saga}__")
+            msg_lines.extend(f"- {title}" for title in songs)
+        await ctx.send("\n".join(msg_lines))
+        return
+
+    chosen = None
+    if song:
+        for s in all_songs:
+            if s.lower() == song.lower():
+                chosen = s
+                break
+        if not chosen:
+            await ctx.send("Song not found. Use `*drama list` to see options.")
+            return
+    else:
+        chosen = random.choice(all_songs)
+
+    await ctx.send(f"🎭 **EPIC: The Musical** – let's sing **{chosen}**!")
+
+    lyrics = epic_lyrics.get(chosen) or load_epic_lyrics(chosen)
+    if not lyrics:
+        await ctx.send(
+            "(Lyrics missing – add them in `localtracks/epic_lyrics` to sing along!)"
+        )
+        return
+
+    await ctx.send("Type `full` for the entire song or `snippet` for a short excerpt.")
+
+    def check(m: discord.Message) -> bool:
+        return m.author == ctx.author and m.channel == ctx.channel
+
+    try:
+        reply = await bot.wait_for("message", timeout=15, check=check)
+        choice = reply.content.lower().strip()
+    except asyncio.TimeoutError:
+        choice = "snippet"
+
+    if choice.startswith("full"):
+        lines_to_send = lyrics
+    else:
+        count = max(1, min(len(lyrics), random.randint(4, 8)))
+        start = random.randint(0, max(0, len(lyrics) - count))
+        lines_to_send = lyrics[start:start + count]
+
+    for line in lines_to_send:
+        await ctx.send(line)
+        await asyncio.sleep(1)
 
 # Lines from Bloom's favorite song "Pretty Little Baby" by Connie Francis
 pretty_little_baby_lines = [
@@ -426,20 +498,9 @@ async def sparkle(ctx):
 
 
 @bot.command()
-async def drama(ctx):
-    """Sing a random snippet from EPIC: The Musical."""
-    # Gather all song titles
-    all_songs = [song for songs in epic_songs.values() for song in songs]
-    song = random.choice(all_songs)
-    await ctx.send(f"🎭 **EPIC: The Musical** – let's sing **{song}**!")
-    lyrics = epic_lyrics.get(song)
-    if not lyrics:
-        await ctx.send("(Lyrics missing – add them in epic_lyrics to sing along!)")
-        return
-    line_count = random.randint(1, len(lyrics))
-    for line in lyrics[:line_count]:
-        await ctx.send(line)
-        await asyncio.sleep(1)
+async def drama(ctx, *, song: str | None = None):
+    """Interactive EPIC song performance."""
+    await perform_drama(bot, ctx, song)
 
 
 @bot.command()
