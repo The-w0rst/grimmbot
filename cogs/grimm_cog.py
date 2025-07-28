@@ -33,6 +33,7 @@ class GrimmCog(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+        self.user_interactions = {}
         self.gifts = [
             {"name": "a polished bone charm", "positive": True},
             {"name": "a dusty old cloak", "positive": False},
@@ -44,6 +45,46 @@ class GrimmCog(commands.Cog):
             {"name": "a batch of burnt cookies from Bloom", "positive": False},
             {"name": "a heavy tome of doom", "positive": False},
             {"name": "a friendly pat on the back", "positive": True},
+            {"name": "a vial of shadow essence", "positive": False},
+            {"name": "a weathered grave map", "positive": False},
+            {"name": "a chilled bottle of ectoplasm", "positive": True},
+            {"name": "a shard of night crystal", "positive": False},
+            {"name": "a carved bone whistle", "positive": True},
+            {"name": "a jar of fake cobwebs", "positive": False},
+            {"name": "a rusted lock and key", "positive": False},
+            {"name": "a midnight raven feather", "positive": True},
+            {"name": "a set of polished teeth", "positive": False},
+            {"name": "a cursed coin", "positive": False},
+            {"name": "a skeletal hand bookmark", "positive": True},
+            {"name": "a gloomcore mixtape", "positive": True},
+            {"name": "a wilted black rose", "positive": False},
+            {"name": "a phantasmal charm bracelet", "positive": True},
+            {"name": "a spider silk pouch", "positive": False},
+            {"name": "a pair of cracked goggles", "positive": False},
+            {"name": "a cryptic warning note", "positive": False},
+            {"name": "a gloom-themed sticker pack", "positive": True},
+            {"name": "a chipped obsidian ring", "positive": True},
+            {"name": "a haunted mirror fragment", "positive": False},
+            {"name": "a pocket-sized skull", "positive": True},
+            {"name": "a dusty rattle", "positive": False},
+            {"name": "a frayed reaper cloak scrap", "positive": False},
+            {"name": "a bone-carved dice set", "positive": True},
+            {"name": "a gloom-forged brooch", "positive": True},
+            {"name": "a jar of spectral fog", "positive": False},
+            {"name": "a tattered wanted poster", "positive": False},
+            {"name": "a protective rune stone", "positive": True},
+            {"name": "a pair of ominous candles", "positive": False},
+            {"name": "a small coffin-shaped box", "positive": True},
+            {"name": "a reaper emblem patch", "positive": True},
+            {"name": "a cracked hourglass", "positive": False},
+            {"name": "a ghostly lullaby sheet", "positive": True},
+            {"name": "a gloom-infused quill", "positive": True},
+            {"name": "a bottle of midnight oil", "positive": False},
+            {"name": "a faintly glowing skull ring", "positive": True},
+            {"name": "a pack of doom-themed cards", "positive": True},
+            {"name": "a haunting melody box", "positive": True},
+            {"name": "a rusty chain link", "positive": False},
+            {"name": "a gloom-ward amulet", "positive": True},
         ]
         self.positive_gift_responses = [
             "Grimm grumbles but offers {gift}.",
@@ -67,18 +108,41 @@ class GrimmCog(commands.Cog):
         if not members:
             return
         recipient = random.choice(members)
-        gift = random.choice(self.gifts)
+        interactions = self.user_interactions.get(recipient.id, 0)
+        positive = interactions >= 5
+        choices = [g for g in self.gifts if g["positive"] == positive]
+        gift = random.choice(choices)
         channel = (
             discord.utils.get(guild.text_channels, name="general")
             or guild.text_channels[0]
         )
-        if gift["positive"]:
+        if positive:
             line = random.choice(self.positive_gift_responses)
+            await self.apply_positive_effect(recipient)
         else:
             line = random.choice(self.negative_gift_responses)
+            await self.apply_negative_effect(recipient)
         await channel.send(
             f"🎁 {recipient.display_name}, " + line.format(gift=gift["name"])
         )
+
+    async def apply_positive_effect(self, member: discord.Member):
+        guild = member.guild
+        role = discord.utils.get(guild.roles, name="Grimm's Shield")
+        if role is None:
+            role = await guild.create_role(name="Grimm's Shield", colour=discord.Colour.dark_gray())
+        try:
+            await member.add_roles(role)
+        except discord.Forbidden:
+            pass
+
+    async def apply_negative_effect(self, member: discord.Member):
+        role = discord.utils.get(member.guild.roles, name="Grimm's Shield")
+        if role:
+            try:
+                await member.remove_roles(role)
+            except discord.Forbidden:
+                pass
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -223,6 +287,9 @@ class GrimmCog(commands.Cog):
     async def on_message(self, message):
         if message.author == self.bot.user or message.author.bot:
             return
+        self.user_interactions[message.author.id] = (
+            self.user_interactions.get(message.author.id, 0) + 1
+        )
         lowered = message.content.lower()
         keywords = {
             "bloom": [

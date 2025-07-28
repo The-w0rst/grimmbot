@@ -130,6 +130,13 @@ Commands use the `*` prefix:
 - `?pounce [@user]` – pounce on someone unexpectedly.
 - `?nap` – announce that Curse is taking a nap.
 
+### Gifts and curse protection
+Interacting with Grimm (`!` commands) or Bloom (`*` commands) now builds up
+favor. Users who chat with them frequently receive positive gifts once per day
+and are granted a special role – **Grimm's Shield** or **Bloom's Blessing** –
+that stops Curse from selecting them when he chooses a daily target. Ignore the
+goons for too long and the gifts turn sour, stripping that protection.
+
 ### Additional cogs
 - `trivia` – play a quick trivia round.
 - `kick/ban` – moderation commands restricted to users with the appropriate permissions.
