@@ -120,3 +120,22 @@ For a modular approach similar to the Red Discord Bot, check out
 extension it finds. You can enable or disable cogs at runtime with the Admin
 commands (`load`, `unload`, `reload`, and `listcogs`).
 
+
+## Example server layout
+
+These bots were designed with the following Discord server structure in mind.
+
+### Roles
+- Server booster
+- Goons
+- Goonets
+- Royalty
+
+### Categories and channels
+- **Intake**: `#new-here`
+- **Gen pop**: `#non-gooning`, `#gooning`
+- **Yapping**: `yapper's anonymous` (voice)
+- **Royalty**: `#me-n-bea`, `the-baby-yap` (voice)
+
+An `AnnouncementCog` periodically posts reminders in `#gooning` and provides a
+`serverinfo` command that lists this layout in chat.
