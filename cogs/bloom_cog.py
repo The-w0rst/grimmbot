@@ -90,6 +90,20 @@ class BloomCog(commands.Cog):
         await ctx.send("*bursts into a Broadway solo* 🎙️✨")
 
     @commands.command()
+    async def karaoke(self, ctx, *, song: str | None = None):
+        """Start a mini karaoke moment."""
+        lines = [
+            "Don’t stop believin’!",
+            "Let it gooooooo!",
+            "Mamma mia, here I go again!",
+            "Just a small-town girl, living in a lonely world…",
+        ]
+        if song:
+            await ctx.send(f"🎤 Singing **{song}** together!")
+        else:
+            await ctx.send(random.choice(lines) + " 🎶")
+
+    @commands.command()
     async def grimm(self, ctx):
         await ctx.send("He’s my favorite spooky grump. Show him some love!")
 
