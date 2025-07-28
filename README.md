@@ -49,7 +49,9 @@ robots can be developed on their own branches and merged back once stable.
    - `config/goon.env`
 
    Each file defines variables named like `GRIMM_DISCORD_TOKEN` or
-   `BLOOM_API_KEY_1`. The example values show what to set.
+   `BLOOM_API_KEY_1`. The example values show what to set. A consolidated
+   template listing **all** variables is available at
+   `config/env_template.env` to make setup easier.
 
 ## Running the bots
 
