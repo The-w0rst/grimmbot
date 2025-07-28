@@ -16,7 +16,8 @@ This mirrors the modular approach used by Red Discord Bot.
 - `curse_bot.py` – CurseBot, a mischievous calico (command prefix `!`).
 - `goon_bot.py` – Unified bot that loads all personalities as cogs.
 - `config/setup.env` – Environment variables for all bots in one place.
-- `requirements.txt` – Python package requirements.
+- `requirements/base.txt` – Python package requirements used by the installer.
+- `bootstrap.sh` – One-line installer for cloning and running the setup.
 - `install.py` – Interactive installer for dependencies and config.
 - `setup.sh` – Optional helper script for installing dependencies.
 - `cogs/trivia_cog.py` – Simple trivia mini‑game.
@@ -34,7 +35,15 @@ robots can be developed on their own branches and merged back once stable.
 
 ## Installation
 
-Follow these steps to get a bot running.
+The fastest method is to run the bootstrap script directly from your
+terminal. It downloads the repository, installs dependencies and then
+launches the interactive configuration:
+
+```bash
+bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)
+```
+
+Alternatively follow the manual steps below.
 
 1. Install **Python 3.8** or newer.
 2. Clone this repository and change into the project directory.

@@ -4,17 +4,15 @@ This single document covers Windows, macOS and Linux.
 
 ## Quick setup
 1. Install Python 3.8 or newer.
-2. Clone this repository:
+2. Run the bootstrap script directly from your terminal:
    ```bash
-   git clone https://github.com/The-w0rst/grimmbot.git
-   cd grimmbot
+   bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)
    ```
-3. From a terminal, run:
-   ```bash
-   python install.py
-   ```
-   On Windows you may prefer `py -3 install.py`.
-   The installer installs dependencies and creates `config/setup.env`.
+   This clones the repository, installs dependencies and launches the
+   interactive installer. On Windows you may prefer `py -3 install.py`
+   after cloning manually.
+3. When prompted, enter your Discord tokens and any API keys. A file
+   `config/setup.env` will be created.
 4. Launch a bot:
    ```bash
    python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
