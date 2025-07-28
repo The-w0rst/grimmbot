@@ -3,24 +3,65 @@ from discord.ext import commands
 
 
 class CyberpunkCampaignCog(commands.Cog):
-    """Lightweight cyberpunk DnD campaign with dynamic difficulty."""
+    """Cyberpunk themed mini DnD campaign with simple character sheets."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.sessions: dict[int, dict[str, int]] = {}
-        self.opponents = [
-            "Grimm",  # leader skeleton
-            "Bloom",  # enthusiastic reaper
-            "Curse",  # mischievous cat
+        self.sessions: dict[int, dict[str, int | str]] = {}
+        self.opponents = {
+            "Grimm": "Grimm cracks his bony knuckles. \"Let's see what you've got.\"",
+            "Bloom": "Bloom twirls a neon scythe. \"Time for dramatic heroics!\"",
+            "Curse": "Curse hisses, tail lashing. \"I'll scratch more than your ego.\"",
+        }
+        self.scenarios = [
+            (
+                "You wander the rain-soaked alleys of **Neon Goon City**. Grimm"
+                " steps from the shadows and mutters, 'This city never sleeps.'"
+            ),
+            (
+                "Bloom bursts out of a holo-club singing, 'Adventure waits in"
+                " every corner!'"
+            ),
+            (
+                "Curse darts across a flickering sign. 'Break it and you buy it,'"
+                " the cat snarls."
+            ),
         ]
 
     @commands.command(name="cyberstart")
     async def cyber_start(self, ctx):
         """Begin or reset your campaign progress."""
-        self.sessions[ctx.author.id] = {"wins": 0, "losses": 0, "difficulty": 1}
+        self.sessions[ctx.author.id] = {
+            "wins": 0,
+            "losses": 0,
+            "difficulty": 1,
+            "class": None,
+            "background": None,
+        }
         await ctx.send(
-            "Welcome to **Neon Goon City**, a cyberpunk DnD adventure! "
-            "Use `!cyberfight` to challenge a cybernetic foe."
+            "Welcome to **Neon Goon City**, a sprawling hive of neon lights. "
+            "Use `!cybercreate <class> <background>` to craft your hero and "
+            "`!cyberfight` to challenge a foe."
+        )
+
+    @commands.command(name="cybercreate")
+    async def cyber_create(self, ctx, char_class: str, *, background: str = ""):
+        """Create or update your character sheet."""
+        session = self.sessions.setdefault(
+            ctx.author.id,
+            {
+                "wins": 0,
+                "losses": 0,
+                "difficulty": 1,
+                "class": None,
+                "background": None,
+            },
+        )
+        session["class"] = char_class.title()
+        session["background"] = background.title() if background else None
+        await ctx.send(
+            f"Character sheet updated: {session['class']}"
+            + (f", {session['background']}" if session["background"] else "")
         )
 
     @commands.command(name="cyberfight")
@@ -29,10 +70,12 @@ class CyberpunkCampaignCog(commands.Cog):
         session = self.sessions.setdefault(
             ctx.author.id, {"wins": 0, "losses": 0, "difficulty": 1}
         )
-        enemy = random.choice(self.opponents)
+        enemy = random.choice(list(self.opponents.keys()))
+        intro = self.opponents[enemy]
         difficulty = max(1, session["difficulty"])
         player_roll = random.randint(1, 20) + session["wins"]
         enemy_roll = random.randint(1, 20) + difficulty
+        await ctx.send(intro)
         if player_roll >= enemy_roll:
             session["wins"] += 1
             session["difficulty"] += 1
@@ -46,6 +89,15 @@ class CyberpunkCampaignCog(commands.Cog):
                 f"{enemy} overpowered you in the neon streets. Difficulty now {session['difficulty']}."
             )
 
+    @commands.command(name="cyberexplore")
+    async def cyber_explore(self, ctx):
+        """Discover a bit of the world."""
+        session = self.sessions.get(ctx.author.id)
+        if not session:
+            await ctx.send("Start a campaign first with `!cyberstart`.")
+            return
+        await ctx.send(random.choice(self.scenarios))
+
     @commands.command(name="cyberstatus")
     async def cyber_status(self, ctx):
         """Show your campaign record."""
@@ -53,8 +105,17 @@ class CyberpunkCampaignCog(commands.Cog):
         if not session:
             await ctx.send("Start a campaign first with `!cyberstart`.")
             return
+        details = [
+            f"Wins: {session['wins']}",
+            f"Losses: {session['losses']}",
+            f"Difficulty: {session['difficulty']}",
+        ]
+        if session.get("class"):
+            details.append(f"Class: {session['class']}")
+        if session.get("background"):
+            details.append(f"Background: {session['background']}")
         await ctx.send(
-            f"Wins: {session['wins']}, Losses: {session['losses']}, Difficulty: {session['difficulty']}"
+            ", ".join(details)
         )
 
 
