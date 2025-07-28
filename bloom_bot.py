@@ -278,6 +278,18 @@ async def cheer(ctx):
 @bot.command()
 async def sparkle(ctx):
     await ctx.send("*throws confetti and joy everywhere* ✨")
+    if random.random() < 0.25:
+        compliment = random.choice(
+            [
+                "You're shining brighter than my glitter!",
+                "Glitter looks good on you!",
+                "You're absolutely dazzling!",
+                "Bloom thinks you're fabulous!",
+            ]
+        )
+        await ctx.send(
+            f"{ctx.author.mention} gets covered in glitter! {compliment}"
+        )
 
 
 @bot.command()
