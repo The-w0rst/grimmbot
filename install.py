@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Interactive installer for the Goon Squad bots."""
+"""Interactive installer for the Goon Squad bots.
+
+This version speaks in Curse's voice and guides the user through filling
+in every token one by one with friendly descriptions."""
 import sys
 
 # Project repository: https://github.com/The-w0rst/grimmbot
@@ -42,20 +45,38 @@ def install_requirements() -> None:
 
 
 def configure_env() -> None:
-    print("Step 3/4: Enter your Discord tokens and API keys")
+    print("Step 3/4: Time to hand over the keys. I'm Curse and I'll keep them safe!")
     TEMPLATE_PATH.parent.mkdir(parents=True, exist_ok=True)
     if not SETUP_PATH.exists():
         shutil.copyfile(TEMPLATE_PATH, SETUP_PATH)
     existing = read_existing(SETUP_PATH)
     lines = []
+    friendly = {
+        "GRIMM_DISCORD_TOKEN": "Grimm's Discord token",
+        "GRIMM_API_KEY_1": "Grimm API key #1",
+        "GRIMM_API_KEY_2": "Grimm API key #2",
+        "GRIMM_API_KEY_3": "Grimm API key #3",
+        "SOCKET_SERVER_URL": "(optional) Socket.IO status URL",
+        "BLOOM_DISCORD_TOKEN": "Bloom's Discord token",
+        "BLOOM_API_KEY_1": "Bloom API key #1",
+        "BLOOM_API_KEY_2": "Bloom API key #2",
+        "BLOOM_API_KEY_3": "Bloom API key #3",
+        "CURSE_DISCORD_TOKEN": "Curse's Discord token",
+        "CURSE_API_KEY_1": "Curse API key #1",
+        "CURSE_API_KEY_2": "Curse API key #2",
+        "CURSE_API_KEY_3": "Curse API key #3",
+        "DISCORD_TOKEN": "Unified bot token",
+        "OPENAI_API_KEY": "OpenAI API key",
+    }
     for line in TEMPLATE_PATH.read_text().splitlines():
         stripped = line.strip()
         if not stripped or stripped.startswith("#") or "=" not in line:
             lines.append(line)
             continue
         key = line.split("=", 1)[0]
+        desc = friendly.get(key, key)
         default = existing.get(key, "")
-        prompt = f"{key} [{default}]: " if default else f"{key}: "
+        prompt = f"{desc} [{default}]: " if default else f"{desc}: "
         value = input(prompt).strip() or default
         lines.append(f"{key}={value}")
     SETUP_PATH.write_text("\n".join(lines) + "\n")
@@ -82,7 +103,8 @@ def choose_bot() -> None:
 
 
 def main() -> None:
-    print(f"== Goon Squad Bot Installer v{VERSION} ==\n")
+    print(f"== Goon Squad Bot Installer v{VERSION} ==")
+    print("Curse here. I'll walk you through this. Let's do it!\n")
     check_python()
     install_requirements()
     configure_env()
