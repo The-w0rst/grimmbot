@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands, tasks
 import random
 import os
+import yt_dlp
 
 COG_VERSION = "1.3"
 
@@ -10,6 +11,7 @@ DISCORD_TOKEN = os.getenv("BLOOM_DISCORD_TOKEN")
 BLOOM_API_KEY_1 = os.getenv("BLOOM_API_KEY_1")
 BLOOM_API_KEY_2 = os.getenv("BLOOM_API_KEY_2")
 BLOOM_API_KEY_3 = os.getenv("BLOOM_API_KEY_3")
+EPIC_VIDEO_URL = "https://m.youtube.com/watch?v=6K-eMKjo1bs"
 
 
 class BloomCog(commands.Cog):
@@ -262,6 +264,35 @@ class BloomCog(commands.Cog):
             except discord.Forbidden:
                 pass
 
+    async def handle_epic(self, message: discord.Message):
+        """Rant about EPIC and play the musical clip."""
+        rant = (
+            "EPIC is only the greatest musical ever! The songs, the drama, the thrills! "
+            "You HAVE to experience it!"
+        )
+        await message.channel.send(rant)
+        voice_state = message.author.voice
+        if voice_state is None or voice_state.channel is None:
+            await message.channel.send(
+                "Join a voice channel so we can jam to EPIC together!"
+            )
+            return
+        channel = voice_state.channel
+        await message.channel.send(
+            f"@everyone hop into {channel.mention} for an EPIC sing-along!"
+        )
+        voice = message.guild.voice_client
+        if voice is None:
+            voice = await channel.connect()
+        elif voice.channel != channel:
+            await voice.move_to(channel)
+        ydl_opts = {"format": "bestaudio", "quiet": True}
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(EPIC_VIDEO_URL, download=False)
+            audio_url = info["url"]
+        source = await discord.FFmpegOpusAudio.from_probe(audio_url)
+        voice.play(source, after=lambda e: self.bot.loop.create_task(voice.disconnect()))
+
     @commands.Cog.listener()
     async def on_ready(self):
         print("Bloom cog loaded.")
@@ -274,6 +305,9 @@ class BloomCog(commands.Cog):
             self.user_interactions.get(message.author.id, 0) + 1
         )
         lowered = message.content.lower()
+        if "epic" in lowered:
+            await self.handle_epic(message)
+            return
         for trigger, responses in self.keywords.items():
             if trigger in lowered:
                 await message.channel.send(random.choice(responses))
