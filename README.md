@@ -105,7 +105,7 @@ Commands use the `*` prefix:
 - `*grimm` – talk about Grimm.
 - `*curse` – tease Curse.
 - `*cheer` – offer encouragement.
-- `*sparkle` – throw confetti.
+- `*sparkle` – throw confetti (and maybe cover you in glitter).
 - `*drama` – start a musical.
 - `*bloom` – introduce Bloom.
 - `*mood` – display Bloom's mood.
