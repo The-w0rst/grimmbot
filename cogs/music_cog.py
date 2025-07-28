@@ -1,0 +1,46 @@
+import discord
+from discord.ext import commands
+import yt_dlp
+
+
+class MusicCog(commands.Cog):
+    """Basic music playback commands."""
+
+    def __init__(self, bot: commands.Bot):
+        self.bot = bot
+
+    async def ensure_voice(self, ctx):
+        if ctx.author.voice is None or ctx.author.voice.channel is None:
+            await ctx.send("Connect to a voice channel first.")
+            return None
+        voice = ctx.voice_client
+        if voice is None:
+            return await ctx.author.voice.channel.connect()
+        if voice.channel != ctx.author.voice.channel:
+            await voice.move_to(ctx.author.voice.channel)
+        return voice
+
+    @commands.command()
+    async def play(self, ctx, url: str):
+        """Stream audio from a YouTube URL."""
+        voice = await self.ensure_voice(ctx)
+        if not voice:
+            return
+        ydl_opts = {"format": "bestaudio", "quiet": True}
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=False)
+            audio_url = info["url"]
+        source = await discord.FFmpegOpusAudio.from_probe(audio_url)
+        voice.play(source)
+        await ctx.send(f"Now playing: {info.get('title', 'unknown')}")
+
+    @commands.command()
+    async def stop(self, ctx):
+        """Stop playback and disconnect."""
+        if ctx.voice_client:
+            await ctx.voice_client.disconnect()
+            await ctx.send("Disconnected.")
+
+
+async def setup(bot: commands.Bot):
+    await bot.add_cog(MusicCog(bot))
