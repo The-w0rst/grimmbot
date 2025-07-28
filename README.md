@@ -118,6 +118,9 @@ Commands use the `*` prefix:
 - `?scratch [@user]` – scratch someone just because.
 - `?pet` – attempt to pet Curse (may end badly).
 - `?curse_me` – willingly take the curse.
+- `?hairball` – share a revolting hairball.
+- `?pounce [@user]` – pounce on someone unexpectedly.
+- `?nap` – announce that Curse is taking a nap.
 
 ### Additional cogs
 - `trivia` – play a quick trivia round.
