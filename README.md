@@ -125,7 +125,7 @@ Commands use the `*` prefix:
 - `?hiss` – hiss at the server.
 - `?scratch [@user]` – scratch someone just because.
 - `?pet` – attempt to pet Curse (may end badly, or he might unleash a fent cloud).
-- `?curse_me` – willingly take the curse.
+- `?curse_me` – willingly take the curse. (Does nothing if you have Grimm's Shield or Bloom's Blessing.)
 - `?hairball` – share a revolting hairball.
 - `?pounce [@user]` – pounce on someone unexpectedly.
 - `?nap` – announce that Curse is taking a nap.
