@@ -31,7 +31,7 @@ BLOOM_API_KEY_3 = os.getenv("BLOOM_API_KEY_3")
 
 intents = discord.Intents.default()
 intents.message_content = True
-bot = commands.Bot(command_prefix="*", intents=intents)
+bot = commands.Bot(command_prefix="*", intents=intents, help_command=None)
 
 # === Bloom Personality ===
 bloom_personality = {
@@ -86,6 +86,23 @@ bloom_responses = [
     "Glitter makes everything better, trust me!",
     "Let's turn this chat into a mini musical!",
 ]
+
+# Short help message used by the help commands
+BLOOM_HELP = (
+    "**BloomBot** - prefix `*`\n"
+    "Try `*hug`, `*sing`, `*sparkle`, `*play <url>` and more.\n"
+    "Use `*helpall` to see help for every goon."
+)
+
+GRIMM_HELP = (
+    "**GrimmBot** - prefix `!`\n"
+    "Try `!protectbloom`, `!roast`, `!gloom`, `!bonk` and more."
+)
+
+CURSE_HELP = (
+    "**CurseBot** - prefix `?`\n"
+    "Try `?insult`, `?scratch @user`, `?pounce` or `?curse_me`."
+)
 
 # === Bloom Boy Lines ===
 boy_lines = [
@@ -300,6 +317,20 @@ interactions = [
 @bot.event
 async def on_ready():
     print(f"{bloom_personality['name']} is online and ready to hug the whole server!")
+
+
+@bot.command(name="help")
+async def help_command(ctx):
+    """Show BloomBot help."""
+    await ctx.send(BLOOM_HELP)
+
+
+@bot.command(name="helpall")
+async def help_all(ctx):
+    """Show help for all bots."""
+    await ctx.send(GRIMM_HELP)
+    await ctx.send(BLOOM_HELP)
+    await ctx.send(CURSE_HELP)
 
 
 # === Message Handler ===

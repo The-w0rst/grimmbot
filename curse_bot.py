@@ -31,7 +31,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 intents.presences = True
-bot = commands.Bot(command_prefix="?", intents=intents)
+bot = commands.Bot(command_prefix="?", intents=intents, help_command=None)
 
 # === CurseBot Personality ===
 curse_personality = {
@@ -181,6 +181,23 @@ curse_responses = [
     "Try me again and I'll curse your coffee.",
     "I run this squad, the others just pretend.",
 ]
+
+# Short help message used by the help commands
+CURSE_HELP = (
+    "**CurseBot** - prefix `?`\n"
+    "Try `?insult`, `?scratch @user`, `?pounce` or `?curse_me`.\n"
+    "Use `?helpall` to see help for every goon."
+)
+
+GRIMM_HELP = (
+    "**GrimmBot** - prefix `!`\n"
+    "Try `!protectbloom`, `!roast`, `!gloom`, `!bonk` and more."
+)
+
+BLOOM_HELP = (
+    "**BloomBot** - prefix `*`\n"
+    "Try `*hug`, `*sing`, `*sparkle`, `*play <url>` and more."
+)
 
 # === Keywords ===
 curse_keywords = {
@@ -375,6 +392,20 @@ async def on_ready():
     print(f"{curse_personality['name']} is here to ruin someone's day.")
     pick_daily_cursed.start()
     daily_gift.start()
+
+
+@bot.command(name="help")
+async def help_command(ctx):
+    """Show CurseBot help."""
+    await ctx.send(CURSE_HELP)
+
+
+@bot.command(name="helpall")
+async def help_all(ctx):
+    """Show help for all bots."""
+    await ctx.send(GRIMM_HELP)
+    await ctx.send(BLOOM_HELP)
+    await ctx.send(CURSE_HELP)
 
 
 # === Passive Comments to Cursed User ===
