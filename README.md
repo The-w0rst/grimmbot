@@ -58,6 +58,8 @@ Alternatively follow the manual steps below.
    (set `OPENAI_API_KEY` to enable ChatGPT features). You can rerun the
    installer any time to update the configuration. See
    [`config/README.md`](config/README.md) for a line-by-line explanation.
+   If you merely wish to update `setup.env` without reinstalling packages you
+   can run `python configure.py` instead.
 4. Launch a bot of your choice:
 
    ```bash
@@ -144,6 +146,8 @@ Commands use the `*` prefix:
 - `cyberfight` – fight one of the bots with evolving difficulty.
 - `cyberstatus` – view your campaign record.
 - `cyberchat <prompt>` – talk to the campaign's narrator and characters via ChatGPT.
+
+For a full list of cogs and their purpose see [`docs/cogs_overview.md`](docs/cogs_overview.md).
 
 ## Developing your own bots
 
