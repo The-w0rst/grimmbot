@@ -102,6 +102,22 @@ class CurseCog(commands.Cog):
             "You get {gift}. Curse smirks wickedly.",
             "Curse dumps {gift} on you with a laugh.",
         ]
+
+        self.fent_player_responses = [
+            "is knocked out by the fent cloud and vanishes for {minutes} minute(s).",
+            "succumbs to the haze. See you in {minutes} minute(s).",
+            "drops like a rock. Shadow banned for {minutes} minute(s)!",
+            "coughs and fades away for {minutes} minute(s).",
+            "can't handle the cloud and disappears for {minutes} minute(s).",
+        ]
+
+        self.fent_bot_responses = [
+            "wheezes but is glad to already be dead.",
+            "chuckles from beyond the grave.",
+            "shrugs off the cloud—perks of undeath.",
+            "mumbles that the afterlife smells better than this.",
+            "laughs about undead immunity.",
+        ]
         self.pick_daily_cursed.start()
         self.daily_gift.start()
 
@@ -212,7 +228,28 @@ class CurseCog(commands.Cog):
     @commands.command()
     async def pet(self, ctx):
         """Attempt to pet Curse."""
-        if random.random() < 0.5:
+        outcome = random.random()
+        if outcome < 0.33:
+            await ctx.send(
+                "😼 Curse hurls a fent brick into the ceiling fan! A cloud of fent fills the room."
+            )
+            for member in ctx.guild.members:
+                if member == self.bot.user:
+                    continue
+                if member.status == discord.Status.offline:
+                    continue
+                if random.random() < 0.5:
+                    if member.bot:
+                        await ctx.send(
+                            f"{member.display_name} {random.choice(self.fent_bot_responses)}"
+                        )
+                    else:
+                        minutes = random.randint(1, 3)
+                        await ctx.send(
+                            f"{member.display_name} "
+                            + random.choice(self.fent_player_responses).format(minutes=minutes)
+                        )
+        elif outcome < 0.66:
             await ctx.send("😼 *purrs softly* Maybe I'll spare you... for now.")
         else:
             await ctx.send(
