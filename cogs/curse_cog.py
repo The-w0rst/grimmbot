@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands, tasks
 import random
 import os
+import asyncio
 
 COG_VERSION = "1.3"
 
@@ -223,6 +224,51 @@ class CurseCog(commands.Cog):
         await channel.send(
             f"🎁 {recipient.display_name}, " + line.format(gift=gift["name"])
         )
+
+        if gift["name"] == "a bucket of fent":
+            await channel.send(
+                f"{recipient.display_name}, do you want to start a fent party? (yes/no)"
+            )
+
+            def check(m: discord.Message) -> bool:
+                return (
+                    m.author == recipient
+                    and m.channel == channel
+                    and m.content.lower() in ["yes", "no", "y", "n"]
+                )
+
+            try:
+                msg = await self.bot.wait_for("message", timeout=30.0, check=check)
+                answer = msg.content.lower().startswith("y")
+            except asyncio.TimeoutError:
+                answer = False
+
+            if answer:
+                await channel.send(
+                    "😼 Curse hurls the bucket into the air! A cloud of fent fills the room."
+                )
+                for member in guild.members:
+                    if member.status == discord.Status.offline:
+                        continue
+                    if random.random() < 0.5:
+                        if member.bot:
+                            await channel.send(
+                                f"{member.display_name} {random.choice(self.fent_bot_responses)}"
+                            )
+                        else:
+                            minutes = random.randint(1, 3)
+                            await channel.send(
+                                f"{member.display_name} "
+                                + random.choice(self.fent_player_responses).format(minutes=minutes)
+                            )
+            else:
+                await channel.send(f"{recipient.display_name} keeps the bucket...")
+                if random.random() < 0.5:
+                    minutes = random.randint(1, 3)
+                    await channel.send(
+                        f"{recipient.display_name} "
+                        + random.choice(self.fent_player_responses).format(minutes=minutes)
+                    )
 
     @commands.Cog.listener()
     async def on_ready(self):
