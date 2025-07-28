@@ -1,3 +1,15 @@
+###############################################################################
+#
+#
+#      ╔═╗┬─┐┬ ┬┌┐┌┌┐┌                                                        #
+#      ║ ║├┬┘│ │││││││                                                        #
+#      ╚═╝┴└─└─┘┘└┘┘└┘                                                        #
+#
+#      GrimmBot: The grumpy skeleton of the Goon Squad.                       #
+#      Gruff, protective, secretly soft on the inside.                        #
+#
+###############################################################################
+
 import discord
 from discord.ext import commands
 import os
@@ -35,6 +47,46 @@ grimm_traits = [
     "a little ominous", "takes care of Bloom", "playful rivalry with Curse"
 ]
 companions = ["Bloom", "Curse"]
+
+# Detailed personality profile for reference
+grimm_personality = {
+    "name": "Grimm",
+    "role": "leader",
+    "traits": [
+        "gruff",
+        "sarcastic",
+        "protective",
+        "secretly soft",
+        "tired of chaos",
+    ],
+    "companions": ["Bloom", "Curse"],
+}
+
+# Random quips when Grimm feels like chiming in
+grimm_responses = [
+    "What now?",
+    "I'm not angry, just disappointed... again.",
+    "Keep it down. I'm trying to brood.",
+    "Don't tell Bloom, but I'm glad you're here.",
+    "Curse, stop clawing the furniture.",
+    "Sigh. Another day, another bit of chaos.",
+]
+
+# Keywords that trigger short replies
+keywords = {
+    "bloom": [
+        "She's all sunshine and noise.",
+        "Bloom means well, I guess.",
+    ],
+    "curse": [
+        "That cat is trouble on four paws.",
+        "Curse, put the sushi down.",
+    ],
+    "grimm": [
+        "That's me. What of it?",
+        "Yes, yes, I'm the spooky one.",
+    ],
+}
 
 # === DISCORD BOT SETUP ===
 intents = discord.Intents.default()
@@ -130,6 +182,15 @@ async def flip(ctx, member: discord.Member = None):
     await ctx.send(f"{member.mention}, you just got goon-flipped. 😈")
     send_status("active", f"Flipped off {member.display_name}")
 
+# === BROODING & BONES ===
+@bot.command()
+async def brood(ctx):
+    await ctx.send("*broods quietly in a dark corner*")
+
+@bot.command()
+async def bone(ctx):
+    await ctx.send("You want a bone? I'm using all of mine.")
+
 # === RANDOM PROTECTIVE RESPONSES ===
 @bot.command()
 async def shield(ctx, member: discord.Member = None):
@@ -145,20 +206,29 @@ async def shield(ctx, member: discord.Member = None):
 # === KEYWORD TRIGGERS FOR BOT INTERACTION ===
 @bot.event
 async def on_message(message):
-    if message.author == bot.user:
+    if message.author == bot.user or message.author.bot:
         return
 
-    # Respond if Bloom is mentioned
-    if "bloom" in message.content.lower():
-        if random.random() < 0.18:
-            await message.channel.send("Someone said Bloom? She’s probably off singing again...")
-            send_status("active", "Reacted to Bloom mention.")
+    lowered = message.content.lower()
 
-    # Respond if Curse is mentioned
-    if "curse" in message.content.lower():
-        if random.random() < 0.18:
-            await message.channel.send("I told you, don’t trust the cat. Ever.")
-            send_status("active", "Reacted to Curse mention.")
+    # Quick replies based on keyword dictionary
+    for trigger, responses in keywords.items():
+        if trigger in lowered:
+            await message.channel.send(random.choice(responses))
+            send_status("active", f"Reacted to {trigger} mention.")
+            return
+
+    # Additional fun responses about Bloom and Curse
+    if "bloom" in lowered and random.random() < 0.18:
+        await message.channel.send("Someone said Bloom? She’s probably off singing again...")
+        send_status("active", "Reacted to Bloom mention.")
+    elif "curse" in lowered and random.random() < 0.18:
+        await message.channel.send("I told you, don’t trust the cat. Ever.")
+        send_status("active", "Reacted to Curse mention.")
+
+    # Occasionally chime in with a random quip
+    if random.random() < 0.05:
+        await message.channel.send(random.choice(grimm_responses))
 
     await bot.process_commands(message)
 
