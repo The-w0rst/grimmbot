@@ -180,6 +180,86 @@ class CurseCog(commands.Cog):
             "mumbles that the afterlife smells better than this.",
             "laughs about undead immunity.",
         ]
+
+        # Responses from each character when a fent party succeeds
+        self.fent_party_success = {
+            "Curse": [
+                "*hisses with delight* That's how you party in style!",
+                "Curse purrs wickedly: 'The cloud thickens nicely.'",
+                "The cat cackles: 'Hope you're ready for chaos!'",
+                "Curse's eyes gleam: 'Now this is a real celebration!'",
+                "He flicks his tail: 'Breathe deep, mortals!'",
+                "Curse snickers: 'May the haze guide your dreams.'",
+                "'Enjoy the trip, friends,' he meows sarcastically.",
+                "Curse twirls the empty bucket: 'Clouds up, cares down!'",
+                "'Don't blame me if you wake up different,' he warns.",
+                "The cat lounges, satisfied: 'Best party ever.'",
+            ],
+            "Bloom": [
+                "Bloom twirls with excitement: 'Woohoo! Sparkly fog party!'",
+                "'Yay! Let's dance in the mist!' Bloom squeals.",
+                "She claps her hands: 'This cloud is spicy but fun!'",
+                "'Who knew chaos could be so colorful?' she giggles.",
+                "Bloom giggles: 'I love the tingly feeling!'",
+                "She waves glow sticks: 'Fent rave time!'",
+                "'Hold your breath and strike a pose!' Bloom cheers.",
+                "Bloom winks: 'Best. Party. Ever!'",
+                "'Let's turn this haze into a musical number!' she laughs.",
+                "She hugs everyone: 'Fent friends forever!'",
+            ],
+            "Grimm": [
+                "Grimm groans: 'Why'd you say yes? This won't end well.'",
+                "'Great,' he mutters, 'ghosts and fent—perfect combo.'",
+                "The skeleton cracks a grin: 'At least it's lively.'",
+                "'Stay behind me if you start seeing double,' he warns.",
+                "Grimm twirls his scythe: 'Let's hope no one dies... again.'",
+                "He chuckles darkly: 'Chaos suits you all.'",
+                "'This fog better not corrode my bones,' he complains.",
+                "Grimm nods begrudgingly: 'Fine, let's party.'",
+                "'Hold onto your souls, folks,' he says with a smirk.",
+                "'Never thought I'd party in a fent cloud,' he muses.",
+            ],
+        }
+
+        # Responses from each character when a fent party fails
+        self.fent_party_fail = {
+            "Curse": [
+                "Curse grumbles, ears flattening. 'Fine, keep it.'",
+                "'Party pooper,' he mutters, swiping at the bucket.",
+                "He hisses in annoyance: 'You ruined my fun.'",
+                "Tail twitching, Curse sulks. 'Whatever, your loss.'",
+                "'No haze, no craze,' he scoffs, stalking away.",
+                "Curse flicks his whiskers. 'I guess the night's dull.'",
+                "He growls softly: 'Next time I'm not asking.'",
+                "'Buzzkill,' the cat yawns, curling up.",
+                "'You can't handle greatness,' he sneers.",
+                "Curse sighs dramatically. 'Fine, maybe later.'",
+            ],
+            "Bloom": [
+                "Bloom pouts: 'Aww, no crazy cloud fun?'",
+                "'I brought glitter for nothing,' she sighs.",
+                "She shrugs with a smile: 'Maybe another time!'",
+                "'Buzzkill, but okay,' Bloom chirps halfheartedly.",
+                "Bloom sighs: 'Guess I'll save my dance moves.'",
+                "'Fine, I'll just drink bubble tea alone,' she mumbles.",
+                "Bloom twirls a ribbon and shrugs: 'Party's canceled!'",
+                "'No haze, no raise,' she jokes weakly.",
+                "Bloom hugs the bucket: 'I'll keep this safe then!'",
+                "She smiles brightly: 'Next time we'll go wild!'",
+            ],
+            "Grimm": [
+                "Grimm nods approvingly: 'Wise choice. Clouds are trouble.'",
+                "'Finally, someone with sense,' he says dryly.",
+                "The skeleton crosses his arms: 'I prefer clean air anyway.'",
+                "'Party's off? Good. Saves me a headache,' he grunts.",
+                "He smirks: 'Afraid of a little haze?'",
+                "Grimm shrugs: 'Maybe next time you'll be braver.'",
+                "He taps his skull: 'Keeping your wits is never bad.'",
+                "'No cloud, no chaos. Works for me,' he remarks.",
+                "Grimm sighs in relief: 'My bones thank you.'",
+                "'Maybe later then,' he says, already walking away.",
+            ],
+        }
         self.pick_daily_cursed.start()
         self.daily_gift.start()
 
@@ -247,6 +327,8 @@ class CurseCog(commands.Cog):
                 await channel.send(
                     "😼 Curse hurls the bucket into the air! A cloud of fent fills the room."
                 )
+                for character in ["Curse", "Bloom", "Grimm"]:
+                    await channel.send(random.choice(self.fent_party_success[character]))
                 for member in guild.members:
                     if member.status == discord.Status.offline:
                         continue
@@ -263,6 +345,8 @@ class CurseCog(commands.Cog):
                             )
             else:
                 await channel.send(f"{recipient.display_name} keeps the bucket...")
+                for character in ["Curse", "Bloom", "Grimm"]:
+                    await channel.send(random.choice(self.fent_party_fail[character]))
                 if random.random() < 0.5:
                     minutes = random.randint(1, 3)
                     await channel.send(
