@@ -179,6 +179,69 @@ queen_lines = [
     "Yas queen, keep slaying with kindness!",
 ]
 
+# === EPIC: The Musical Track List ===
+# Organized by saga name with every released song.
+epic_songs = {
+    "The Troy Saga": [
+        "The Horse and the Infant",
+        "Just a Man",
+        "Full Speed Ahead",
+        "Open Arms",
+        "Warrior of the Mind",
+    ],
+    "The Cyclops Saga": [
+        "Polyphemus",
+        "Survive",
+        "Remember Them",
+        "My Goodbye",
+    ],
+    "The Ocean Saga": [
+        "Storm",
+        "Luck Runs Out",
+        "Keep Your Friends Close",
+        "Ruthlessness",
+    ],
+    "The Circe Saga": [
+        "Puppeteer",
+        "Wouldn’t You Like",
+        "Done For",
+        "There Are Other Ways",
+    ],
+    "The Underworld Saga": [
+        "The Underworld",
+        "No Longer You",
+        "Monster",
+    ],
+    "The Thunder Saga": [
+        "Suffering",
+        "Different Beast",
+        "Scylla",
+        "Mutiny",
+        "Thunder Bringer",
+    ],
+    "The Wisdom Saga": [
+        "Legendary",
+        "Little Wolf",
+        "We’ll Be Fine",
+        "Love in Paradise",
+        "God Games",
+    ],
+    "The Vengeance Saga": [
+        "Not Sorry for Loving You",
+        "Dangerous",
+        "Charybdis",
+        "Get in the Water",
+        "Six Hundred Strike",
+    ],
+    "The Ithaca Saga": [
+        "The Challenge",
+        "Hold Them Down",
+        "Odysseus",
+        "I Can’t Help but Wonder",
+        "Would You Fall in Love with Me Again",
+    ],
+}
+
 # Lines from Bloom's favorite song "Pretty Little Baby" by Connie Francis
 pretty_little_baby_lines = [
     "Pretty little baby (ya-ya)",
@@ -324,7 +387,13 @@ async def sparkle(ctx):
 
 @bot.command()
 async def drama(ctx):
-    await ctx.send("Server musical when? Grimm can be the lead skeleton!")
+    """Geek out about EPIC: The Musical and list every song."""
+    await ctx.send(
+        "🎭 **EPIC: The Musical** by Jorge Rivera-Herrans! Here are all the sagas and songs so far:"
+    )
+    for saga, songs in epic_songs.items():
+        song_list = "\n".join(f"• {song}" for song in songs)
+        await ctx.send(f"__{saga}__:\n{song_list}")
 
 
 @bot.command()
