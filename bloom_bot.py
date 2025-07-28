@@ -159,6 +159,16 @@ queen_lines = [
     "You're royalty, girl—don't forget it!",
 ]
 
+# Lines from Bloom's favorite song "Pretty Little Baby" by Connie Francis
+pretty_little_baby_lines = [
+    "Pretty little baby (ya-ya)",
+    "You say that maybe you'll be thinkin' of me",
+    "And tryin' to love me",
+    "Pretty little baby, I'm hoping that you do",
+    "Ask your mama, your papa, your sister or your brother",
+    "If they've ever loved another like I love you",
+]
+
 # === Keyword Triggers ===
 keywords = {
     "grimm": [
@@ -173,10 +183,7 @@ keywords = {
         "HUG TIME! Ready or not! 🥢",
         "*wraps you in love and chaos*"
     ],
-    "sing": [
-        "Let’s karaoke! I call lead!",
-        "SING IT OUT! LOUDER!"
-    ],
+    "sing": pretty_little_baby_lines,
     "boba": [
         "Bubble tea buddies unite!",
         "I could drink boba all day!"
@@ -240,18 +247,13 @@ async def hug(ctx):
 
 @bot.command()
 async def sing(ctx):
-    await ctx.send("*bursts into a Broadway solo* 🎙️✨")
+    await ctx.send(random.choice(pretty_little_baby_lines) + " 🎶")
 
 
 @bot.command()
 async def karaoke(ctx, *, song: str | None = None):
     """Start a mini karaoke moment."""
-    lines = [
-        "Don’t stop believin’!",
-        "Let it gooooooo!",
-        "Mamma mia, here I go again!",
-        "Just a small-town girl, living in a lonely world…",
-    ]
+    lines = pretty_little_baby_lines
     if song:
         await ctx.send(f"🎤 Singing **{song}** together!")
     else:
