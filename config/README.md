@@ -60,3 +60,13 @@ Do **not** commit `setup.env` to git. Keep it private.
 
 Refer to [`../INSTALL.md`](../INSTALL.md) for instructions on installing the
 required Python packages.
+
+### Custom data files
+Two optional JSON files can live in this folder:
+
+```text
+custom_commands.json – stores admin-defined commands
+tags.json            – quick notes accessible with the Tag cog
+```
+They are created automatically when you use the relevant commands and can be
+edited manually if needed.

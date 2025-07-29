@@ -21,6 +21,13 @@ what mischief it adds. All cogs are currently **v2.0.1**.
 | `health_cog.py` | Shows a unified health menu for the squad. |
 | `goon_cog.py` | The whole squad chiming in together. |
 | `judge_cog.py` | Simple relationship judge that lets the squad weigh in via DM. |
+| `custom_commands_cog.py` | Admin-defined text responses triggered by keywords. |
+| `tag_cog.py` | Save and retrieve short notes or taglines. |
+| `utility_cog.py` | General server and user info commands. |
+| `role_management_cog.py` | Create roles and assign them to members. |
+| `image_cog.py` | Basic image captioning and effects. |
+| `api_integration_cog.py` | Fetch data from external APIs. |
+| `sentiment_cog.py` | Simple vibe check sentiment analysis. |
 
 All cogs declare a `COG_VERSION` constant for easy tracking of updates. Load them one by one with `goon_bot.py` or the Admin commands.
 For music playback details see [`music_setup.md`](music_setup.md).
