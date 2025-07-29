@@ -25,6 +25,7 @@ def setup_logging(log_file: str = "bot.log") -> None:
 
     console_handler = logging.StreamHandler()
     if Fore and Style:
+
         class ColorFormatter(logging.Formatter):
             COLORS = {
                 logging.DEBUG: Fore.CYAN,
@@ -34,12 +35,16 @@ def setup_logging(log_file: str = "bot.log") -> None:
                 logging.CRITICAL: Fore.MAGENTA,
             }
 
-            def format(self, record: logging.LogRecord) -> str:  # pragma: no cover - visual only
+            def format(
+                self, record: logging.LogRecord
+            ) -> str:  # pragma: no cover - visual only
                 color = self.COLORS.get(record.levelno, "")
                 message = super().format(record)
                 return f"{color}{message}{Style.RESET_ALL}"
 
-        console_formatter = ColorFormatter("%(asctime)s [%(levelname)s] %(name)s: %(message)s", datefmt="%H:%M:%S")
+        console_formatter = ColorFormatter(
+            "%(asctime)s [%(levelname)s] %(name)s: %(message)s", datefmt="%H:%M:%S"
+        )
     else:  # pragma: no cover - fallback for tests
         console_formatter = logging.Formatter(
             "%(asctime)s [%(levelname)s] %(name)s: %(message)s",
