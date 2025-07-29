@@ -1,14 +1,3 @@
-
-　　　　　🌸＞　　フ
-　　　　　| 　_　 _ l
-　 　　　／` ミ＿xノ
-　　 　 /　　　 　 |
-　　　 /　 ヽ　　 ﾉ
-　 　 │　　|　|　|
-　／￣|　　 |　|　|
-　| (￣ヽ＿_ヽ_)__)
-　＼二つ
-
 # Grimmbot
 
 [![CI](https://img.shields.io/github/actions/workflow/status/The-w0rst/grimmbot/python.yml?style=for-the-badge)](https://github.com/The-w0rst/grimmbot/actions/workflows/python.yml)
