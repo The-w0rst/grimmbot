@@ -20,8 +20,22 @@ at https://github.com/The-w0rst/grimmbot
    ```
 
    Open `config/setup.env` and fill in all the tokens and keys. Sections are grouped by bot
-   (Grimm, Bloom, Curse) and shared settings. Add `OPENAI_API_KEY` for ChatGPT
-   features or `SOCKET_SERVER_URL` if you want status reporting.
+(Grimm, Bloom, Curse) and shared settings. Add `OPENAI_API_KEY` for ChatGPT
+features or `SOCKET_SERVER_URL` if you want status reporting.
+
+### Environment variables
+
+| Variable | Description |
+| --- | --- |
+| `GRIMM_DISCORD_TOKEN` | Discord bot token for Grimm |
+| `GRIMM_API_KEY_1`-`GRIMM_API_KEY_3` | Custom API keys used by Grimm cogs |
+| `SOCKET_SERVER_URL` | Optional Socket.IO status endpoint |
+| `BLOOM_DISCORD_TOKEN` | Discord bot token for Bloom |
+| `BLOOM_API_KEY_1`-`BLOOM_API_KEY_3` | API keys for Bloom-specific features |
+| `CURSE_DISCORD_TOKEN` | Discord bot token for Curse |
+| `CURSE_API_KEY_1`-`CURSE_API_KEY_3` | API keys for Curse's cogs |
+| `DISCORD_TOKEN` | Token for the unified GoonBot |
+| `OPENAI_API_KEY` | Enables GPT-based commands |
 
 3. Save the file. Any bot you run will read these values automatically.
 
