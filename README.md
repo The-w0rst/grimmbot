@@ -23,6 +23,9 @@ bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstr
 
 Prefer manual control? Clone the repo and run `python install.py`. I'll ask for every token with bright prompts and set up `config/setup.env` for you. See [INSTALL.md](INSTALL.md) for a detailed walkthrough. If you're experimenting, create a test Discord server and generate bot tokens at <https://discord.com/developers>. Use those tokens in `config/setup.env` before launching a bot. A full list of variables is documented in [config/README.md](config/README.md).
 
+### Dependencies
+All required Python packages live in `requirements/base.txt`. This file is installed when you run `install.py`. If you use the helper `setup.sh` script instead, it installs `requirements.txt`, which includes the base list plus `requests` and `beautifulsoup4` for the music cog. Developers can pull in optional linting and test tools with `requirements/extra-dev.txt`.
+
 ## Running the bots
 Once configured, pick a personality:
 
