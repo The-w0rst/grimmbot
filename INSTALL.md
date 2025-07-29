@@ -72,6 +72,8 @@ Prefer to get your paws dirty?
       - `DISCORD_TOKEN`
       - `OPENAI_API_KEY`
       Leave a value blank to keep any existing entry.
+      Additional OpenAI keys (`*_API_KEY_1`–`*_API_KEY_3`) will be used in
+      rotation when provided.
    4. **Choose bot** – finally you'll see a menu:
       `1. GrimmBot`, `2. BloomBot`, `3. CurseBot`, `4. GoonBot`, `5. All bots`, `0. Exit`.
       Enter a number to launch a bot immediately or `0` to finish without

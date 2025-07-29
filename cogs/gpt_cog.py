@@ -1,12 +1,22 @@
 import os
 import openai
 from discord.ext import commands
+from src.api_utils import ApiKeyCycle
 
 COG_VERSION = "1.4"
 
 # Environment values are read from the parent process
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-openai.api_key = OPENAI_API_KEY
+try:
+    OPENAI_KEY_CYCLE = ApiKeyCycle(
+        [
+            os.getenv("OPENAI_API_KEY"),
+            os.getenv("GRIMM_OPENAI_KEY"),
+            os.getenv("BLOOM_OPENAI_KEY"),
+            os.getenv("CURSE_OPENAI_KEY"),
+        ]
+    )
+except ValueError:
+    OPENAI_KEY_CYCLE = None
 
 SYSTEM_MESSAGES = {
     "Grimm": "You are Grimm, a grumpy but caring skeleton leader. Keep replies short, sarcastic and protective.",
@@ -28,10 +38,13 @@ class GPTCog(commands.Cog):
         )
 
     async def _chatgpt(self, prompt: str) -> str:
-        if not OPENAI_API_KEY:
+        try:
+            api_key = OPENAI_KEY_CYCLE.next()
+        except Exception:
             return "OpenAI API key not configured."
         try:
             response = openai.ChatCompletion.create(
+                api_key=api_key,
                 model="gpt-3.5-turbo",
                 messages=[
                     {"role": "system", "content": self._system_prompt()},

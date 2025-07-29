@@ -20,6 +20,7 @@ import datetime
 
 import logging
 from config.settings import load_config, get_env_vars
+from src.api_utils import ApiKeyCycle
 import grimm_utils
 import random
 import socketio
@@ -50,15 +51,18 @@ GRIMM_API_KEY_1, GRIMM_API_KEY_2, GRIMM_API_KEY_3, GRIMM_OPENAI_KEY = get_env_va
 )
 GRIMM_GPT_ENABLED = os.getenv("GRIMM_GPT_ENABLED", "true").lower() == "true"
 GRIMM_OPENAI_MODEL = os.getenv("GRIMM_OPENAI_MODEL", "gpt-3.5-turbo")
+OPENAI_KEY_CYCLE = ApiKeyCycle(
+    [GRIMM_OPENAI_KEY, GRIMM_API_KEY_1, GRIMM_API_KEY_2, GRIMM_API_KEY_3]
+)
 SOCKET_SERVER = os.getenv("SOCKET_SERVER_URL", "http://localhost:5000")
 
 
 def check_required() -> None:
     missing = []
-    for var in ("GRIMM_DISCORD_TOKEN", "GRIMM_OPENAI_KEY"):
-        val = os.getenv(var)
-        if not val:
-            missing.append(var)
+    if not os.getenv("GRIMM_DISCORD_TOKEN"):
+        missing.append("GRIMM_DISCORD_TOKEN")
+    if not any([GRIMM_OPENAI_KEY, GRIMM_API_KEY_1, GRIMM_API_KEY_2, GRIMM_API_KEY_3]):
+        missing.append("GRIMM_OPENAI_KEY")
     if missing:
         logger.error("Missing required variables: %s", ", ".join(missing))
         raise SystemExit(1)
@@ -263,9 +267,9 @@ async def chatgpt_reply(prompt: str) -> str:
     """
     if not GRIMM_GPT_ENABLED:
         return "ChatGPT features are disabled."
-    if not GRIMM_OPENAI_KEY:
+    if not any([GRIMM_OPENAI_KEY, GRIMM_API_KEY_1, GRIMM_API_KEY_2, GRIMM_API_KEY_3]):
         return "OpenAI key missing for Grimm."
-    client = openai.AsyncOpenAI(api_key=GRIMM_OPENAI_KEY)
+    client = openai.AsyncOpenAI(api_key=OPENAI_KEY_CYCLE.next())
     try:
         response = await client.chat.completions.create(
             model=GRIMM_OPENAI_MODEL,
@@ -360,7 +364,11 @@ async def health(ctx):
     try:
         uptime = datetime.datetime.utcnow() - START_TIME
         latency = round(bot.latency * 1000)
-        api_status = "ok" if GRIMM_OPENAI_KEY else "no key"
+        api_status = (
+            "ok"
+            if any([GRIMM_OPENAI_KEY, GRIMM_API_KEY_1, GRIMM_API_KEY_2, GRIMM_API_KEY_3])
+            else "no key"
+        )
         msg = (
             f"Uptime: {uptime}\n"
             f"Ping: {latency} ms\n"
