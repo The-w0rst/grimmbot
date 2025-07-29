@@ -28,6 +28,9 @@ Prefer to do things yourself? Fine.
    ```bash
    pip install -r requirements/base.txt
    ```
+   If you prefer to use the helper `setup.sh` script, it installs from
+   `requirements.txt` which includes the base packages along with
+   `requests` and `beautifulsoup4` needed for the music cog.
 3. Copy the environment template and fill in your tokens:
    ```bash
    cp config/env_template.env config/setup.env

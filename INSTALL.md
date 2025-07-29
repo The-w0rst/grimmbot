@@ -31,6 +31,9 @@ Prefer to get your paws dirty?
    pip install -r requirements/base.txt
    ```
    Optional developer extras are in `requirements/extra-dev.txt`.
+   The `setup.sh` helper installs from `requirements.txt` instead, which
+   includes the base packages plus `requests` and `beautifulsoup4` for the
+   music cog.
 3. Copy the environment template and fill it in:
    ```bash
    cp config/env_template.env config/setup.env
