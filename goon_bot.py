@@ -34,6 +34,7 @@ def launch_other_bots() -> None:
         except Exception as exc:
             logger.warning("Failed to launch %s: %s", script, exc)
 
+
 # Load a single shared configuration file for all bots
 ENV_PATH = Path(__file__).resolve().parent / "config" / "setup.env"
 if not ENV_PATH.exists():
