@@ -99,7 +99,9 @@ requests
 beautifulsoup4
 ```
 
-for the music cog. Developers can pull in optional linting and test tools with:
+for the music cog. Install FFmpeg separately if you want to play music—see
+[`docs/music_setup.md`](docs/music_setup.md) for instructions. Developers can
+pull in optional linting and test tools with:
 
 ```
 requirements/extra-dev.txt

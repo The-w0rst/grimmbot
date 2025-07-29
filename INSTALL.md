@@ -34,13 +34,15 @@ Prefer to get your paws dirty?
    The `setup.sh` helper installs from `requirements.txt` instead, which
    includes the base packages plus `requests` and `beautifulsoup4` for the
    music cog.
-3. Copy the environment template and fill it in:
+3. Install FFmpeg if you plan to use the music commands. See
+   [`docs/music_setup.md`](docs/music_setup.md) for OS-specific commands.
+4. Copy the environment template and fill it in:
    ```bash
    cp config/env_template.env config/setup.env
    ```
    On Windows use `copy` instead of `cp`. Fill in your Discord tokens and API
    keys.
-4. Run `python install.py` and follow Curse's friendly, color-coded prompts.
+5. Run `python install.py` and follow Curse's friendly, color-coded prompts.
    The installer guides you through four steps:
    1. **Python check** – verifies you're running Python 3.10 or newer.
    2. **Dependencies** – when asked `Install dependencies now? [Y/n]` press
@@ -67,7 +69,7 @@ Prefer to get your paws dirty?
       `1. GrimmBot`, `2. BloomBot`, `3. CurseBot`, `4. GoonBot`, `5. All bots`, `0. Exit`.
       Enter a number to launch a bot immediately or `0` to finish without
       starting one. Choosing option `5` launches all four bots at once.
-5. Launch any bot as shown above. All bots read from `config/setup.env`.
+6. Launch any bot as shown above. All bots read from `config/setup.env`.
 
 Place optional media files in the `localtracks` directory.
 Cogs live under `cogs/` and can be customized or reloaded when using `goon_bot.py`.

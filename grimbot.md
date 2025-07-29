@@ -31,11 +31,13 @@ Prefer to do things yourself? Fine.
    If you prefer to use the helper `setup.sh` script, it installs from
    `requirements.txt` which includes the base packages along with
    `requests` and `beautifulsoup4` needed for the music cog.
-3. Copy the environment template and fill in your tokens:
+3. Install FFmpeg if you want to play music. See
+   [`docs/music_setup.md`](docs/music_setup.md) for details.
+4. Copy the environment template and fill in your tokens:
    ```bash
    cp config/env_template.env config/setup.env
    ```
-4. Run `python install.py` to fill in the file interactively, or edit it manually.
-5. Launch any of the bot files above and you're done.
+5. Run `python install.py` to fill in the file interactively, or edit it manually.
+6. Launch any of the bot files above and you're done.
 
 Enjoy the chaos, courtesy of yours truly.
