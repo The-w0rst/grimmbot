@@ -14,14 +14,19 @@ import discord
 from discord.ext import commands, tasks
 import random
 import os
-from dotenv import load_dotenv
+import logging
+from config.settings import load_config
 from pathlib import Path
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Load a single shared configuration file for all bots
 ENV_PATH = Path(__file__).resolve().parent / "config" / "setup.env"
 if not ENV_PATH.exists():
     raise SystemExit("config/setup.env missing. Run 'python install.py' first.")
-load_dotenv(ENV_PATH)
+load_config({"CURSE_DISCORD_TOKEN"})
 DISCORD_TOKEN = os.getenv("CURSE_DISCORD_TOKEN")
 CURSE_API_KEY_1 = os.getenv("CURSE_API_KEY_1")
 CURSE_API_KEY_2 = os.getenv("CURSE_API_KEY_2")
@@ -391,7 +396,7 @@ fent_bot_responses = [
 
 @bot.event
 async def on_ready():
-    print(f"{curse_personality['name']} is here to ruin someone's day.")
+    logger.info("%s is here to ruin someone's day.", curse_personality["name"])
     pick_daily_cursed.start()
     daily_gift.start()
 

@@ -5,11 +5,16 @@ This version speaks in Curse's voice and guides the user through filling
 in every token one by one with friendly descriptions. A few validation
 checks help guard against missing values."""
 import sys
+import logging
 
 # Project repository: https://github.com/The-w0rst/grimmbot
 import subprocess
 from pathlib import Path
 import shutil
+from config.settings import validate_template
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 VERSION = "1.4"
 
@@ -45,24 +50,24 @@ def validate_env(path: Path) -> list:
 
 
 def check_python() -> None:
-    print("Step 1/4: Checking Python version...")
+    logger.info("Step 1/4: Checking Python version...")
     if sys.version_info < (3, 10):
         sys.exit("Python 3.10 or newer is required. Aborting.")
-    print(f"✔ Python {sys.version_info.major}.{sys.version_info.minor} detected.\n")
+    logger.info("✔ Python %s.%s detected\n", sys.version_info.major, sys.version_info.minor)
 
 
 def install_requirements() -> None:
-    print("Step 2/4: Installing dependencies from requirements/base.txt")
+    logger.info("Step 2/4: Installing dependencies from requirements/base.txt")
     choice = input("Install dependencies now? [Y/n] ").strip().lower()
     if choice in ("", "y", "yes"):
         subprocess.check_call(
             [sys.executable, "-m", "pip", "install", "-r", "requirements/base.txt"]
         )
-    print()
+    logger.info("")
 
 
 def configure_env() -> None:
-    print("Step 3/4: Time to hand over the keys. I'm Curse and I'll keep them safe!")
+    logger.info("Step 3/4: Time to hand over the keys. I'm Curse and I'll keep them safe!")
     TEMPLATE_PATH.parent.mkdir(parents=True, exist_ok=True)
     if not SETUP_PATH.exists():
         shutil.copyfile(TEMPLATE_PATH, SETUP_PATH)
@@ -98,22 +103,28 @@ def configure_env() -> None:
             try:
                 value = input(prompt).strip() or default
             except KeyboardInterrupt:
-                print("\nAborted.")
+                logger.info("\nAborted.")
                 sys.exit(1)
             if key in REQUIRED_VARS and not value:
-                print("This value is required.")
+                logger.info("This value is required.")
                 continue
             break
         lines.append(f"{key}={value}")
     SETUP_PATH.write_text("\n".join(lines) + "\n")
-    print(f"\nSaved configuration to {SETUP_PATH}\n")
+    logger.info("\nSaved configuration to %s\n", SETUP_PATH)
     missing = validate_env(SETUP_PATH)
     if missing:
-        print("Warning: the following values are still blank:", ", ".join(missing))
+        logger.warning("Warning: the following values are still blank: %s", ", ".join(missing))
+    missing_keys = validate_template()
+    if missing_keys:
+        logger.warning(
+            "Warning: these variables are defined in the template but missing from setup.env: %s",
+            ", ".join(missing_keys),
+        )
 
 
 def choose_bot() -> None:
-    print("Step 4/4: Installation finished!")
+    logger.info("Step 4/4: Installation finished!")
     options = {
         "1": ("GrimmBot", "grimm_bot.py"),
         "2": ("BloomBot", "bloom_bot.py"),
@@ -123,11 +134,11 @@ def choose_bot() -> None:
         "0": ("Exit", None),
     }
     for key, (name, _) in options.items():
-        print(f" {key}. {name}")
+        logger.info(" %s. %s", key, name)
     try:
         choice = input("Run a bot now? [0-5] ").strip()
     except KeyboardInterrupt:
-        print("\nAborted.")
+        logger.info("\nAborted.")
         sys.exit(1)
 
     if choice == "5":
@@ -137,7 +148,7 @@ def choose_bot() -> None:
             for p in processes:
                 p.wait()
         except KeyboardInterrupt:
-            print("\nStopping bots…")
+            logger.info("\nStopping bots…")
             for p in processes:
                 p.terminate()
             for p in processes:
@@ -147,23 +158,23 @@ def choose_bot() -> None:
         if script:
             subprocess.call([sys.executable, script])
         else:
-            print(
+            logger.info(
                 "You can start a bot later using one of the python commands above."
             )
 
 
 def main() -> None:
-    print(f"== Goon Squad Bot Installer v{VERSION} ==")
-    print("Curse here. I'll walk you through this. Let's do it!\n")
+    logger.info("== Goon Squad Bot Installer v%s ==", VERSION)
+    logger.info("Curse here. I'll walk you through this. Let's do it!\n")
     try:
         check_python()
         install_requirements()
         configure_env()
         choose_bot()
     except KeyboardInterrupt:
-        print("\nInstaller aborted.")
+        logger.info("\nInstaller aborted.")
         sys.exit(1)
-    print(
+    logger.info(
         "Congratulations. Your discord server is now cursed! That wasn't very smart of you…"
     )
 

@@ -15,16 +15,21 @@ import discord
 from discord.ext import commands
 import random
 import os
-from dotenv import load_dotenv
+import logging
+from config.settings import load_config
 from pathlib import Path
 import yt_dlp
 import asyncio
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Load a single shared configuration file for all bots
 ENV_PATH = Path(__file__).resolve().parent / "config" / "setup.env"
 if not ENV_PATH.exists():
     raise SystemExit("config/setup.env missing. Run 'python install.py' first.")
-load_dotenv(ENV_PATH)
+load_config({"BLOOM_DISCORD_TOKEN"})
 DISCORD_TOKEN = os.getenv("BLOOM_DISCORD_TOKEN")
 BLOOM_API_KEY_1 = os.getenv("BLOOM_API_KEY_1")
 BLOOM_API_KEY_2 = os.getenv("BLOOM_API_KEY_2")
@@ -399,7 +404,7 @@ interactions = [
 
 @bot.event
 async def on_ready():
-    print(f"{bloom_personality['name']} is online and ready to hug the whole server!")
+    logger.info("%s is online and ready to hug the whole server!", bloom_personality["name"])
 
 
 @bot.command(name="help")
@@ -516,9 +521,13 @@ async def play(ctx, url: str):
     elif voice.channel != ctx.author.voice.channel:
         await voice.move_to(ctx.author.voice.channel)
     ydl_opts = {"format": "bestaudio", "quiet": True}
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(url, download=False)
-        audio_url = info["url"]
+
+    def _extract() -> dict:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            return ydl.extract_info(url, download=False)
+
+    info = await asyncio.to_thread(_extract)
+    audio_url = info["url"]
     source = await discord.FFmpegOpusAudio.from_probe(audio_url)
     voice.play(source)
     await ctx.send(f"Now playing: {info.get('title', 'unknown')}")
@@ -587,4 +596,5 @@ async def queen(ctx):
 
 if not DISCORD_TOKEN:
     raise RuntimeError("BLOOM_DISCORD_TOKEN not set in config/setup.env")
+asyncio.run(bot.load_extension("cogs.bloom_cog"))
 bot.run(DISCORD_TOKEN)

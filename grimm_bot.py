@@ -15,18 +15,19 @@ import discord
 from discord.ext import commands
 import os
 
-from dotenv import load_dotenv
+import logging
+from config.settings import load_config
 import grimm_utils
-from pathlib import Path
 import random
 import socketio
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 # === ENVIRONMENT VARIABLES ===
-# Load a single shared configuration file for all bots
-ENV_PATH = Path(__file__).resolve().parent / "config" / "setup.env"
-if not ENV_PATH.exists():
-    raise SystemExit("config/setup.env missing. Run 'python install.py' first.")
-load_dotenv(ENV_PATH)
+# Load shared configuration
+load_config({"GRIMM_DISCORD_TOKEN"})
 DISCORD_TOKEN = os.getenv("GRIMM_DISCORD_TOKEN")
 GRIMM_API_KEY_1 = os.getenv("GRIMM_API_KEY_1")
 GRIMM_API_KEY_2 = os.getenv("GRIMM_API_KEY_2")
@@ -38,14 +39,14 @@ sio = socketio.Client()
 try:
     sio.connect(SOCKET_SERVER)
 except Exception as e:
-    print(f"Failed to connect to Socket.IO dashboard: {e}")
+    logger.warning("Failed to connect to Socket.IO dashboard: %s", e)
 
 
 def send_status(status, message):
     try:
         sio.emit("bot_status", {"bot": "Grimm", "status": status, "message": message})
     except Exception as e:
-        print(f"SocketIO error: {e}")
+        logger.warning("SocketIO error: %s", e)
 
 
 # === GRIMM PERSONALITY ===
@@ -184,7 +185,7 @@ bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 
 @bot.event
 async def on_ready():
-    print("Grimm has arrived. Watch your step, goons.")
+    logger.info("Grimm has arrived. Watch your step, goons.")
     send_status("online", "On patrol. Nobody dies on my watch (except for Mondays).")
 
 
