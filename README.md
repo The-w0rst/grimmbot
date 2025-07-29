@@ -20,6 +20,14 @@ install.py – interactive installer with my charming narration and colorful pro
 
 Each cog has a `COG_VERSION` for tracking updates. Check the [`docs`](docs) folder for deeper secrets.
 
+#### To Clarify the Cogs Section
+
+Cogs are modular command sets stored inside the `cogs/` directory. When you run
+`goon_bot.py`, every file that ends with `_cog.py` is loaded automatically.
+You can add or remove them at runtime using the Admin commands (`load`,
+`unload`, `reload`). For guidance on writing your own, see
+[`docs/creating_cogs.md`](docs/creating_cogs.md).
+
 ## Installation
 The quick way is with the bootstrap script:
 
