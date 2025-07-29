@@ -93,6 +93,7 @@ def configure_env() -> None:
         shutil.copyfile(TEMPLATE_PATH, SETUP_PATH)
     existing = read_existing(SETUP_PATH)
     lines = []
+
     def color_for_key(key: str) -> str:
         if key.startswith("GRIMM"):
             return RED
