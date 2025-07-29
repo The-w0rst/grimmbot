@@ -61,11 +61,17 @@ def check_python() -> None:
     logger.info(CYAN + "Step 1/4: Checking Python version..." + RESET)
     if sys.version_info < (3, 10):
         sys.exit("Python 3.10 or newer is required. Aborting.")
-    logger.info(GREEN + "\u2714 Python %s.%s detected\n" + RESET, sys.version_info.major, sys.version_info.minor)
+    logger.info(
+        GREEN + "\u2714 Python %s.%s detected\n" + RESET,
+        sys.version_info.major,
+        sys.version_info.minor,
+    )
 
 
 def install_requirements() -> None:
-    logger.info(CYAN + "Step 2/4: Installing dependencies from requirements/base.txt" + RESET)
+    logger.info(
+        CYAN + "Step 2/4: Installing dependencies from requirements/base.txt" + RESET
+    )
     choice = input(YELLOW + "Install dependencies now? [Y/n] " + RESET).strip().lower()
     if choice in ("", "y", "yes"):
         subprocess.check_call(
@@ -75,7 +81,11 @@ def install_requirements() -> None:
 
 
 def configure_env() -> None:
-    logger.info(CYAN + "Step 3/4: Time to hand over the keys. I'm Curse and I'll keep them safe!" + RESET)
+    logger.info(
+        CYAN
+        + "Step 3/4: Time to hand over the keys. I'm Curse and I'll keep them safe!"
+        + RESET
+    )
     TEMPLATE_PATH.parent.mkdir(parents=True, exist_ok=True)
     if not SETUP_PATH.exists():
         shutil.copyfile(TEMPLATE_PATH, SETUP_PATH)
@@ -106,7 +116,7 @@ def configure_env() -> None:
         key = line.split("=", 1)[0]
         desc = friendly.get(key, key)
         default = existing.get(key, "")
-        prompt = (f"{desc} [{default}]: " if default else f"{desc}: ")
+        prompt = f"{desc} [{default}]: " if default else f"{desc}: "
         prompt = YELLOW + prompt + RESET
         while True:
             try:
@@ -123,11 +133,16 @@ def configure_env() -> None:
     logger.info(GREEN + "\nSaved configuration to %s\n" + RESET, SETUP_PATH)
     missing = validate_env(SETUP_PATH)
     if missing:
-        logger.warning(RED + "Warning: the following values are still blank: %s" + RESET, ", ".join(missing))
+        logger.warning(
+            RED + "Warning: the following values are still blank: %s" + RESET,
+            ", ".join(missing),
+        )
     missing_keys = validate_template()
     if missing_keys:
         logger.warning(
-            RED + "Warning: these variables are defined in the template but missing from setup.env: %s" + RESET,
+            RED
+            + "Warning: these variables are defined in the template but missing from setup.env: %s"
+            + RESET,
             ", ".join(missing_keys),
         )
 
@@ -185,7 +200,9 @@ def main() -> None:
         logger.info(RED + "\nInstaller aborted." + RESET)
         sys.exit(1)
     logger.info(
-        GREEN + "Congratulations. Your discord server is now cursed! That wasn't very smart of you…" + RESET
+        GREEN
+        + "Congratulations. Your discord server is now cursed! That wasn't very smart of you…"
+        + RESET
     )
 
 

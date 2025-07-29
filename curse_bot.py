@@ -451,6 +451,7 @@ async def _collect_statement(member: discord.Member, issue: str) -> str | None:
         return None
     return msg.content.strip()
 
+
 # === On Ready ===
 
 

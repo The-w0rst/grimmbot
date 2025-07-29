@@ -281,7 +281,9 @@ class JudgeCog(commands.Cog):
         line = random.choice(JUDGE_LINES[persona][vote])
         return f"{info['prefix']}{line}"
 
-    async def _collect_statement(self, member: discord.Member, issue: str) -> str | None:
+    async def _collect_statement(
+        self, member: discord.Member, issue: str
+    ) -> str | None:
         try:
             await member.send(f"What's your side on the issue '{issue}'?")
         except discord.Forbidden:
@@ -296,7 +298,13 @@ class JudgeCog(commands.Cog):
             return None
         return msg.content.strip()
 
-    async def _run_judgement(self, issue: str, side_map: dict[int, str], user1: discord.Member, user2: discord.Member) -> str:
+    async def _run_judgement(
+        self,
+        issue: str,
+        side_map: dict[int, str],
+        user1: discord.Member,
+        user2: discord.Member,
+    ) -> str:
         results = {}
         votes = []
         for persona in ("Grimm", "Bloom", "Curse"):
@@ -313,7 +321,9 @@ class JudgeCog(commands.Cog):
         lines = []
         for persona in ("Grimm", "Bloom", "Curse"):
             entry = results[persona]
-            lines.append(f"**{persona}**: {entry['reason']} \n**Vote:** {entry['vote']}")
+            lines.append(
+                f"**{persona}**: {entry['reason']} \n**Vote:** {entry['vote']}"
+            )
         if majority:
             lines.append(f"\nThe Goon Squad has ruled: {majority}.")
         else:
@@ -322,7 +332,13 @@ class JudgeCog(commands.Cog):
 
     @commands.command(name="judge")
     @commands.cooldown(1, 60, commands.BucketType.user)
-    async def judge(self, ctx: commands.Context, users: commands.Greedy[discord.Member], *, issue: str):
+    async def judge(
+        self,
+        ctx: commands.Context,
+        users: commands.Greedy[discord.Member],
+        *,
+        issue: str,
+    ):
         """Judge an argument between two people."""
         if len(users) == 0:
             await ctx.send("Mention the other participant.")
@@ -346,9 +362,15 @@ class JudgeCog(commands.Cog):
             return
 
         key = (frozenset({user1.id, user2.id}), issue.lower())
-        self.cases[key] = {"users": (user1.id, user2.id), "sides": {user1.id: side1, user2.id: side2}, "appealed": False}
+        self.cases[key] = {
+            "users": (user1.id, user2.id),
+            "sides": {user1.id: side1, user2.id: side2},
+            "appealed": False,
+        }
 
-        result_text = await self._run_judgement(issue, self.cases[key]["sides"], user1, user2)
+        result_text = await self._run_judgement(
+            issue, self.cases[key]["sides"], user1, user2
+        )
         for member in {user1, user2}:
             try:
                 await member.send(result_text)

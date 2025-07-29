@@ -292,12 +292,7 @@ EPIC_LYRICS_DIR.mkdir(parents=True, exist_ok=True)
 
 def load_epic_lyrics(song: str) -> list[str]:
     """Return lyric lines for ``song`` loaded from ``EPIC_LYRICS_DIR``."""
-    slug = (
-        song.lower()
-        .replace("'", "")
-        .replace("’", "")
-        .replace(" ", "_")
-    )
+    slug = song.lower().replace("'", "").replace("’", "").replace(" ", "_")
     path = EPIC_LYRICS_DIR / f"{slug}.txt"
     if not path.exists():
         return []
@@ -496,12 +491,15 @@ async def _collect_statement(member: discord.Member, issue: str) -> str | None:
         return None
     return msg.content.strip()
 
+
 # === On Ready ===
 
 
 @bot.event
 async def on_ready():
-    logger.info("%s is online and ready to hug the whole server!", bloom_personality["name"])
+    logger.info(
+        "%s is online and ready to hug the whole server!", bloom_personality["name"]
+    )
     log_message("Bloom bot ready")
 
 
