@@ -3,8 +3,8 @@ discord.py==2.5.2
 python-dotenv==1.1.1
 python-socketio==5.13.0
 openai==1.97.1
-yt_dlp
-lavalink
-colorama
+yt_dlp==2024.3.10
+lavalink==5.9.0
+colorama==0.4.6
 requests
 beautifulsoup4
