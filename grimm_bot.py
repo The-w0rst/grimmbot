@@ -353,7 +353,7 @@ async def menu(ctx):
 async def ask(ctx, *, question: str):
     """Ask Grimm a question via ChatGPT."""
     reply = await chatgpt_reply(question)
-    for chunk in [reply[i : i + 1900] for i in range(0, len(reply), 1900)]:
+    for chunk in [reply[i:i + 1900] for i in range(0, len(reply), 1900)]:
         await ctx.send(chunk)
 
 
@@ -597,7 +597,7 @@ async def judge(ctx, other: discord.Member, *, issue: str):
         "Give your verdict in character as Grimm."
     )
     reply = await chatgpt_reply(prompt)
-    for chunk in [reply[i : i + 1900] for i in range(0, len(reply), 1900)]:
+    for chunk in [reply[i:i + 1900] for i in range(0, len(reply), 1900)]:
         await ctx.send(chunk)
 
 
