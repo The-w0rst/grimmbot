@@ -83,6 +83,13 @@ config/setup.env
 
 before launching a bot. A full list of variables is documented in `config/README.md`.
 
+For automated setups (CI, Docker, etc.) you can create the environment file from
+existing variables with:
+
+```bash
+python generate_env.py
+```
+
 ### Dependencies
 All required Python packages live in:
 

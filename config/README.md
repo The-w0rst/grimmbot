@@ -23,6 +23,15 @@ at https://github.com/The-w0rst/grimmbot
 (Grimm, Bloom, Curse) and shared settings. Add `OPENAI_API_KEY` for ChatGPT
 features or `SOCKET_SERVER_URL` if you want status reporting.
 
+3. For automated environments you can generate the file from existing shell
+   variables:
+
+   ```bash
+   python generate_env.py
+   ```
+
+   Each entry in the template is filled with the matching environment variable.
+
 ### Environment variables
 
 | Variable | Description |
