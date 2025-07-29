@@ -21,7 +21,9 @@ init(autoreset=True)
 CYAN = Fore.CYAN + Style.BRIGHT
 GREEN = Fore.GREEN + Style.BRIGHT
 YELLOW = Fore.YELLOW + Style.BRIGHT
-RED = Fore.RED + Style.BRIGHT
+RED = Fore.LIGHTRED_EX + Style.BRIGHT
+BLUE = Fore.LIGHTBLUE_EX + Style.BRIGHT
+ORANGE = Fore.LIGHTYELLOW_EX + Style.BRIGHT
 RESET = Style.RESET_ALL
 
 VERSION = "1.5"
@@ -37,6 +39,16 @@ REQUIRED_VARS = {
     "CURSE_DISCORD_TOKEN",
     "DISCORD_TOKEN",
 }
+
+
+def get_color(key: str) -> str:
+    if key.startswith("GRIMM_"):
+        return BLUE
+    if key.startswith("BLOOM_"):
+        return ORANGE
+    if key.startswith("CURSE_"):
+        return RED
+    return YELLOW
 
 
 def read_existing(path: Path) -> dict:
@@ -83,7 +95,11 @@ def install_requirements() -> None:
 def configure_env() -> None:
     logger.info(
         CYAN
-        + "Step 3/4: Time to hand over the keys. I'm Curse and I'll keep them safe!"
+        + "Step 3/4: Time to hand over the keys. I'm "
+        + RED
+        + "Curse"
+        + CYAN
+        + " and I'll keep them safe!"
         + RESET
     )
     TEMPLATE_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -117,7 +133,8 @@ def configure_env() -> None:
         desc = friendly.get(key, key)
         default = existing.get(key, "")
         prompt = f"{desc} [{default}]: " if default else f"{desc}: "
-        prompt = YELLOW + prompt + RESET
+        color = get_color(key)
+        prompt = color + prompt + RESET
         while True:
             try:
                 value = input(prompt).strip() or default
@@ -157,8 +174,16 @@ def choose_bot() -> None:
         "5": ("All bots", None),
         "0": ("Exit", None),
     }
+    color_map = {
+        "GrimmBot": BLUE,
+        "BloomBot": ORANGE,
+        "CurseBot": RED,
+        "GoonBot (all cogs)": CYAN,
+        "All bots": GREEN,
+    }
     for key, (name, _) in options.items():
-        logger.info(" %s. %s", key, name)
+        color = color_map.get(name, YELLOW)
+        logger.info(color + " %s. %s" + RESET, key, name)
     try:
         choice = input(YELLOW + "Run a bot now? [0-5] " + RESET).strip()
     except KeyboardInterrupt:
@@ -190,7 +215,9 @@ def choose_bot() -> None:
 def main() -> None:
     logger.info(CYAN + "== Goon Squad Bot Installer v%s ==" + RESET, VERSION)
     log_message("Installer starting")
-    logger.info("Curse here. I'll walk you through this. Let's do it!\n")
+    logger.info(
+        RED + "Curse" + RESET + " here. I'll walk you through this. Let's do it!\n"
+    )
     try:
         check_python()
         install_requirements()

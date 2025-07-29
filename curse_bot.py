@@ -16,6 +16,7 @@ import random
 import os
 import asyncio
 import openai
+from colorama import Fore, Style, init
 import logging
 from config.settings import load_config
 from pathlib import Path
@@ -24,6 +25,9 @@ from src.logger import setup_logging, log_message
 # Configure logging
 setup_logging("curse_bot.log")
 logger = logging.getLogger(__name__)
+init(autoreset=True)
+RED = Fore.LIGHTRED_EX + Style.BRIGHT
+RESET = Style.RESET_ALL
 
 # Load a single shared configuration file for all bots
 ENV_PATH = Path(__file__).resolve().parent / "config" / "setup.env"
@@ -457,7 +461,9 @@ async def _collect_statement(member: discord.Member, issue: str) -> str | None:
 
 @bot.event
 async def on_ready():
-    logger.info("%s is here to ruin someone's day.", curse_personality["name"])
+    logger.info(
+        RED + f"{curse_personality['name']} is here to ruin someone's day." + RESET
+    )
     log_message("Curse bot ready")
     pick_daily_cursed.start()
     daily_gift.start()

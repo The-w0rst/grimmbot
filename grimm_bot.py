@@ -16,6 +16,7 @@ from discord.ext import commands
 import os
 import asyncio
 import openai
+from colorama import Fore, Style, init
 
 import logging
 from config.settings import load_config
@@ -23,6 +24,11 @@ import grimm_utils
 import random
 import socketio
 from src.logger import setup_logging, log_message
+
+# Setup color output
+init(autoreset=True)
+BLUE = Fore.LIGHTBLUE_EX + Style.BRIGHT
+RESET = Style.RESET_ALL
 
 # Configure logging
 setup_logging("grimm_bot.log")
@@ -191,7 +197,7 @@ bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 
 @bot.event
 async def on_ready():
-    logger.info("Grimm has arrived. Watch your step, goons.")
+    logger.info(BLUE + "Grimm has arrived. Watch your step, goons." + RESET)
     log_message("Grimm bot ready")
     send_status("online", "On patrol. Nobody dies on my watch (except for Mondays).")
 

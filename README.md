@@ -72,6 +72,14 @@ I'll ask for every token with bright prompts and set up:
 config/setup.env
 ```
 
+### Prompt colors
+The installer and setup tools use consistent colors to show which bot is
+speaking:
+
+- **Grimm** – blue
+- **Bloom** – orange
+- **Curse** – red
+
 See `INSTALL.md` for a detailed walkthrough. If you're experimenting, create a test Discord server and generate bot tokens at <https://discord.com/developers>. Use those tokens in:
 
 ```

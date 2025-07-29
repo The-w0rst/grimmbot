@@ -7,3 +7,4 @@ yt_dlp
 lavalink
 requests
 beautifulsoup4
+colorama==0.4.6
