@@ -14,18 +14,27 @@ class StarboardCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload: discord.RawReactionActionEvent):
-        if str(payload.emoji) != "\u2B50":
+        if str(payload.emoji) != "\u2b50":
             return
         if payload.message_id in self.starboard_cache:
             return
         channel = self.bot.get_channel(payload.channel_id)
         message = await channel.fetch_message(payload.message_id)
-        if sum(1 for r in message.reactions if str(r.emoji) == "\u2B50" and r.count >= self.threshold):
+        if sum(
+            1
+            for r in message.reactions
+            if str(r.emoji) == "\u2b50" and r.count >= self.threshold
+        ):
             starboard = discord.utils.get(channel.guild.text_channels, name="starboard")
             if not starboard:
                 return
-            embed = discord.Embed(description=message.content, color=discord.Color.gold())
-            embed.set_author(name=message.author.display_name, icon_url=message.author.display_avatar.url)
+            embed = discord.Embed(
+                description=message.content, color=discord.Color.gold()
+            )
+            embed.set_author(
+                name=message.author.display_name,
+                icon_url=message.author.display_avatar.url,
+            )
             embed.timestamp = message.created_at
             await starboard.send(embed=embed)
             self.starboard_cache.add(payload.message_id)

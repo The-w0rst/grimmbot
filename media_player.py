@@ -205,9 +205,7 @@ class LocalPath:
         async for rp in AsyncIter(method(pattern)):
             rp_local = LocalPath(rp, self._localtrack_folder)
             if (
-                (
-                    folder and rp_local.is_dir() and rp_local.exists()
-                )
+                (folder and rp_local.is_dir() and rp_local.exists())
                 or (
                     not folder
                     and rp_local.suffix in self._all_music_ext

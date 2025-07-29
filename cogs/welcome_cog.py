@@ -5,7 +5,7 @@ COG_VERSION = "1.4"
 
 WELCOME_LINES = {
     "Grimm": "Another soul joins us... Welcome, {member}.",
-    "Bloom": "Yay! {member}, you're finally here! \U0001F389",
+    "Bloom": "Yay! {member}, you're finally here! \U0001f389",
     "Curse": "Heh, {member} stumbled into our lair.",
     "default": "Welcome {member}!",
 }
@@ -26,7 +26,9 @@ class WelcomeCog(commands.Cog):
 
     def _line(self, name: str, member: discord.Member, table: dict[str, str]) -> str:
         template = table.get(name, table["default"])
-        return template.format(member=member.mention if "welcome" in template else member.display_name)
+        return template.format(
+            member=member.mention if "welcome" in template else member.display_name
+        )
 
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):
@@ -34,8 +36,13 @@ class WelcomeCog(commands.Cog):
         role = discord.utils.get(guild.roles, name="Member")
         if role:
             await member.add_roles(role)
-        channel = discord.utils.get(guild.text_channels, name="general") or guild.text_channels[0]
-        line = self._line(self.bot.user.name if self.bot.user else "default", member, WELCOME_LINES)
+        channel = (
+            discord.utils.get(guild.text_channels, name="general")
+            or guild.text_channels[0]
+        )
+        line = self._line(
+            self.bot.user.name if self.bot.user else "default", member, WELCOME_LINES
+        )
         await channel.send(line)
         try:
             await member.send(line)
@@ -45,8 +52,13 @@ class WelcomeCog(commands.Cog):
     @commands.Cog.listener()
     async def on_member_remove(self, member: discord.Member):
         guild = member.guild
-        channel = discord.utils.get(guild.text_channels, name="general") or guild.text_channels[0]
-        line = self._line(self.bot.user.name if self.bot.user else "default", member, GOODBYE_LINES)
+        channel = (
+            discord.utils.get(guild.text_channels, name="general")
+            or guild.text_channels[0]
+        )
+        line = self._line(
+            self.bot.user.name if self.bot.user else "default", member, GOODBYE_LINES
+        )
         await channel.send(line)
 
 
