@@ -15,3 +15,7 @@
 ## v1.9
 - Bots send messages using color-coded embeds.
 - Bloom delivers scheduled compliments twice a day.
+
+## v2.0.0
+- Official release with a complete command reference.
+- All code reviewed for flake8 compliance.

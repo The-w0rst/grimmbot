@@ -1,4 +1,4 @@
-# Goon Squad Bots - Installation Guide (v1.6)
+# Goon Squad Bots - Installation Guide (v2.0.0)
 
 Curse here. Let's get these bots running on your machine. This works on
 Windows, macOS, or Linux—take your pick.
