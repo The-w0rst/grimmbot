@@ -404,6 +404,7 @@ async def inventory(ctx):
     item = grimm_utils.random_item()
     await ctx.send(f"Grimm hands you {item}.")
 
+
 # === RANDOM PROTECTIVE RESPONSES ===
 
 

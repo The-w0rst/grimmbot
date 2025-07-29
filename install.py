@@ -109,7 +109,9 @@ def main() -> None:
     install_requirements()
     configure_env()
     choose_bot()
-    print("Congratulations. Your discord server is now cursed! That wasn't very smart of you…")
+    print(
+        "Congratulations. Your discord server is now cursed! That wasn't very smart of you…"
+    )
 
 
 if __name__ == "__main__":

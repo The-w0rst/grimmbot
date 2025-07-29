@@ -130,7 +130,9 @@ class GrimmCog(commands.Cog):
         guild = member.guild
         role = discord.utils.get(guild.roles, name="Grimm's Shield")
         if role is None:
-            role = await guild.create_role(name="Grimm's Shield", colour=discord.Colour.dark_gray())
+            role = await guild.create_role(
+                name="Grimm's Shield", colour=discord.Colour.dark_gray()
+            )
         try:
             await member.add_roles(role)
         except discord.Forbidden:

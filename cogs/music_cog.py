@@ -97,7 +97,8 @@ class MusicCog(commands.Cog):
             await ctx.send("Queue is empty.")
             return
         msg = "Upcoming songs:\n" + "\n".join(
-            f"{idx + 1}. {item.get('title', 'unknown')}" for idx, item in enumerate(queue)
+            f"{idx + 1}. {item.get('title', 'unknown')}"
+            for idx, item in enumerate(queue)
         )
         await ctx.send(msg)
 
