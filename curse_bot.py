@@ -97,7 +97,9 @@ async def daily_gift():
         line = random.choice(positive_gift_responses)
     else:
         line = random.choice(negative_gift_responses)
-    await channel.send(f"🎁 {recipient.display_name}, " + line.format(gift=gift["name"]))
+    await channel.send(
+        f"🎁 {recipient.display_name}, " + line.format(gift=gift["name"])
+    )
 
 
 # === Curse Interactions ===

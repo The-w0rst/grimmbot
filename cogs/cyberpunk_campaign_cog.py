@@ -129,9 +129,7 @@ class CyberpunkCampaignCog(commands.Cog):
                 "You help a runaway droid evade capture, and it swears to repay the "
                 "favor someday."
             ),
-            (
-                "Curse chases off a swarm of pesky drones, clearing the path ahead."
-            ),
+            ("Curse chases off a swarm of pesky drones, clearing the path ahead."),
             (
                 "A hidden cache of neon graffiti supplies lets Bloom decorate the "
                 "streets with uplifting art."
@@ -173,9 +171,7 @@ class CyberpunkCampaignCog(commands.Cog):
                 "Curse tries to swipe a snack and angers a stall owner who calls "
                 "for backup."
             ),
-            (
-                "Bloom's humming attracts security drones that demand identification."
-            ),
+            ("Bloom's humming attracts security drones that demand identification."),
             (
                 "You hear rumors of a bounty on your heads spreading through the "
                 "undercity."
@@ -232,9 +228,7 @@ class CyberpunkCampaignCog(commands.Cog):
                 "Bloom hears a haunting melody that lures her toward a decrepit "
                 "theater rumored to be cursed."
             ),
-            (
-                "A rogue drone steals a valuable gadget right out of Grimm's hands."
-            ),
+            ("A rogue drone steals a valuable gadget right out of Grimm's hands."),
             (
                 "Street rumors point to a hidden trap ahead, but the only detour "
                 "leads through enemy turf."

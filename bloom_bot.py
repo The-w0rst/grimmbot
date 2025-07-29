@@ -285,7 +285,9 @@ def load_epic_lyrics(song: str) -> list[str]:
         return [line.strip() for line in f if line.strip()]
 
 
-async def perform_drama(bot: commands.Bot, ctx: commands.Context, song: str | None = None):
+async def perform_drama(
+    bot: commands.Bot, ctx: commands.Context, song: str | None = None
+):
     """Interactive EPIC sing-along helper."""
     all_songs = [s for songs in epic_songs.values() for s in songs]
 
@@ -334,11 +336,12 @@ async def perform_drama(bot: commands.Bot, ctx: commands.Context, song: str | No
     else:
         count = max(1, min(len(lyrics), random.randint(4, 8)))
         start = random.randint(0, max(0, len(lyrics) - count))
-        lines_to_send = lyrics[start:start + count]
+        lines_to_send = lyrics[start : start + count]
 
     for line in lines_to_send:
         await ctx.send(line)
         await asyncio.sleep(1)
+
 
 # Lines from Bloom's favorite song "Pretty Little Baby" by Connie Francis
 pretty_little_baby_lines = [
@@ -492,9 +495,7 @@ async def sparkle(ctx):
                 "Bloom thinks you're fabulous!",
             ]
         )
-        await ctx.send(
-            f"{ctx.author.mention} gets covered in glitter! {compliment}"
-        )
+        await ctx.send(f"{ctx.author.mention} gets covered in glitter! {compliment}")
 
 
 @bot.command()

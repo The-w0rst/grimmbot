@@ -328,7 +328,9 @@ class CurseCog(commands.Cog):
                     "😼 Curse hurls the bucket into the air! A cloud of fent fills the room."
                 )
                 for character in ["Curse", "Bloom", "Grimm"]:
-                    await channel.send(random.choice(self.fent_party_success[character]))
+                    await channel.send(
+                        random.choice(self.fent_party_success[character])
+                    )
                 for member in guild.members:
                     if member.status == discord.Status.offline:
                         continue
@@ -341,7 +343,9 @@ class CurseCog(commands.Cog):
                             minutes = random.randint(1, 3)
                             await channel.send(
                                 f"{member.display_name} "
-                                + random.choice(self.fent_player_responses).format(minutes=minutes)
+                                + random.choice(self.fent_player_responses).format(
+                                    minutes=minutes
+                                )
                             )
             else:
                 await channel.send(f"{recipient.display_name} keeps the bucket...")
@@ -351,7 +355,9 @@ class CurseCog(commands.Cog):
                     minutes = random.randint(1, 3)
                     await channel.send(
                         f"{recipient.display_name} "
-                        + random.choice(self.fent_player_responses).format(minutes=minutes)
+                        + random.choice(self.fent_player_responses).format(
+                            minutes=minutes
+                        )
                     )
 
     @commands.Cog.listener()
@@ -441,7 +447,9 @@ class CurseCog(commands.Cog):
                         minutes = random.randint(1, 3)
                         await ctx.send(
                             f"{member.display_name} "
-                            + random.choice(self.fent_player_responses).format(minutes=minutes)
+                            + random.choice(self.fent_player_responses).format(
+                                minutes=minutes
+                            )
                         )
         elif outcome < 0.66:
             await ctx.send("😼 *purrs softly* Maybe I'll spare you... for now.")

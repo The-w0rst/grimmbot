@@ -251,7 +251,9 @@ class BloomCog(commands.Cog):
         guild = member.guild
         role = discord.utils.get(guild.roles, name="Bloom's Blessing")
         if role is None:
-            role = await guild.create_role(name="Bloom's Blessing", colour=discord.Colour.magenta())
+            role = await guild.create_role(
+                name="Bloom's Blessing", colour=discord.Colour.magenta()
+            )
         try:
             await member.add_roles(role)
         except discord.Forbidden:
@@ -292,7 +294,9 @@ class BloomCog(commands.Cog):
             info = ydl.extract_info(EPIC_VIDEO_URL, download=False)
             audio_url = info["url"]
         source = await discord.FFmpegOpusAudio.from_probe(audio_url)
-        voice.play(source, after=lambda e: self.bot.loop.create_task(voice.disconnect()))
+        voice.play(
+            source, after=lambda e: self.bot.loop.create_task(voice.disconnect())
+        )
 
     @commands.Cog.listener()
     async def on_ready(self):
