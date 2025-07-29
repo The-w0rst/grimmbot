@@ -19,6 +19,7 @@ what mischief it adds. All cogs are currently **v1.6**.
 | `cyberpunk_campaign_cog.py` | Lightweight cyberpunk themed DnD campaign using ChatGPT. See [cyberpunk_adventure.md](cyberpunk_adventure.md) for expanded scenarios. |
 | `help_cog.py` | Provides `help` commands for each bot and a `helpall` summary. |
 | `goon_cog.py` | The whole squad chiming in together. |
+| `judge_cog.py` | Simple relationship judge that lets the squad weigh in via DM. |
 
 All cogs declare a `COG_VERSION` constant for easy tracking of updates. Load them one by one with `goon_bot.py` or the Admin commands.
 For music playback details see [`music_setup.md`](music_setup.md).

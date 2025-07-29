@@ -27,6 +27,25 @@ REASONS = {
     "Both should compromise": "Neither side convinced me completely.",
 }
 
+POSITIVE_WORDS = {
+    "please",
+    "thank",
+    "thanks",
+    "sorry",
+    "apologize",
+    "love",
+    "appreciate",
+}
+
+NEGATIVE_WORDS = {
+    "hate",
+    "stupid",
+    "idiot",
+    "terrible",
+    "awful",
+    "bad",
+}
+
 
 class JudgeCog(commands.Cog):
     """Relationship judge for the Goon Squad."""
@@ -36,12 +55,21 @@ class JudgeCog(commands.Cog):
         # track cases for potential appeals
         self.cases: dict[tuple[frozenset[int], str], dict] = {}
 
+    def _score_statement(self, text: str) -> int:
+        """Return a simple score for ``text`` based on length and keywords."""
+        words = [w.strip(".,!?\"'").lower() for w in text.split()]
+        score = len(words)
+        score += sum(2 for w in words if w in POSITIVE_WORDS)
+        score -= sum(2 for w in words if w in NEGATIVE_WORDS)
+        return score
+
     def _decide_vote(self, side1: str, side2: str) -> str:
-        if len(side1) > len(side2):
-            return "User1"
-        if len(side2) > len(side1):
-            return "User2"
-        return "Both should compromise"
+        """Choose a winner by comparing keyword-weighted scores."""
+        score1 = self._score_statement(side1)
+        score2 = self._score_statement(side2)
+        if abs(score1 - score2) <= 1:
+            return "Both should compromise"
+        return "User1" if score1 > score2 else "User2"
 
     def _format_reason(self, persona: str, vote: str) -> str:
         info = PERSONALITIES[persona]
