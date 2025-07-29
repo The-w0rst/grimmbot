@@ -3,6 +3,7 @@ from src import health
 
 COG_VERSION = "1.0"
 
+
 class HealthCog(commands.Cog):
     """Shared health menu commands."""
 
@@ -13,6 +14,7 @@ class HealthCog(commands.Cog):
     async def health_cmd(self, ctx: commands.Context):
         """Show current health for all bots."""
         await ctx.send(health.get_menu())
+
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(HealthCog(bot))
