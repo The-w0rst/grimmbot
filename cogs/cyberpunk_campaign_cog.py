@@ -2,12 +2,22 @@ import os
 import random
 import openai
 from discord.ext import commands
+from src.api_utils import ApiKeyCycle
 
 COG_VERSION = "1.4"
 
 # Environment values are read from the parent process
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-openai.api_key = OPENAI_API_KEY
+try:
+    OPENAI_KEY_CYCLE = ApiKeyCycle(
+        [
+            os.getenv("OPENAI_API_KEY"),
+            os.getenv("GRIMM_OPENAI_KEY"),
+            os.getenv("BLOOM_OPENAI_KEY"),
+            os.getenv("CURSE_OPENAI_KEY"),
+        ]
+    )
+except ValueError:
+    OPENAI_KEY_CYCLE = None
 
 
 class CyberpunkCampaignCog(commands.Cog):
@@ -292,10 +302,13 @@ class CyberpunkCampaignCog(commands.Cog):
         )
 
     async def _chatgpt(self, session: dict | None, author: str, prompt: str) -> str:
-        if not OPENAI_API_KEY:
+        try:
+            api_key = OPENAI_KEY_CYCLE.next()
+        except Exception:
             return "OpenAI API key not configured."
         try:
             response = openai.ChatCompletion.create(
+                api_key=api_key,
                 model="gpt-3.5-turbo",
                 messages=[
                     {"role": "system", "content": self._system_prompt(author, session)},
@@ -310,7 +323,9 @@ class CyberpunkCampaignCog(commands.Cog):
 
     async def _character_chat(self, character: str, author: str, prompt: str) -> str:
         """Chat directly with a specific bot character."""
-        if not OPENAI_API_KEY:
+        try:
+            api_key = OPENAI_KEY_CYCLE.next()
+        except Exception:
             return "OpenAI API key not configured."
         system = (
             f"{self.character_prompts[character]} The setting is Neon Goon City. "
@@ -318,6 +333,7 @@ class CyberpunkCampaignCog(commands.Cog):
         )
         try:
             response = openai.ChatCompletion.create(
+                api_key=api_key,
                 model="gpt-3.5-turbo",
                 messages=[
                     {"role": "system", "content": system},
@@ -398,7 +414,7 @@ class CyberpunkCampaignCog(commands.Cog):
         if not session:
             await ctx.send("Start a campaign first with `!cyberstart`.")
             return
-        if OPENAI_API_KEY:
+        if OPENAI_KEY_CYCLE:
             prompt = (
                 "Describe a short scene the party encounters next in Neon Goon City. "
                 "Include Grimm, Bloom and Curse reacting in character."

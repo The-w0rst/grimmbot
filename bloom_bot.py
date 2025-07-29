@@ -20,6 +20,7 @@ import openai
 import datetime
 import logging
 from config.settings import load_config, get_env_vars
+from src.api_utils import ApiKeyCycle
 from pathlib import Path
 import yt_dlp
 from src.logger import setup_logging, log_message
@@ -51,13 +52,17 @@ BLOOM_API_KEY_1, BLOOM_API_KEY_2, BLOOM_API_KEY_3, BLOOM_OPENAI_KEY = get_env_va
 )
 BLOOM_GPT_ENABLED = os.getenv("BLOOM_GPT_ENABLED", "true").lower() == "true"
 BLOOM_OPENAI_MODEL = os.getenv("BLOOM_OPENAI_MODEL", "gpt-3.5-turbo")
+OPENAI_KEY_CYCLE = ApiKeyCycle(
+    [BLOOM_OPENAI_KEY, BLOOM_API_KEY_1, BLOOM_API_KEY_2, BLOOM_API_KEY_3]
+)
 
 
 def check_required() -> None:
     missing = []
-    for var in ("BLOOM_DISCORD_TOKEN", "BLOOM_OPENAI_KEY"):
-        if not os.getenv(var):
-            missing.append(var)
+    if not os.getenv("BLOOM_DISCORD_TOKEN"):
+        missing.append("BLOOM_DISCORD_TOKEN")
+    if not any([BLOOM_OPENAI_KEY, BLOOM_API_KEY_1, BLOOM_API_KEY_2, BLOOM_API_KEY_3]):
+        missing.append("BLOOM_OPENAI_KEY")
     if missing:
         logger.error("Missing required variables: %s", ", ".join(missing))
         raise SystemExit(1)
@@ -587,9 +592,9 @@ async def chatgpt_reply(prompt: str) -> str:
     """
     if not BLOOM_GPT_ENABLED:
         return "ChatGPT features are disabled."
-    if not BLOOM_OPENAI_KEY:
+    if not any([BLOOM_OPENAI_KEY, BLOOM_API_KEY_1, BLOOM_API_KEY_2, BLOOM_API_KEY_3]):
         return "OpenAI key missing for Bloom."
-    client = openai.AsyncOpenAI(api_key=BLOOM_OPENAI_KEY)
+    client = openai.AsyncOpenAI(api_key=OPENAI_KEY_CYCLE.next())
     try:
         response = await client.chat.completions.create(
             model=BLOOM_OPENAI_MODEL,
@@ -700,7 +705,16 @@ async def health(ctx):
     try:
         uptime = datetime.datetime.utcnow() - START_TIME
         latency = round(bot.latency * 1000)
-        api_status = "ok" if BLOOM_OPENAI_KEY else "no key"
+        api_status = (
+            "ok"
+            if any([
+                BLOOM_OPENAI_KEY,
+                BLOOM_API_KEY_1,
+                BLOOM_API_KEY_2,
+                BLOOM_API_KEY_3,
+            ])
+            else "no key"
+        )
         msg = (
             f"Uptime: {uptime}\n"
             f"Ping: {latency} ms\n"
