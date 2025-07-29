@@ -140,6 +140,7 @@ Use each bot's prefix followed by `help` for a quick rundown:
 *help      # Bloom
 ?help      # Curse
 !helpall   # or *helpall or ?helpall to hear from everyone at once
+!health    # or *health or ?health to view bot health
 ```
 
 For more details on every cog, including the GPT-powered ones, see [`docs/cogs_overview.md`](docs/cogs_overview.md).

@@ -484,6 +484,14 @@ async def ask(ctx, *, question: str):
         await ctx.send(chunk)
 
 
+@bot.command(name="health")
+async def health(ctx):
+    """Display the current health of all bots."""
+    from src import health
+
+    await ctx.send(health.get_menu())
+
+
 # === Passive Comments to Cursed User ===
 
 

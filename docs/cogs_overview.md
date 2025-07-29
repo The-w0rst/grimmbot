@@ -18,6 +18,7 @@ what mischief it adds. All cogs are currently **v1.6**.
 | `gpt_cog.py` | ChatGPT based chat command and mention replies. Requires `OPENAI_API_KEY`. |
 | `cyberpunk_campaign_cog.py` | Lightweight cyberpunk themed DnD campaign using ChatGPT. See [cyberpunk_adventure.md](cyberpunk_adventure.md) for expanded scenarios. |
 | `help_cog.py` | Provides `help` commands for each bot and a `helpall` summary. |
+| `health_cog.py` | Shows a unified health menu for the squad. |
 | `goon_cog.py` | The whole squad chiming in together. |
 | `judge_cog.py` | Simple relationship judge that lets the squad weigh in via DM. |
 
