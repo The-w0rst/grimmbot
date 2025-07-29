@@ -4,7 +4,7 @@ from discord.ext import commands
 
 from . import grimm_utils
 
-COG_VERSION = "1.4"
+COG_VERSION = "1.5"
 
 
 class GrimmExtraCog(commands.Cog):

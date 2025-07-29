@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-COG_VERSION = "1.4"
+COG_VERSION = "1.5"
 
 
 class XPCog(commands.Cog):

@@ -39,7 +39,7 @@ python_requires = ">=3.10"
 
 setup(
     name="grimmbot",
-    version="0.1.0",
+    version="0.1.1",
     packages=find_packages(include=["cogs", "cogs.*"]),
     py_modules=["grimm_bot", "bloom_bot", "curse_bot", "goon_bot"],
     install_requires=install_requires,

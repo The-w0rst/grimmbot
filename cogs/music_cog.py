@@ -7,7 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 from typing import Dict, List
 
-COG_VERSION = "1.4"
+COG_VERSION = "1.5"
 
 
 class MusicCog(commands.Cog):

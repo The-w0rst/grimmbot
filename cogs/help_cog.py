@@ -1,6 +1,6 @@
 from discord.ext import commands
 
-COG_VERSION = "1.4"
+COG_VERSION = "1.5"
 
 # Short help messages for each bot so they can be reused in other commands
 GRIMM_HELP = (
