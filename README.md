@@ -40,8 +40,11 @@ bloom_bot.py – Bloom the bubbly chaos (* prefix)
 curse_bot.py – yours truly (? prefix)
 goon_bot.py – load every cog at once
 cogs/ – trivia, moderation, music and more
-install.py – interactive installer with my charming narration and colorful prompts
+install.py – interactive installer with my charming narration and colorful prompts (via Colorama)
 ```
+
+The installer installs the `colorama` package automatically so the prompts and
+log output show up in vivid hues on any platform.
 
 Each cog has a `COG_VERSION` for tracking updates. Check the [`docs`](docs) folder for deeper secrets.
 

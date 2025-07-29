@@ -43,6 +43,7 @@ Prefer to get your paws dirty?
    On Windows use `copy` instead of `cp`. Fill in your Discord tokens and API
    keys.
 5. Run `python install.py` and follow Curse's friendly, color-coded prompts.
+   The installer installs `colorama` automatically so the colors work on any system.
    The installer guides you through four steps:
    1. **Python check** – verifies you're running Python 3.10 or newer.
    2. **Dependencies** – when asked `Install dependencies now? [Y/n]` press
