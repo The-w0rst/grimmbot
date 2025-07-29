@@ -22,10 +22,14 @@ from config.settings import load_config
 from pathlib import Path
 import yt_dlp
 from src.logger import setup_logging, log_message
+from colorama import Fore, Style, init
 
 # Configure logging
 setup_logging("bloom_bot.log")
 logger = logging.getLogger(__name__)
+init(autoreset=True)
+ORANGE = Fore.LIGHTYELLOW_EX + Style.BRIGHT
+RESET = Style.RESET_ALL
 
 # Load a single shared configuration file for all bots
 ENV_PATH = Path(__file__).resolve().parent / "config" / "setup.env"
@@ -498,7 +502,9 @@ async def _collect_statement(member: discord.Member, issue: str) -> str | None:
 @bot.event
 async def on_ready():
     logger.info(
-        "%s is online and ready to hug the whole server!", bloom_personality["name"]
+        ORANGE
+        + f"{bloom_personality['name']} is online and ready to hug the whole server!"
+        + RESET
     )
     log_message("Bloom bot ready")
 

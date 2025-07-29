@@ -2,6 +2,7 @@
 """Interactive configuration helper for the Goon Squad bots."""
 from pathlib import Path
 import logging
+from colorama import Fore, Style, init
 
 # Project repository: https://github.com/The-w0rst/grimmbot
 
@@ -11,6 +12,12 @@ VERSION = "1.4"
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+init(autoreset=True)
+BLUE = Fore.LIGHTBLUE_EX + Style.BRIGHT
+ORANGE = Fore.LIGHTYELLOW_EX + Style.BRIGHT
+RED = Fore.LIGHTRED_EX + Style.BRIGHT
+YELLOW = Fore.YELLOW + Style.BRIGHT
+RESET = Style.RESET_ALL
 
 
 def read_existing(path: Path) -> dict:
@@ -22,6 +29,16 @@ def read_existing(path: Path) -> dict:
             key, value = line.split("=", 1)
             data[key.strip()] = value.strip()
     return data
+
+
+def get_color(key: str) -> str:
+    if key.startswith("GRIMM_"):
+        return BLUE
+    if key.startswith("BLOOM_"):
+        return ORANGE
+    if key.startswith("CURSE_"):
+        return RED
+    return YELLOW
 
 
 def main() -> None:
@@ -37,6 +54,8 @@ def main() -> None:
         key = line.split("=", 1)[0]
         default = existing.get(key, "")
         prompt = f"{key} [{default}]: " if default else f"{key}: "
+        color = get_color(key)
+        prompt = color + prompt + RESET
         value = input(prompt).strip() or default
         lines.append(f"{key}={value}")
     SETUP_PATH.write_text("\n".join(lines) + "\n")

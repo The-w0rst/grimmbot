@@ -13,6 +13,7 @@ Welcome to the first public release of the Goon Squad bots.
    ```
    It clones the repo, installs dependencies, and starts the installer. On Windows run `py -3 install.py` after cloning instead.
 3. Run the installer and hand over your Discord tokens and API keys when Curse asks. The prompts are color coded for clarity and everything is saved to `config/setup.env`.
+   The colors match each bot: **Grimm** in blue, **Bloom** in orange and **Curse** in red.
 4. Start a bot of your choice:
    ```bash
    python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
@@ -43,6 +44,7 @@ Prefer to get your paws dirty?
    On Windows use `copy` instead of `cp`. Fill in your Discord tokens and API
    keys.
 5. Run `python install.py` and follow Curse's friendly, color-coded prompts.
+   Grimm's prompts appear in blue, Bloom's in orange and Curse's in red.
    The installer guides you through four steps:
    1. **Python check** – verifies you're running Python 3.10 or newer.
    2. **Dependencies** – when asked `Install dependencies now? [Y/n]` press
