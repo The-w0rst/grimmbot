@@ -26,12 +26,18 @@ class LoggingCog(commands.Cog):
     @commands.Cog.listener()
     async def on_message_delete(self, message: discord.Message):
         if message.guild:
-            await self._log(message.guild, f"Message deleted in {message.channel}: {message.author.display_name}: {message.content}")
+            await self._log(
+                message.guild,
+                f"Message deleted in {message.channel}: {message.author.display_name}: {message.content}",
+            )
 
     @commands.Cog.listener()
     async def on_message_edit(self, before: discord.Message, after: discord.Message):
         if before.guild and before.content != after.content:
-            await self._log(before.guild, f"Message edited in {before.channel}: {before.author.display_name}: {before.content} -> {after.content}")
+            await self._log(
+                before.guild,
+                f"Message edited in {before.channel}: {before.author.display_name}: {before.content} -> {after.content}",
+            )
 
 
 async def setup(bot: commands.Bot):

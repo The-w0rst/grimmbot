@@ -12,9 +12,11 @@ class PollsCog(commands.Cog):
     @commands.command()
     async def poll(self, ctx, *, question: str):
         """Start a yes/no poll."""
-        msg = await ctx.send(f"\N{BAR CHART} **{question}**\nReact with \U0001F44D or \U0001F44E")
-        await msg.add_reaction("\U0001F44D")
-        await msg.add_reaction("\U0001F44E")
+        msg = await ctx.send(
+            f"\N{BAR CHART} **{question}**\nReact with \U0001f44d or \U0001f44e"
+        )
+        await msg.add_reaction("\U0001f44d")
+        await msg.add_reaction("\U0001f44e")
 
 
 async def setup(bot: commands.Bot):
