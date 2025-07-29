@@ -1,11 +1,11 @@
 from discord.ext import commands
 import random
 
-COG_VERSION = "1.3"
+COG_VERSION = "1.4"
 
 
 class FunCog(commands.Cog):
-    """Random fun commands like dice rolls and an 8-ball. Version 1.3."""
+    """Random fun commands like dice rolls and an 8-ball. Version 1.4."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

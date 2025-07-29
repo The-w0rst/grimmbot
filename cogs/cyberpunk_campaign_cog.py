@@ -3,7 +3,7 @@ import random
 import openai
 from discord.ext import commands
 
-COG_VERSION = "1.3"
+COG_VERSION = "1.4"
 
 # Environment values are read from the parent process
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -11,7 +11,7 @@ openai.api_key = OPENAI_API_KEY
 
 
 class CyberpunkCampaignCog(commands.Cog):
-    """Cyberpunk themed mini DnD campaign with simple character sheets. Version 1.3."""
+    """Cyberpunk themed mini DnD campaign with simple character sheets. Version 1.4."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
