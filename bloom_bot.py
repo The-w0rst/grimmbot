@@ -15,11 +15,12 @@ import discord
 from discord.ext import commands
 import random
 import os
+import asyncio
+import openai
 import logging
 from config.settings import load_config
 from pathlib import Path
 import yt_dlp
-import asyncio
 from src.logger import setup_logging, log_message
 
 # Configure logging
@@ -35,6 +36,9 @@ DISCORD_TOKEN = os.getenv("BLOOM_DISCORD_TOKEN")
 BLOOM_API_KEY_1 = os.getenv("BLOOM_API_KEY_1")
 BLOOM_API_KEY_2 = os.getenv("BLOOM_API_KEY_2")
 BLOOM_API_KEY_3 = os.getenv("BLOOM_API_KEY_3")
+BLOOM_OPENAI_KEY = os.getenv("BLOOM_OPENAI_KEY")
+BLOOM_GPT_ENABLED = os.getenv("BLOOM_GPT_ENABLED", "true").lower() == "true"
+BLOOM_OPENAI_MODEL = os.getenv("BLOOM_OPENAI_MODEL", "gpt-3.5-turbo")
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -438,6 +442,60 @@ interactions = [
     "Curse: Only if Bloom stops singing.",
 ]
 
+
+# === ChatGPT Integration ===
+async def chatgpt_reply(prompt: str) -> str:
+    """Return a response from OpenAI in Bloom's bubbly voice.
+
+    Change ``BLOOM_OPENAI_MODEL`` in the environment or below to use
+    a different model such as ``gpt-4o``.
+    """
+    if not BLOOM_GPT_ENABLED:
+        return "ChatGPT features are disabled."
+    if not BLOOM_OPENAI_KEY:
+        return "OpenAI key missing for Bloom."
+    client = openai.AsyncOpenAI(api_key=BLOOM_OPENAI_KEY)
+    try:
+        response = await client.chat.completions.create(
+            model=BLOOM_OPENAI_MODEL,
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "You are Bloom, an energetic reaper who loves musicals,"
+                        " hugs and glitter. Respond with enthusiasm and emojis."
+                    ),
+                },
+                {"role": "user", "content": prompt},
+            ],
+            max_tokens=200,
+            temperature=0.9,
+        )
+        logger.info("OpenAI usage: %s tokens", response.usage.total_tokens)
+        return response.choices[0].message.content.strip()
+    except openai.RateLimitError:
+        return "OpenAI rate limit hit. Try again later."
+    except Exception as exc:
+        logger.error("OpenAI error: %s", exc)
+        return "Problem contacting OpenAI."
+
+
+async def _collect_statement(member: discord.Member, issue: str) -> str | None:
+    """DM ``member`` for their side of the issue."""
+    try:
+        await member.send(f"What's your side on '{issue}'?")
+    except discord.Forbidden:
+        return None
+
+    def check(m: discord.Message) -> bool:
+        return m.author == member and isinstance(m.channel, discord.DMChannel)
+
+    try:
+        msg = await bot.wait_for("message", check=check, timeout=120)
+    except asyncio.TimeoutError:
+        return None
+    return msg.content.strip()
+
 # === On Ready ===
 
 
@@ -459,6 +517,14 @@ async def help_all(ctx):
     await ctx.send(GRIMM_HELP)
     await ctx.send(BLOOM_HELP)
     await ctx.send(CURSE_HELP)
+
+
+@bot.command(name="ask")
+async def ask(ctx, *, question: str):
+    """Ask Bloom a question via ChatGPT."""
+    reply = await chatgpt_reply(question)
+    for chunk in [reply[i : i + 1900] for i in range(0, len(reply), 1900)]:
+        await ctx.send(chunk)
 
 
 # === Message Handler ===
@@ -669,6 +735,29 @@ async def comfort(ctx):
 async def story(ctx):
     """Tell a short whimsical story."""
     await ctx.send(random.choice(story_lines))
+
+
+@bot.command(name="judge")
+@commands.cooldown(1, 60, commands.BucketType.user)
+async def judge(ctx, other: discord.Member, *, issue: str):
+    """Ask Bloom to judge an argument between you and someone else."""
+    side1 = await _collect_statement(ctx.author, issue)
+    if side1 is None:
+        await ctx.send(f"Couldn't get {ctx.author.display_name}'s statement.")
+        return
+    side2 = await _collect_statement(other, issue)
+    if side2 is None:
+        await ctx.send(f"Couldn't get {other.display_name}'s statement.")
+        return
+    prompt = (
+        f"Issue: {issue}\n"
+        f"User1 ({ctx.author.display_name}): {side1}\n"
+        f"User2 ({other.display_name}): {side2}\n"
+        "Give your verdict in character as Bloom."
+    )
+    reply = await chatgpt_reply(prompt)
+    for chunk in [reply[i : i + 1900] for i in range(0, len(reply), 1900)]:
+        await ctx.send(chunk)
 
 
 @bot.command()

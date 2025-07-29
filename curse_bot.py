@@ -14,6 +14,8 @@ import discord
 from discord.ext import commands, tasks
 import random
 import os
+import asyncio
+import openai
 import logging
 from config.settings import load_config
 from pathlib import Path
@@ -32,6 +34,9 @@ DISCORD_TOKEN = os.getenv("CURSE_DISCORD_TOKEN")
 CURSE_API_KEY_1 = os.getenv("CURSE_API_KEY_1")
 CURSE_API_KEY_2 = os.getenv("CURSE_API_KEY_2")
 CURSE_API_KEY_3 = os.getenv("CURSE_API_KEY_3")
+CURSE_OPENAI_KEY = os.getenv("CURSE_OPENAI_KEY")
+CURSE_GPT_ENABLED = os.getenv("CURSE_GPT_ENABLED", "true").lower() == "true"
+CURSE_OPENAI_MODEL = os.getenv("CURSE_OPENAI_MODEL", "gpt-3.5-turbo")
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -392,6 +397,60 @@ fent_bot_responses = [
     "licks the air and declares it spicy.",
 ]
 
+
+# === ChatGPT Integration ===
+async def chatgpt_reply(prompt: str) -> str:
+    """Return a response from OpenAI in Curse's snarky style.
+
+    Update ``CURSE_OPENAI_MODEL`` or the ``model`` argument to switch
+    models like ``gpt-4o``.
+    """
+    if not CURSE_GPT_ENABLED:
+        return "ChatGPT features are disabled."
+    if not CURSE_OPENAI_KEY:
+        return "OpenAI key missing for Curse."
+    client = openai.AsyncOpenAI(api_key=CURSE_OPENAI_KEY)
+    try:
+        response = await client.chat.completions.create(
+            model=CURSE_OPENAI_MODEL,
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "You are Curse, a mischievous talking cat. "
+                        "Reply with playful snark."
+                    ),
+                },
+                {"role": "user", "content": prompt},
+            ],
+            max_tokens=200,
+            temperature=0.8,
+        )
+        logger.info("OpenAI usage: %s tokens", response.usage.total_tokens)
+        return response.choices[0].message.content.strip()
+    except openai.RateLimitError:
+        return "OpenAI rate limit hit. Try again later."
+    except Exception as exc:
+        logger.error("OpenAI error: %s", exc)
+        return "Problem contacting OpenAI."
+
+
+async def _collect_statement(member: discord.Member, issue: str) -> str | None:
+    """DM ``member`` for their side of the issue."""
+    try:
+        await member.send(f"What's your side on '{issue}'?")
+    except discord.Forbidden:
+        return None
+
+    def check(m: discord.Message) -> bool:
+        return m.author == member and isinstance(m.channel, discord.DMChannel)
+
+    try:
+        msg = await bot.wait_for("message", check=check, timeout=120)
+    except asyncio.TimeoutError:
+        return None
+    return msg.content.strip()
+
 # === On Ready ===
 
 
@@ -415,6 +474,14 @@ async def help_all(ctx):
     await ctx.send(GRIMM_HELP)
     await ctx.send(BLOOM_HELP)
     await ctx.send(CURSE_HELP)
+
+
+@bot.command(name="ask")
+async def ask(ctx, *, question: str):
+    """Ask Curse a question via ChatGPT."""
+    reply = await chatgpt_reply(question)
+    for chunk in [reply[i : i + 1900] for i in range(0, len(reply), 1900)]:
+        await ctx.send(chunk)
 
 
 # === Passive Comments to Cursed User ===
@@ -570,6 +637,29 @@ async def curse_me(ctx):
     cursed_user_id = ctx.author.id
     cursed_user_name = ctx.author.display_name
     await ctx.send(f"😾 Fine. {ctx.author.display_name} is now cursed.")
+
+
+@bot.command(name="judge")
+@commands.cooldown(1, 60, commands.BucketType.user)
+async def judge(ctx, other: discord.Member, *, issue: str):
+    """Ask Curse to judge an argument."""
+    side1 = await _collect_statement(ctx.author, issue)
+    if side1 is None:
+        await ctx.send(f"Couldn't get {ctx.author.display_name}'s statement.")
+        return
+    side2 = await _collect_statement(other, issue)
+    if side2 is None:
+        await ctx.send(f"Couldn't get {other.display_name}'s statement.")
+        return
+    prompt = (
+        f"Issue: {issue}\n"
+        f"User1 ({ctx.author.display_name}): {side1}\n"
+        f"User2 ({other.display_name}): {side2}\n"
+        "Give your verdict in character as Curse."
+    )
+    reply = await chatgpt_reply(prompt)
+    for chunk in [reply[i : i + 1900] for i in range(0, len(reply), 1900)]:
+        await ctx.send(chunk)
 
 
 @bot.command()

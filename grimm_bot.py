@@ -14,6 +14,8 @@
 import discord
 from discord.ext import commands
 import os
+import asyncio
+import openai
 
 import logging
 from config.settings import load_config
@@ -33,6 +35,9 @@ DISCORD_TOKEN = os.getenv("GRIMM_DISCORD_TOKEN")
 GRIMM_API_KEY_1 = os.getenv("GRIMM_API_KEY_1")
 GRIMM_API_KEY_2 = os.getenv("GRIMM_API_KEY_2")
 GRIMM_API_KEY_3 = os.getenv("GRIMM_API_KEY_3")
+GRIMM_OPENAI_KEY = os.getenv("GRIMM_OPENAI_KEY")
+GRIMM_GPT_ENABLED = os.getenv("GRIMM_GPT_ENABLED", "true").lower() == "true"
+GRIMM_OPENAI_MODEL = os.getenv("GRIMM_OPENAI_MODEL", "gpt-3.5-turbo")
 SOCKET_SERVER = os.getenv("SOCKET_SERVER_URL", "http://localhost:5000")
 
 # === SOCKET.IO CLIENT FOR DASHBOARD ===
@@ -203,6 +208,60 @@ async def on_command_error(ctx, error):
     logger.error("Command error: %s", error)
 
 
+# === ChatGPT Integration ===
+async def chatgpt_reply(prompt: str) -> str:
+    """Return a response from OpenAI in Grimm's voice.
+
+    Update ``GRIMM_OPENAI_MODEL`` in the environment or the ``model``
+    argument below to switch models (e.g. ``gpt-4o``).
+    """
+    if not GRIMM_GPT_ENABLED:
+        return "ChatGPT features are disabled."
+    if not GRIMM_OPENAI_KEY:
+        return "OpenAI key missing for Grimm."
+    client = openai.AsyncOpenAI(api_key=GRIMM_OPENAI_KEY)
+    try:
+        response = await client.chat.completions.create(
+            model=GRIMM_OPENAI_MODEL,
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "You are Grimm, a grumpy but protective skeleton. "
+                        "Keep replies short and sarcastic."
+                    ),
+                },
+                {"role": "user", "content": prompt},
+            ],
+            max_tokens=200,
+            temperature=0.8,
+        )
+        logger.info("OpenAI usage: %s tokens", response.usage.total_tokens)
+        return response.choices[0].message.content.strip()
+    except openai.RateLimitError:
+        return "OpenAI rate limit hit. Try again later."
+    except Exception as exc:  # Catch APIError and others
+        logger.error("OpenAI error: %s", exc)
+        return "Problem contacting OpenAI."
+
+
+async def _collect_statement(member: discord.Member, issue: str) -> str | None:
+    """DM ``member`` for their side of the issue."""
+    try:
+        await member.send(f"What's your side on '{issue}'?")
+    except discord.Forbidden:
+        return None
+
+    def check(m: discord.Message) -> bool:
+        return m.author == member and isinstance(m.channel, discord.DMChannel)
+
+    try:
+        msg = await bot.wait_for("message", check=check, timeout=120)
+    except asyncio.TimeoutError:
+        return None
+    return msg.content.strip()
+
+
 @bot.event
 async def on_guild_join(guild):
     logger.info("Joined guild: %s", guild.name)
@@ -225,6 +284,14 @@ async def help_all(ctx):
     await ctx.send(GRIMM_HELP)
     await ctx.send(BLOOM_HELP)
     await ctx.send(CURSE_HELP)
+
+
+@bot.command(name="ask")
+async def ask(ctx, *, question: str):
+    """Ask Grimm a question via ChatGPT."""
+    reply = await chatgpt_reply(question)
+    for chunk in [reply[i : i + 1900] for i in range(0, len(reply), 1900)]:
+        await ctx.send(chunk)
 
 
 # === MODERATION: PROTECT BLOOM (JOKINGLY) ===
@@ -428,6 +495,29 @@ async def bonk(ctx, member: discord.Member = None):
 async def inventory(ctx):
     item = grimm_utils.random_item()
     await ctx.send(f"Grimm hands you {item}.")
+
+
+@bot.command(name="judge")
+@commands.cooldown(1, 60, commands.BucketType.user)
+async def judge(ctx, other: discord.Member, *, issue: str):
+    """Let Grimm judge an argument. Users DM their sides."""
+    side1 = await _collect_statement(ctx.author, issue)
+    if side1 is None:
+        await ctx.send(f"Couldn't get {ctx.author.display_name}'s statement.")
+        return
+    side2 = await _collect_statement(other, issue)
+    if side2 is None:
+        await ctx.send(f"Couldn't get {other.display_name}'s statement.")
+        return
+    prompt = (
+        f"Issue: {issue}\n"
+        f"User1 ({ctx.author.display_name}): {side1}\n"
+        f"User2 ({other.display_name}): {side2}\n"
+        "Give your verdict in character as Grimm."
+    )
+    reply = await chatgpt_reply(prompt)
+    for chunk in [reply[i : i + 1900] for i in range(0, len(reply), 1900)]:
+        await ctx.send(chunk)
 
 
 # === RANDOM PROTECTIVE RESPONSES ===

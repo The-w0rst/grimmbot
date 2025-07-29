@@ -53,15 +53,21 @@ Prefer to get your paws dirty?
       - `GRIMM_API_KEY_1`
       - `GRIMM_API_KEY_2`
       - `GRIMM_API_KEY_3`
+      - `GRIMM_OPENAI_KEY`
+      - `GRIMM_GPT_ENABLED`
       - `SOCKET_SERVER_URL` *(optional)*
       - `BLOOM_DISCORD_TOKEN`
       - `BLOOM_API_KEY_1`
       - `BLOOM_API_KEY_2`
       - `BLOOM_API_KEY_3`
+      - `BLOOM_OPENAI_KEY`
+      - `BLOOM_GPT_ENABLED`
       - `CURSE_DISCORD_TOKEN`
       - `CURSE_API_KEY_1`
       - `CURSE_API_KEY_2`
       - `CURSE_API_KEY_3`
+      - `CURSE_OPENAI_KEY`
+      - `CURSE_GPT_ENABLED`
       - `DISCORD_TOKEN`
       - `OPENAI_API_KEY`
       Leave a value blank to keep any existing entry.
