@@ -1,0 +1,147 @@
+# Grimmbot Command Reference (v2.0.0)
+
+This file lists every command exposed by the included cogs. Use the bot prefix for your chosen personality (`!`, `*` or `?`) before each command.
+
+## AdminCog
+- ping
+- load <cog>
+- unload <cog>
+- reload <cog>
+- listcogs
+
+## AnnouncementCog
+- serverinfo
+
+## BloomCog
+- bloom
+- boba
+- boy
+- cheer
+- comfort
+- compliment
+- curse_cat
+- dance
+- drama
+- flower
+- goodnight
+- grimm
+- hug
+- improv
+- karaoke
+- mood
+- queen
+- sing
+- sparkle
+- squad
+- story
+- sunshine
+
+## CurseCog
+- admin_curse
+- curse
+- curse_me
+- flick
+- hairball
+- hiss
+- insult
+- list_curses
+- nap
+- pet
+- pounce
+- scratch
+- sushi
+- whois_cursed
+
+## CyberpunkCampaignCog
+- cyberchat
+- cybercreate
+- cyberexplore
+- cyberfight
+- cyberstart
+- cyberstatus
+- cybertalk
+
+## FunCog
+- 8ball
+- coinflip
+- quote
+- roll
+
+## GoonCog
+- goonsay
+- greetall
+
+## GPTCog
+- chat
+
+## GrimmCog
+- bone
+- brood
+- doom
+- flip
+- goon
+- grimm_bloom
+- grimm_curse
+- guard
+- haunt
+- nickname
+- ominous
+- protectbloom
+- roast
+- scythe
+- shadow
+- shield
+
+## GrimmExtraCog
+- bonk
+- gloom
+- inventory
+- lament
+
+## HealthCog
+- health
+
+## HelpCog
+- bloomhelp
+- cursehelp
+- grimmhelp
+- helpall
+
+## JojoCog
+- jojo
+
+## JudgeCog
+- appeal
+- judge
+
+## ModerationCog
+- ban
+- clear
+- kick
+- mute
+- warn
+
+## MusicCog
+- next
+- play
+- queue
+- spotify
+- stop
+
+## PollsCog
+- poll
+
+## ReactionRolesCog
+- reactrole
+
+## ReminderCog
+- remindme
+
+## TriviaCog
+- addtrivia
+- trivia
+
+## XPCog
+- leaderboard
+- rank
+
