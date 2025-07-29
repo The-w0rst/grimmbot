@@ -5,7 +5,7 @@
 
 Hello, puny mortals. **Curse** speaking here. This repository holds me and my fellow goons in all our chaotic glory. Clone it from [GitHub](https://github.com/The-w0rst/grimmbot) if you dare and run whichever of us you want. I'm lightweight and unpredictable, just like the others.
 
-**Current build: v2.0.2** – official release
+**Current build: v2.0.3** – official release
 
 ## Quickstart
 1. Run the bootstrap script:
@@ -14,6 +14,8 @@ Hello, puny mortals. **Curse** speaking here. This repository holds me and my fe
    ```
    This checks prerequisites, grabs the repo, installs dependencies and launches the installer.
 2. Provide your Discord tokens and API keys when asked. They will be saved to `config/setup.env`.
+   You can optionally set `ADMIN_USER_ID` in that file to receive DM alerts on
+   critical errors.
 3. The script automatically runs `diagnostics.py` to verify everything.
 4. GoonBot then starts automatically and spawns the other bots. Use Ctrl+C to stop it or run a different bot manually later.
 
@@ -155,6 +157,7 @@ Use each bot's prefix followed by `help` for a quick rundown:
 ?help      # Curse
 !helpall   # or *helpall or ?helpall to hear from everyone at once
 !health    # or *health or ?health to view bot health
+!status    # check health of all bots
 ```
 
 For more details on every cog, including the GPT-powered ones, see [`docs/cogs_overview.md`](docs/cogs_overview.md).

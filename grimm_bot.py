@@ -25,6 +25,8 @@ import grimm_utils
 import random
 import socketio
 from src.logger import setup_logging, log_message
+from src.error_handler import setup_error_handlers
+from src.permissions import permission_check, apply_cooldown
 
 # Color for embeds (Tiffany blue)
 GRIMM_COLOR = discord.Colour.from_rgb(10, 186, 181)
@@ -54,6 +56,7 @@ GRIMM_GPT_ENABLED = os.getenv("GRIMM_GPT_ENABLED", "true").lower() == "true"
 GRIMM_OPENAI_MODEL = os.getenv("GRIMM_OPENAI_MODEL", "gpt-3.5-turbo")
 OPENAI_KEY_CYCLE = ApiKeyCycle(GRIMM_OPENAI_KEY)
 SOCKET_SERVER = os.getenv("SOCKET_SERVER_URL", "http://localhost:5000")
+ADMIN_USER_ID = int(os.getenv("ADMIN_USER_ID", "0")) or None
 
 
 def check_required() -> None:
@@ -220,6 +223,7 @@ keywords = {
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
+setup_error_handlers(bot, ADMIN_USER_ID)
 START_TIME = datetime.datetime.utcnow()
 
 # === ON READY ===
@@ -375,6 +379,14 @@ async def health(ctx):
         logger.exception("health command failed: %s", exc)
 
 
+@bot.command(name="status")
+async def status_command(ctx):
+    """Show health of all bots."""
+    from src import health
+
+    await ctx.send(embed=embed_msg(health.get_menu()))
+
+
 # === MODERATION: PROTECT BLOOM (JOKINGLY) ===
 
 
@@ -399,6 +411,8 @@ async def protectbloom(ctx):
 
 
 @bot.command()
+@permission_check("roast")
+@apply_cooldown("roast")
 async def roast(ctx, member: discord.Member = None):
     member = member or ctx.author
     burns = [
@@ -550,6 +564,7 @@ async def bone(ctx):
 
 
 @bot.command()
+@apply_cooldown("gloom")
 async def gloom(ctx):
     level = grimm_utils.gloom_level()
     if level >= 70:

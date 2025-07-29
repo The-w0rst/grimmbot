@@ -24,6 +24,7 @@ from src.api_utils import ApiKeyCycle
 from pathlib import Path
 import yt_dlp
 from src.logger import setup_logging, log_message
+from src.error_handler import setup_error_handlers
 
 # Embed color for Bloom (orange)
 BLOOM_COLOR = discord.Colour.orange()
@@ -37,6 +38,7 @@ def embed_msg(text: str) -> discord.Embed:
 # Configure logging
 setup_logging("bloom_bot.log")
 logger = logging.getLogger(__name__)
+ADMIN_USER_ID = int(os.getenv("ADMIN_USER_ID", "0")) or None
 
 # Load a single shared configuration file for all bots
 ENV_PATH = Path(__file__).resolve().parent / "config" / "setup.env"
@@ -70,6 +72,7 @@ def check_required() -> None:
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix="*", intents=intents, help_command=None)
+setup_error_handlers(bot, ADMIN_USER_ID)
 START_TIME = datetime.datetime.utcnow()
 
 
@@ -724,6 +727,14 @@ async def health(ctx):
         await ctx.send(msg)
     except Exception as exc:
         logger.exception("health command failed: %s", exc)
+
+
+@bot.command(name="status")
+async def status_command(ctx):
+    """Show health of all bots."""
+    from src import health
+
+    await ctx.send(health.get_menu())
 
 
 # === Message Handler ===

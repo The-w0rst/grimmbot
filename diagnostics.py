@@ -12,6 +12,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from src.logger import setup_logging
+from colorama import Fore, Style, init
 
 REQUIRED_ENV_VARS = [
     "GRIMM_DISCORD_TOKEN",
@@ -104,25 +105,43 @@ def check_python_version() -> bool:
     return True
 
 
+def check_for_hardcoded_secrets() -> list[str]:
+    logger.info("Scanning for hardcoded secrets…")
+    issues: list[str] = []
+    for path in BASE_PATH.rglob("*.py"):
+        for line_no, line in enumerate(path.read_text().splitlines(), 1):
+            if "discord" in line.lower() and "token" in line.lower() and "os.getenv" not in line:
+                issues.append(f"{path}:{line_no}")
+            if "sk-" in line and "os.getenv" not in line:
+                issues.append(f"{path}:{line_no}")
+    if issues:
+        logger.warning("Potential secrets found: %s", ", ".join(issues))
+    else:
+        logger.info("No hardcoded secrets detected")
+    return issues
+
+
 def main() -> None:
     setup_logging("diagnostics.log")
-    logger.info("==== Goon Squad Bot Diagnostics ====")
+    init(autoreset=True)
+    logger.info(Fore.CYAN + "==== Goon Squad Bot Diagnostics ====" + Style.RESET_ALL)
     errors = 0
     if not check_env_file():
         errors += 1
     errors += len(check_required_env_vars())
     errors += len(check_required_files())
     errors += len(check_required_packages())
+    errors += len(check_for_hardcoded_secrets())
     if not check_python_version():
         errors += 1
     if errors == 0:
-        logger.info("All checks passed! You should be able to start your bots.")
+        logger.info(Fore.GREEN + "All checks passed! You should be able to start your bots." + Style.RESET_ALL)
     else:
         logger.error(
-            "%s issues found. Please resolve before running your bots.", errors
+            Fore.RED + f"{errors} issues found. Please resolve before running your bots." + Style.RESET_ALL
         )
         sys.exit(1)
-    logger.info("====================================")
+    logger.info(Fore.CYAN + "====================================" + Style.RESET_ALL)
 
 
 if __name__ == "__main__":

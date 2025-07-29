@@ -27,3 +27,10 @@
 ## v2.0.2
 - Updated all documentation for the v2.0.2 release.
 - Bumped the package version in `setup.py`.
+
+## v2.0.3
+- Added global error handling with log files and admin notifications.
+- Implemented command permission checks and cooldown configuration.
+- New `status` command to check overall bot health.
+- Activity logging and `audit` command for moderators.
+- Installer color prompts realigned and token validation improved.

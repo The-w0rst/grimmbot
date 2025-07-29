@@ -94,11 +94,11 @@ def configure_env() -> None:
 
     def color_for_key(key: str) -> str:
         if key.startswith("GRIMM"):
-            return RED
-        if key.startswith("BLOOM"):
             return BLUE
-        if key.startswith("CURSE"):
+        if key.startswith("BLOOM"):
             return ORANGE
+        if key.startswith("CURSE"):
+            return RED
         return YELLOW
 
     friendly = {
@@ -137,6 +137,8 @@ def configure_env() -> None:
             if (key in REQUIRED_VARS or "TOKEN" in key or "KEY" in key) and not value:
                 logger.info(RED + "This value is required." + RESET)
                 continue
+            if "TOKEN" in key and value and len(value) < 30:
+                logger.info(YELLOW + "That token looks short, is it correct?" + RESET)
             break
         lines.append(f"{key}={value}")
     SETUP_PATH.write_text("\n".join(lines) + "\n")

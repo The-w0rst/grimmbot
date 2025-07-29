@@ -11,9 +11,11 @@ from pathlib import Path
 import datetime
 from config.settings import load_config
 from src.logger import setup_logging, log_message
+from src.error_handler import setup_error_handlers
 
 setup_logging("goon_bot.log")
 logger = logging.getLogger(__name__)
+ADMIN_USER_ID = int(os.getenv("ADMIN_USER_ID", "0")) or None
 
 # Track subprocesses for the individual bots
 child_processes = []
@@ -60,6 +62,7 @@ async def get_prefix(bot, message):
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix=get_prefix, intents=intents, help_command=None)
+setup_error_handlers(bot, ADMIN_USER_ID)
 START_TIME = datetime.datetime.utcnow()
 
 

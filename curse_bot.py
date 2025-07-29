@@ -22,6 +22,7 @@ from config.settings import load_config, get_env_vars
 from src.api_utils import ApiKeyCycle
 from pathlib import Path
 from src.logger import setup_logging, log_message
+from src.error_handler import setup_error_handlers
 
 # Embed color for Curse (red)
 CURSE_COLOR = discord.Colour.red()
@@ -35,6 +36,7 @@ def embed_msg(text: str) -> discord.Embed:
 # Configure logging
 setup_logging("curse_bot.log")
 logger = logging.getLogger(__name__)
+ADMIN_USER_ID = int(os.getenv("ADMIN_USER_ID", "0")) or None
 
 # Load a single shared configuration file for all bots
 ENV_PATH = Path(__file__).resolve().parent / "config" / "setup.env"
@@ -70,6 +72,7 @@ intents.message_content = True
 intents.members = True
 intents.presences = True
 bot = commands.Bot(command_prefix="?", intents=intents, help_command=None)
+setup_error_handlers(bot, ADMIN_USER_ID)
 START_TIME = datetime.datetime.utcnow()
 
 # === CurseBot Personality ===
@@ -570,6 +573,14 @@ async def health(ctx):
         await ctx.send(embed=embed_msg(msg))
     except Exception as exc:
         logger.exception("health command failed: %s", exc)
+
+
+@bot.command(name="status")
+async def status_command(ctx):
+    """Show health of all bots."""
+    from src import health
+
+    await ctx.send(embed=embed_msg(health.get_menu()))
 
 
 # === Passive Comments to Cursed User ===
