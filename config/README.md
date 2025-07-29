@@ -56,6 +56,9 @@ features or `SOCKET_SERVER_URL` if you want status reporting.
 
 3. Save the file. Any bot you run will read these values automatically.
 
+Bots load related API keys in a single call using `get_env_vars` from
+`config.settings` for cleaner code.
+
 Do **not** commit `setup.env` to git. Keep it private.
 
 Refer to [`../INSTALL.md`](../INSTALL.md) for instructions on installing the

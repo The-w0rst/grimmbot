@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands, tasks
 import random
 import os
+from config.settings import get_env_vars
 
 import socketio
 from src.logger import log_message
@@ -10,9 +11,12 @@ COG_VERSION = "1.4"
 
 # Environment values are read from the parent process
 DISCORD_TOKEN = os.getenv("GRIMM_DISCORD_TOKEN")
-GRIMM_API_KEY_1 = os.getenv("GRIMM_API_KEY_1")
-GRIMM_API_KEY_2 = os.getenv("GRIMM_API_KEY_2")
-GRIMM_API_KEY_3 = os.getenv("GRIMM_API_KEY_3")
+GRIMM_API_KEY_1, GRIMM_API_KEY_2, GRIMM_API_KEY_3, _ = get_env_vars(
+    "GRIMM_API_KEY_1",
+    "GRIMM_API_KEY_2",
+    "GRIMM_API_KEY_3",
+    "GRIMM_OPENAI_KEY",
+)
 SOCKET_SERVER = os.getenv("SOCKET_SERVER_URL", "http://localhost:5000")
 
 sio = socketio.Client()
