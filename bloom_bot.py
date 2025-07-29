@@ -254,6 +254,7 @@ epic_songs = {
         "We’ll Be Fine",
         "Love in Paradise",
         "God Games",
+        "It’s Gonna Be Epic",
     ],
     "The Vengeance Saga": [
         "Not Sorry for Loving You",
