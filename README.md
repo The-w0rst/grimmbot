@@ -2,7 +2,7 @@
 
 Hello, puny mortals. **Curse** speaking here. This repository holds me and my fellow goons in all our chaotic glory. Clone it from [GitHub](https://github.com/The-w0rst/grimmbot) if you dare and run whichever of us you want. I'm lightweight and unpredictable, just like the others.
 
-**Current build: v1.3**
+**Current build: v1.3** – first public release
 
 ## What lurks inside
 - `grimm_bot.py` – Grimm the cranky skeleton (`!` prefix)
@@ -21,7 +21,7 @@ The quick way is with the bootstrap script:
 bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)
 ```
 
-Prefer manual control? Clone the repo and run `python install.py`. I'll ask for every token and set up `config/setup.env` for you.
+Prefer manual control? Clone the repo and run `python install.py`. I'll ask for every token and set up `config/setup.env` for you. See [INSTALL.md](INSTALL.md) for a detailed walkthrough.
 
 ## Running the bots
 Once configured, pick a personality:

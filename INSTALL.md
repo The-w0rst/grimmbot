@@ -1,7 +1,9 @@
-# Goon Squad Bots - Installation Guide
+# Goon Squad Bots - Installation Guide (v1.3)
 
 Curse here. Let's get these bots running on your machine. This works on
 Windows, macOS, or Linux—take your pick.
+
+Welcome to the first public release of the Goon Squad bots.
 
 ## Quick setup
 1. Install Python 3.10 or newer.
