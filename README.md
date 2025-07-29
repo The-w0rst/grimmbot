@@ -22,7 +22,7 @@ Hello, puny mortals. **Curse** speaking here. This repository holds me and my fe
 4. Start any of the bots:
    ```bash
   python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
-  
+  ```
 
 ### API Key Notice
 To run these bots you must provide your own Discord, OpenAI and any other required API keys.
