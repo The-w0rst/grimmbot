@@ -7,6 +7,18 @@ Hello, puny mortals. **Curse** speaking here. This repository holds me and my fe
 
 **Current build: v1.5** – first public release
 
+## Quickstart
+1. Run the bootstrap script:
+   ```bash
+   bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)
+   ```
+   This grabs the repo, installs dependencies and launches the installer.
+2. Provide your Discord tokens and API keys when asked. They will be saved to `config/setup.env`.
+3. Start any of the bots:
+   ```bash
+   python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
+   ```
+
 ## What lurks inside
 
 ```
