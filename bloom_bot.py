@@ -91,6 +91,11 @@ bloom_responses = [
     "Any excuse for a dance break, right?",
     "Glitter makes everything better, trust me!",
     "Let's turn this chat into a mini musical!",
+    "Musicals at midnight? Count me in!",
+    "Glitter here, glitter there, glitter everywhere!",
+    "Who wants to join my spontaneous karaoke?",
+    "I just hugged a pillow thinking it was you!",
+    "Boba first, questions later!",
 ]
 
 # Short help message used by the help commands
@@ -363,6 +368,30 @@ pretty_little_baby_lines = [
     "Pretty little baby, I'll always be true",
 ]
 
+comfort_lines = [
+    "Deep breaths, you've totally got this!",
+    "Bloom believes in you more than bubble tea!",
+    "Sending cuddles and sunshine your way!",
+    "You're stronger than you know, friend!",
+    "I'll stand by you with glittery support!",
+]
+
+story_lines = [
+    "Once upon a sparkle, you saved the day!",
+    "In a world of boba, you were the hero we needed.",
+    "There was a cat, a skeleton, and you—chaos ensued!",
+    "Legend tells of your epic dance moves across the land.",
+    "Every good story starts with a hug from Bloom!",
+]
+
+goodnight_lines = [
+    "Nighty night! Dream of bubble tea rivers!",
+    "May your dreams be filled with musicals and friends!",
+    "Sleep tight and don't let the glitter bite!",
+    "Rest well, tomorrow we'll cause more chaos!",
+    "Goodnight superstar, you deserve a break!",
+]
+
 # === Keyword Triggers ===
 keywords = {
     "grimm": ["Grimm is my spooky bestie.", "He acts tough, but he's a sweetheart."],
@@ -377,6 +406,10 @@ keywords = {
         "You're shining brighter than my glitter!",
         "Compliments inbound: you're amazing!",
     ],
+    "comfort": comfort_lines,
+    "story": story_lines,
+    "goodnight": goodnight_lines,
+    "gn": goodnight_lines,
     "queen": queen_lines,
     "girl": queen_lines,
     "girls": queen_lines,
@@ -592,6 +625,49 @@ async def boy(ctx):
 async def queen(ctx):
     """Share a playful yas queen-style line."""
     await ctx.send(random.choice(queen_lines))
+
+
+@bot.command()
+async def dance(ctx):
+    """Start a random dance party."""
+    moves = ["Cha-cha-cha!", "Time to boogie!", "Let's breakdance!"]
+    await ctx.send(random.choice(moves) + " 💃")
+
+
+@bot.command()
+async def sunshine(ctx):
+    """Shower the chat with sunshine."""
+    quotes = [
+        "Sunshine, lollipops, and rainbows!",
+        "You're my little ray of light!",
+        "Let's chase the clouds away!",
+    ]
+    await ctx.send(random.choice(quotes))
+
+
+@bot.command()
+async def flower(ctx):
+    """Share a virtual flower."""
+    flowers = ["🌸", "🌺", "🌷", "🌻", "💮"]
+    await ctx.send(random.choice(flowers) + " for you!")
+
+
+@bot.command()
+async def comfort(ctx):
+    """Offer supportive words."""
+    await ctx.send(random.choice(comfort_lines))
+
+
+@bot.command()
+async def story(ctx):
+    """Tell a short whimsical story."""
+    await ctx.send(random.choice(story_lines))
+
+
+@bot.command()
+async def goodnight(ctx):
+    """Say goodnight with flair."""
+    await ctx.send(random.choice(goodnight_lines))
 
 
 if not DISCORD_TOKEN:
