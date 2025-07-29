@@ -41,7 +41,7 @@ You can add or remove them at runtime using the Admin commands (`load`,
 [`docs/creating_cogs.md`](docs/creating_cogs.md).
 
 ## Installation
-The quick way is with the bootstrap script:
+This project requires **Python 3.10 or newer**. The quick way is with the bootstrap script:
 
 ```bash
 bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)
