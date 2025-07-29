@@ -17,10 +17,10 @@ import os
 import logging
 from config.settings import load_config
 from pathlib import Path
-from src.logger import log_message
+from src.logger import setup_logging, log_message
 
 # Configure logging
-logging.basicConfig(level=logging.INFO)
+setup_logging("curse_bot.log")
 logger = logging.getLogger(__name__)
 
 # Load a single shared configuration file for all bots
@@ -593,4 +593,7 @@ async def nap(ctx):
 
 if not DISCORD_TOKEN:
     raise RuntimeError("CURSE_DISCORD_TOKEN not set in config/setup.env")
-bot.run(DISCORD_TOKEN)
+try:
+    bot.run(DISCORD_TOKEN)
+finally:
+    log_message("Curse shutting down")

@@ -20,10 +20,10 @@ from config.settings import load_config
 import grimm_utils
 import random
 import socketio
-from src.logger import log_message
+from src.logger import setup_logging, log_message
 
 # Configure logging
-logging.basicConfig(level=logging.INFO)
+setup_logging("grimm_bot.log")
 logger = logging.getLogger(__name__)
 
 # === ENVIRONMENT VARIABLES ===
@@ -189,6 +189,28 @@ async def on_ready():
     logger.info("Grimm has arrived. Watch your step, goons.")
     log_message("Grimm bot ready")
     send_status("online", "On patrol. Nobody dies on my watch (except for Mondays).")
+
+
+@bot.event
+async def on_command_error(ctx, error):
+    """Handle command errors with a friendly message."""
+    if isinstance(error, commands.CommandOnCooldown):
+        await ctx.send(f"Slow down! Try again in {round(error.retry_after, 1)}s.")
+    elif isinstance(error, commands.MissingPermissions):
+        await ctx.send("You lack the permissions for that command.")
+    else:
+        await ctx.send("An error occurred. Check logs for details.")
+    logger.error("Command error: %s", error)
+
+
+@bot.event
+async def on_guild_join(guild):
+    logger.info("Joined guild: %s", guild.name)
+
+
+@bot.event
+async def on_guild_remove(guild):
+    logger.info("Removed from guild: %s", guild.name)
 
 
 @bot.command(name="help")
@@ -465,4 +487,8 @@ async def on_message(message):
 # === RUN THE BOT ===
 if not DISCORD_TOKEN:
     raise RuntimeError("GRIMM_DISCORD_TOKEN not set in config/setup.env")
-bot.run(DISCORD_TOKEN)
+
+try:
+    bot.run(DISCORD_TOKEN)
+finally:
+    log_message("Grimm shutting down")

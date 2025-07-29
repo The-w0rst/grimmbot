@@ -20,10 +20,10 @@ from config.settings import load_config
 from pathlib import Path
 import yt_dlp
 import asyncio
-from src.logger import log_message
+from src.logger import setup_logging, log_message
 
 # Configure logging
-logging.basicConfig(level=logging.INFO)
+setup_logging("bloom_bot.log")
 logger = logging.getLogger(__name__)
 
 # Load a single shared configuration file for all bots
@@ -680,4 +680,7 @@ async def goodnight(ctx):
 if not DISCORD_TOKEN:
     raise RuntimeError("BLOOM_DISCORD_TOKEN not set in config/setup.env")
 asyncio.run(bot.load_extension("cogs.bloom_cog"))
-bot.run(DISCORD_TOKEN)
+try:
+    bot.run(DISCORD_TOKEN)
+finally:
+    log_message("Bloom shutting down")

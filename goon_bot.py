@@ -7,9 +7,9 @@ import discord
 from discord.ext import commands
 from pathlib import Path
 from config.settings import load_config
-from src.logger import log_message
+from src.logger import setup_logging, log_message
 
-logging.basicConfig(level=logging.INFO)
+setup_logging("goon_bot.log")
 logger = logging.getLogger(__name__)
 
 # Load a single shared configuration file for all bots
@@ -52,4 +52,7 @@ asyncio.run(load_startup_cogs())
 
 if not DISCORD_TOKEN:
     raise RuntimeError("DISCORD_TOKEN not set in config/setup.env")
-bot.run(DISCORD_TOKEN)
+try:
+    bot.run(DISCORD_TOKEN)
+finally:
+    log_message("Goon shutting down")
