@@ -281,8 +281,8 @@ class CurseCog(commands.Cog):
         self.cursed_user_id = chosen.id
         self.cursed_user_name = chosen.display_name
         channel = (
-            discord.utils.get(guild.text_channels, name="general") or
-            guild.text_channels[0]
+            discord.utils.get(guild.text_channels, name="general")
+            or guild.text_channels[0]
         )
         await channel.send(
             f"😼 A new curse has been cast... {self.cursed_user_name} is now cursed for 24 hours."
@@ -301,8 +301,8 @@ class CurseCog(commands.Cog):
         recipient = random.choice(members)
         gift = random.choice(self.gifts)
         channel = (
-            discord.utils.get(guild.text_channels, name="general") or
-            guild.text_channels[0]
+            discord.utils.get(guild.text_channels, name="general")
+            or guild.text_channels[0]
         )
         if gift["positive"]:
             line = random.choice(self.positive_gift_responses)
@@ -319,9 +319,9 @@ class CurseCog(commands.Cog):
 
             def check(m: discord.Message) -> bool:
                 return (
-                    m.author == recipient and
-                    m.channel == channel and
-                    m.content.lower() in ["yes", "no", "y", "n"]
+                    m.author == recipient
+                    and m.channel == channel
+                    and m.content.lower() in ["yes", "no", "y", "n"]
                 )
 
             try:

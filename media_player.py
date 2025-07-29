@@ -205,11 +205,15 @@ class LocalPath:
         async for rp in AsyncIter(method(pattern)):
             rp_local = LocalPath(rp, self._localtrack_folder)
             if (
-                (folder and rp_local.is_dir() and rp_local.exists()) or (
-                    not folder and
-                    rp_local.suffix in self._all_music_ext and
-                    rp_local.is_file()
-                ) and rp_local.exists()
+                (
+                    folder and rp_local.is_dir() and rp_local.exists()
+                )
+                or (
+                    not folder
+                    and rp_local.suffix in self._all_music_ext
+                    and rp_local.is_file()
+                )
+                and rp_local.exists()
             ):
                 yield rp_local
 
@@ -254,8 +258,8 @@ class LocalPath:
         async for track in self.multirglob(*[f"{ext}" for ext in self._all_music_ext]):
             with contextlib.suppress(ValueError):
                 if (
-                    track.path.parent != self.localtrack_folder and
-                    track.path.relative_to(self.path)
+                    track.path.parent != self.localtrack_folder
+                    and track.path.relative_to(self.path)
                 ):
                     tracks.append(Query.process_input(track, self._localtrack_folder))
         return sorted(tracks, key=lambda x: x.to_string_user().lower())
@@ -265,10 +269,10 @@ class LocalPath:
         async for f in self.multirglob("", folder=True):
             with contextlib.suppress(ValueError):
                 if (
-                    f not in return_folders and
-                    f.is_dir() and
-                    f.path != self.localtrack_folder and
-                    f.path.relative_to(self.path)
+                    f not in return_folders
+                    and f.is_dir()
+                    and f.path != self.localtrack_folder
+                    and f.path.relative_to(self.path)
                 ):
                     return_folders.append(f)
         return sorted(return_folders, key=lambda x: x.to_string_user().lower())
@@ -278,8 +282,8 @@ class LocalPath:
         async for track in self.multiglob(*[f"{ext}" for ext in self._all_music_ext]):
             with contextlib.suppress(ValueError):
                 if (
-                    track.path.parent != self.localtrack_folder and
-                    track.path.relative_to(self.path)
+                    track.path.parent != self.localtrack_folder
+                    and track.path.relative_to(self.path)
                 ):
                     tracks.append(Query.process_input(track, self._localtrack_folder))
         return sorted(tracks, key=lambda x: x.to_string_user().lower())
@@ -289,9 +293,9 @@ class LocalPath:
         async for f in self.multiglob("", folder=True):
             with contextlib.suppress(ValueError):
                 if (
-                    f not in return_folders and
-                    f.path != self.localtrack_folder and
-                    f.path.relative_to(self.path)
+                    f not in return_folders
+                    and f.path != self.localtrack_folder
+                    and f.path.relative_to(self.path)
                 ):
                     return_folders.append(f)
         return sorted(return_folders, key=lambda x: x.to_string_user().lower())
@@ -455,9 +459,9 @@ class Query:
     def _parse(track, _local_folder_current_path: Path, **kwargs) -> MutableMapping:
         returning: MutableMapping = {}
         if (
-            isinstance(track, LocalPath) and
-            (track.is_file() or track.is_dir()) and
-            track.exists()
+            isinstance(track, LocalPath)
+            and (track.is_file() or track.is_dir())
+            and track.exists()
         ):
             returning["local"] = True
             returning["name"] = track.name
@@ -594,9 +598,9 @@ class Query:
                             match = re.search(_RE_TWITCH_TIMESTAMP, track)
                             if match:
                                 returning["start_time"] = (
-                                    (int(match.group(1)) * 60 * 60) +
-                                    (int(match.group(2)) * 60) +
-                                    int(match.group(3))
+                                    (int(match.group(1)) * 60 * 60)
+                                    + (int(match.group(2)) * 60)
+                                    + int(match.group(3))
                                 )
 
                         if not any(x in track for x in ["/clip/", "/videos/"]):
