@@ -7,3 +7,5 @@ openai==1.97.1
 yt_dlp==2024.3.10
 lavalink==5.9.0
 colorama==0.4.6
+requests
+beautifulsoup4

@@ -30,4 +30,6 @@ __pycache__/
 # Environment
 .env
 config/setup.env
+*.pyc
+*.DS_Store
 

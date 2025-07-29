@@ -22,9 +22,11 @@ CYAN = Fore.CYAN + Style.BRIGHT
 GREEN = Fore.GREEN + Style.BRIGHT
 YELLOW = Fore.YELLOW + Style.BRIGHT
 RED = Fore.RED + Style.BRIGHT
+BLUE = Fore.BLUE + Style.BRIGHT
+ORANGE = Fore.LIGHTYELLOW_EX + Style.BRIGHT
 RESET = Style.RESET_ALL
 
-VERSION = "1.5"
+VERSION = "1.7"
 
 TEMPLATE_PATH = Path("config/env_template.env")
 SETUP_PATH = Path("config/setup.env")
@@ -91,6 +93,14 @@ def configure_env() -> None:
         shutil.copyfile(TEMPLATE_PATH, SETUP_PATH)
     existing = read_existing(SETUP_PATH)
     lines = []
+    def color_for_key(key: str) -> str:
+        if key.startswith("GRIMM"):
+            return RED
+        if key.startswith("BLOOM"):
+            return BLUE
+        if key.startswith("CURSE"):
+            return ORANGE
+        return YELLOW
     friendly = {
         "GRIMM_DISCORD_TOKEN": "Grimm's Discord token",
         "GRIMM_API_KEY_1": "Grimm API key #1",
@@ -117,14 +127,14 @@ def configure_env() -> None:
         desc = friendly.get(key, key)
         default = existing.get(key, "")
         prompt = f"{desc} [{default}]: " if default else f"{desc}: "
-        prompt = YELLOW + prompt + RESET
+        prompt = color_for_key(key) + prompt + RESET
         while True:
             try:
                 value = input(prompt).strip() or default
             except KeyboardInterrupt:
                 logger.info(RED + "\nAborted." + RESET)
                 sys.exit(1)
-            if key in REQUIRED_VARS and not value:
+            if (key in REQUIRED_VARS or "TOKEN" in key or "KEY" in key) and not value:
                 logger.info(RED + "This value is required." + RESET)
                 continue
             break
