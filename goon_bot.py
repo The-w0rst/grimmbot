@@ -26,6 +26,7 @@ def check_required() -> None:
         logger.error("DISCORD_TOKEN missing")
         raise SystemExit(1)
 
+
 # Allow '!', '*', and '?' prefixes like the individual bots
 
 

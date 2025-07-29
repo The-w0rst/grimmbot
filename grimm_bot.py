@@ -209,10 +209,16 @@ async def on_ready():
     guilds = ", ".join(g.name for g in bot.guilds)
     cogs = ", ".join(bot.cogs.keys())
     env_summary = {
-        "GRIMM_DISCORD_TOKEN": (DISCORD_TOKEN[:4] + "...") if DISCORD_TOKEN else "missing",
-        "GRIMM_OPENAI_KEY": (GRIMM_OPENAI_KEY[:4] + "...") if GRIMM_OPENAI_KEY else "missing",
+        "GRIMM_DISCORD_TOKEN": (
+            (DISCORD_TOKEN[:4] + "...") if DISCORD_TOKEN else "missing"
+        ),
+        "GRIMM_OPENAI_KEY": (
+            (GRIMM_OPENAI_KEY[:4] + "...") if GRIMM_OPENAI_KEY else "missing"
+        ),
     }
-    logger.info("Grimm online | guilds: %s | cogs: %s | env: %s", guilds, cogs, env_summary)
+    logger.info(
+        "Grimm online | guilds: %s | cogs: %s | env: %s", guilds, cogs, env_summary
+    )
     log_message("Grimm bot ready")
     send_status("online", "On patrol. Nobody dies on my watch (except for Mondays).")
 

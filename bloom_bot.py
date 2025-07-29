@@ -514,8 +514,12 @@ async def on_ready():
     guilds = ", ".join(g.name for g in bot.guilds)
     cogs = ", ".join(bot.cogs.keys())
     env = {
-        "BLOOM_DISCORD_TOKEN": (DISCORD_TOKEN[:4] + "...") if DISCORD_TOKEN else "missing",
-        "BLOOM_OPENAI_KEY": (BLOOM_OPENAI_KEY[:4] + "...") if BLOOM_OPENAI_KEY else "missing",
+        "BLOOM_DISCORD_TOKEN": (
+            (DISCORD_TOKEN[:4] + "...") if DISCORD_TOKEN else "missing"
+        ),
+        "BLOOM_OPENAI_KEY": (
+            (BLOOM_OPENAI_KEY[:4] + "...") if BLOOM_OPENAI_KEY else "missing"
+        ),
     }
     logger.info("Bloom online | guilds: %s | cogs: %s | env: %s", guilds, cogs, env)
     log_message("Bloom bot ready")
