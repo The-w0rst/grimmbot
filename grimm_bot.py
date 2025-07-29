@@ -25,6 +25,15 @@ import random
 import socketio
 from src.logger import setup_logging, log_message
 
+# Color for embeds (Tiffany blue)
+GRIMM_COLOR = discord.Colour.from_rgb(10, 186, 181)
+
+
+def embed_msg(text: str) -> discord.Embed:
+    """Return an embed in Grimm's color."""
+    return discord.Embed(description=text, color=GRIMM_COLOR)
+
+
 # Configure logging
 setup_logging("grimm_bot.log")
 logger = logging.getLogger(__name__)
@@ -192,6 +201,14 @@ keywords = {
         "That's me. What of it?",
         "Yes, yes, I'm the spooky one.",
     ],
+    "scythe": [
+        "Hands off the scythe, it's not a toy.",
+        "My scythe is sharper than your wit.",
+    ],
+    "goon": [
+        "Goon squad assemble... or don't.",
+        "Only real goons allowed here.",
+    ],
 }
 
 # === DISCORD BOT SETUP ===
@@ -302,15 +319,29 @@ async def on_guild_remove(guild):
 @bot.command(name="help")
 async def help_command(ctx):
     """Show GrimmBot help."""
-    await ctx.send(GRIMM_HELP)
+    await ctx.send(embed=embed_msg(GRIMM_HELP))
 
 
 @bot.command(name="helpall")
 async def help_all(ctx):
     """Show help for all bots."""
-    await ctx.send(GRIMM_HELP)
-    await ctx.send(BLOOM_HELP)
-    await ctx.send(CURSE_HELP)
+    await ctx.send(embed=embed_msg(GRIMM_HELP))
+    await ctx.send(embed=embed_msg(BLOOM_HELP))
+    await ctx.send(embed=embed_msg(CURSE_HELP))
+
+
+@bot.command(name="menu")
+async def menu(ctx):
+    """Interactive menu of common commands."""
+    commands_list = "\n".join(
+        [
+            "!help - show help",
+            "!health - bot status",
+            "!protectbloom - guard Bloom",
+            "!roast [user] - light roast",
+        ]
+    )
+    await ctx.send(embed=embed_msg(commands_list))
 
 
 @bot.command(name="ask")
@@ -334,7 +365,7 @@ async def health(ctx):
             f"Cogs: {len(bot.cogs)} loaded\n"
             f"OpenAI: {api_status}"
         )
-        await ctx.send(msg)
+        await ctx.send(embed=embed_msg(msg))
     except Exception as exc:
         logger.exception("health command failed: %s", exc)
 
@@ -598,23 +629,23 @@ async def on_message(message):
     # Quick replies based on keyword dictionary
     for trigger, responses in keywords.items():
         if trigger in lowered:
-            await message.channel.send(random.choice(responses))
+            await message.channel.send(embed=embed_msg(random.choice(responses)))
             send_status("active", f"Reacted to {trigger} mention.")
             return
 
     # Additional fun responses about Bloom and Curse
     if "bloom" in lowered and random.random() < 0.18:
         await message.channel.send(
-            "Someone said Bloom? She’s probably off singing again..."
+            embed=embed_msg("Someone said Bloom? She’s probably off singing again...")
         )
         send_status("active", "Reacted to Bloom mention.")
     elif "curse" in lowered and random.random() < 0.18:
-        await message.channel.send("I told you, don’t trust the cat. Ever.")
+        await message.channel.send(embed=embed_msg("I told you, don’t trust the cat. Ever."))
         send_status("active", "Reacted to Curse mention.")
 
     # Occasionally chime in with a random quip
     if random.random() < 0.05:
-        await message.channel.send(random.choice(grimm_responses))
+        await message.channel.send(embed=embed_msg(random.choice(grimm_responses)))
 
     await bot.process_commands(message)
 

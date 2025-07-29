@@ -12,7 +12,7 @@
 # Project repository: https://github.com/The-w0rst/grimmbot
 
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 import random
 import os
 import asyncio
@@ -23,6 +23,15 @@ from config.settings import load_config
 from pathlib import Path
 import yt_dlp
 from src.logger import setup_logging, log_message
+
+# Embed color for Bloom (orange)
+BLOOM_COLOR = discord.Colour.orange()
+
+
+def embed_msg(text: str) -> discord.Embed:
+    """Return a Bloom-colored embed."""
+    return discord.Embed(description=text, color=BLOOM_COLOR)
+
 
 # Configure logging
 setup_logging("bloom_bot.log")
@@ -56,6 +65,18 @@ intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix="*", intents=intents, help_command=None)
 START_TIME = datetime.datetime.utcnow()
+
+
+# Send compliments twice a day
+@tasks.loop(time=[datetime.time(hour=6), datetime.time(hour=7), datetime.time(hour=16), datetime.time(hour=17)])
+async def timed_compliments():
+    guild = discord.utils.get(bot.guilds)
+    if not guild:
+        return
+    channel = discord.utils.get(guild.text_channels, name="general") or guild.text_channels[0]
+    await channel.send(embed=embed_msg(random.choice(BLOOM_COMPLIMENTS)))
+
+timed_compliments.start()
 
 # === Bloom Personality ===
 bloom_personality = {
@@ -114,6 +135,29 @@ bloom_responses = [
     "Who wants to join my spontaneous karaoke?",
     "I just hugged a pillow thinking it was you!",
     "Boba first, questions later!",
+]
+
+# Compliment lines used for scheduled messages and the command
+BLOOM_COMPLIMENTS = [
+    "You're the sparkle in my day!",
+    "You make the server shine!",
+    "I might be a 9 in Drake's book, but I'll be 10 on my birthday.",
+    "You're sweeter than all the bubble tea!",
+    "Your positivity is contagious!",
+    "You glow brighter than neon lights!",
+    "Your creativity inspires me!",
+    "You're the heart of this squad!",
+    "Your smile lights up the whole chat!",
+    "You bring the best vibes!",
+    "You're a masterpiece in motion!",
+    "Keep shining like the superstar you are!",
+    "Your kindness is legendary!",
+    "You're cooler than a freezer full of boba!",
+    "You radiate pure awesomeness!",
+    "The server's brighter when you're here!",
+    "You're the reason we sparkle!",
+    "Your laugh is my favorite song!",
+    "Never forget how amazing you are!",
 ]
 
 # Short help message used by the help commands
@@ -534,15 +578,29 @@ async def on_command_error(ctx, error):
 @bot.command(name="help")
 async def help_command(ctx):
     """Show BloomBot help."""
-    await ctx.send(BLOOM_HELP)
+    await ctx.send(embed=embed_msg(BLOOM_HELP))
 
 
 @bot.command(name="helpall")
 async def help_all(ctx):
     """Show help for all bots."""
-    await ctx.send(GRIMM_HELP)
-    await ctx.send(BLOOM_HELP)
-    await ctx.send(CURSE_HELP)
+    await ctx.send(embed=embed_msg(GRIMM_HELP))
+    await ctx.send(embed=embed_msg(BLOOM_HELP))
+    await ctx.send(embed=embed_msg(CURSE_HELP))
+
+
+@bot.command(name="menu")
+async def menu(ctx):
+    """Interactive menu of Bloom commands."""
+    commands_list = "\n".join(
+        [
+            "*help - show help",
+            "*hug - send a hug",
+            "*sing - sing a line",
+            "*boba - bubble tea time",
+        ]
+    )
+    await ctx.send(embed=embed_msg(commands_list))
 
 
 @bot.command(name="ask")
@@ -719,17 +777,7 @@ async def boba(ctx):
 
 @bot.command()
 async def compliment(ctx):
-    compliments = [
-        "You're the sparkle in my day!",
-        "You make the server shine!",
-        "I might be a 9 in Drake's book, but I'll be 10 on my birthday.",
-        "You're sweeter than all the bubble tea!",
-        "Your positivity is contagious!",
-        "You glow brighter than neon lights!",
-        "Your creativity inspires me!",
-        "You're the heart of this squad!",
-    ]
-    await ctx.send(random.choice(compliments))
+    await ctx.send(random.choice(BLOOM_COMPLIMENTS))
 
 
 @bot.command()

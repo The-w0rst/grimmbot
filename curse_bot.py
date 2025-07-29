@@ -22,6 +22,15 @@ from config.settings import load_config
 from pathlib import Path
 from src.logger import setup_logging, log_message
 
+# Embed color for Curse (red)
+CURSE_COLOR = discord.Colour.red()
+
+
+def embed_msg(text: str) -> discord.Embed:
+    """Return a red embed for Curse."""
+    return discord.Embed(description=text, color=CURSE_COLOR)
+
+
 # Configure logging
 setup_logging("curse_bot.log")
 logger = logging.getLogger(__name__)
@@ -258,6 +267,14 @@ curse_keywords = {
         "Petting fee is one tuna roll.",
         "Petting rights revoked.",
         "Only Bloom can pet me—maybe.",
+    ],
+    "hairball": [
+        "Hairball delivery incoming.",
+        "Oops, hairball. Deal with it.",
+    ],
+    "nap": [
+        "Shh, it's nap time.",
+        "Wake me in an hour... maybe.",
     ],
     "curse": [
         "You rang? Someone's getting hexed.",
@@ -496,15 +513,29 @@ async def on_command_error(ctx, error):
 @bot.command(name="help")
 async def help_command(ctx):
     """Show CurseBot help."""
-    await ctx.send(CURSE_HELP)
+    await ctx.send(embed=embed_msg(CURSE_HELP))
 
 
 @bot.command(name="helpall")
 async def help_all(ctx):
     """Show help for all bots."""
-    await ctx.send(GRIMM_HELP)
-    await ctx.send(BLOOM_HELP)
-    await ctx.send(CURSE_HELP)
+    await ctx.send(embed=embed_msg(GRIMM_HELP))
+    await ctx.send(embed=embed_msg(BLOOM_HELP))
+    await ctx.send(embed=embed_msg(CURSE_HELP))
+
+
+@bot.command(name="menu")
+async def menu(ctx):
+    """Interactive menu of Curse commands."""
+    commands_list = "\n".join(
+        [
+            "?help - show help",
+            "?insult - random insult",
+            "?scratch [user] - scratch someone",
+            "?curse_me - embrace the curse",
+        ]
+    )
+    await ctx.send(embed=embed_msg(commands_list))
 
 
 @bot.command(name="ask")
@@ -528,7 +559,7 @@ async def health(ctx):
             f"Cogs: {len(bot.cogs)} loaded\n"
             f"OpenAI: {api_status}"
         )
-        await ctx.send(msg)
+        await ctx.send(embed=embed_msg(msg))
     except Exception as exc:
         logger.exception("health command failed: %s", exc)
 
@@ -549,13 +580,15 @@ async def on_message(message):
     if message.author.id == cursed_user_id:
         if random.random() < 0.2:
             await message.channel.send(
-                f"{message.author.display_name}, {random.choice(curse_responses)}"
+                embed=embed_msg(
+                    f"{message.author.display_name}, {random.choice(curse_responses)}"
+                )
             )
             return
 
     for trigger, responses in curse_keywords.items():
         if trigger in lowered:
-            await message.channel.send(random.choice(responses))
+            await message.channel.send(embed=embed_msg(random.choice(responses)))
             return
 
     await bot.process_commands(message)

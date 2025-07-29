@@ -11,3 +11,7 @@
 
 ## v1.8
 - Added colorized console logging via `src/logger.py`.
+
+## v1.9
+- Bots send messages using color-coded embeds.
+- Bloom delivers scheduled compliments twice a day.
