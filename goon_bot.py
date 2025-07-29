@@ -3,6 +3,8 @@ import asyncio
 import os
 import glob
 import logging
+import subprocess
+import sys
 import discord
 from discord.ext import commands
 from pathlib import Path
@@ -12,6 +14,26 @@ from src.logger import setup_logging, log_message
 
 setup_logging("goon_bot.log")
 logger = logging.getLogger(__name__)
+
+# Track subprocesses for the individual bots
+child_processes = []
+
+
+def launch_other_bots() -> None:
+    """Launch Grimm, Bloom, and Curse bots as subprocesses."""
+    scripts = ["grimm_bot.py", "bloom_bot.py", "curse_bot.py"]
+    for script in scripts:
+        path = Path(__file__).resolve().parent / script
+        if not path.exists():
+            logger.warning("%s missing", script)
+            continue
+        try:
+            proc = subprocess.Popen([sys.executable, str(path)])
+            child_processes.append(proc)
+            logger.info("Launched %s (PID %s)", script, proc.pid)
+        except Exception as exc:
+            logger.warning("Failed to launch %s: %s", script, exc)
+
 
 # Load a single shared configuration file for all bots
 ENV_PATH = Path(__file__).resolve().parent / "config" / "setup.env"
@@ -84,8 +106,14 @@ async def load_startup_cogs():
 
 
 asyncio.run(load_startup_cogs())
+launch_other_bots()
 check_required()
 try:
     bot.run(DISCORD_TOKEN)
 finally:
+    for proc in child_processes:
+        try:
+            proc.terminate()
+        except Exception:
+            pass
     log_message("Goon shutting down")
