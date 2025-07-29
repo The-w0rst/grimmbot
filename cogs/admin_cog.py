@@ -10,6 +10,11 @@ class AdminCog(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    async def ping(self, ctx: commands.Context):
+        """Check if the bot is responsive."""
+        await ctx.send("Pong!")
+
+    @commands.command()
     @commands.is_owner()
     async def load(self, ctx, cog: str):
         """Load a cog by its module name."""
@@ -50,4 +55,5 @@ class AdminCog(commands.Cog):
 
 
 async def setup(bot: commands.Bot):
+    """Load the AdminCog."""
     await bot.add_cog(AdminCog(bot))

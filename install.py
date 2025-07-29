@@ -6,7 +6,7 @@ in every token one by one with friendly descriptions. A few validation
 checks help guard against missing values."""
 import sys
 import logging
-from src.logger import log_message
+from src.logger import setup_logging, log_message
 from colorama import Fore, Style, init
 
 # Project repository: https://github.com/The-w0rst/grimmbot
@@ -15,7 +15,7 @@ from pathlib import Path
 import shutil
 from config.settings import validate_template
 
-logging.basicConfig(level=logging.INFO)
+setup_logging("install.log")
 logger = logging.getLogger(__name__)
 init(autoreset=True)
 CYAN = Fore.CYAN + Style.BRIGHT

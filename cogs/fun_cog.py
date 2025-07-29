@@ -25,6 +25,7 @@ class FunCog(commands.Cog):
         ]
 
     @commands.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def roll(self, ctx, sides: int = 6):
         """Roll a dice with the given number of sides."""
         if sides < 2:

@@ -26,3 +26,8 @@ replay_pid*
 # Python bytecode
 __pycache__/
 *.py[cod]
+
+# Environment
+.env
+config/setup.env
+
