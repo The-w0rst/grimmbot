@@ -4,7 +4,7 @@ import random
 import os
 import asyncio
 
-COG_VERSION = "1.3"
+COG_VERSION = "1.4"
 
 # Environment values are read from the parent process
 DISCORD_TOKEN = os.getenv("CURSE_DISCORD_TOKEN")
@@ -21,7 +21,7 @@ def is_protected(member: discord.Member) -> bool:
 
 
 class CurseCog(commands.Cog):
-    """CurseBot personality packaged as a Cog. Version 1.3."""
+    """CurseBot personality packaged as a Cog. Version 1.4."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

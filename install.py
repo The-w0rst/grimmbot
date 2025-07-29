@@ -10,7 +10,7 @@ import subprocess
 from pathlib import Path
 import shutil
 
-VERSION = "1.3"
+VERSION = "1.4"
 
 TEMPLATE_PATH = Path("config/env_template.env")
 SETUP_PATH = Path("config/setup.env")

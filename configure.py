@@ -6,7 +6,7 @@ from pathlib import Path
 
 TEMPLATE_PATH = Path("config/env_template.env")
 SETUP_PATH = Path("config/setup.env")
-VERSION = "1.3"
+VERSION = "1.4"
 
 
 def read_existing(path: Path) -> dict:

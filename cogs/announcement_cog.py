@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands, tasks
 
-COG_VERSION = "1.3"
+COG_VERSION = "1.4"
 
 # Server reference information for quick access
 SERVER_ROLES = [
@@ -20,7 +20,7 @@ SERVER_CATEGORIES = {
 
 
 class AnnouncementCog(commands.Cog):
-    """Send periodic announcements and list server layout. Version 1.3."""
+    """Send periodic announcements and list server layout. Version 1.4."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
