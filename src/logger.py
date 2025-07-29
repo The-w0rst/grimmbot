@@ -2,6 +2,7 @@
 
 import logging
 from logging.handlers import RotatingFileHandler
+from pathlib import Path
 
 try:
     from colorama import Fore, Style, init as colorama_init
@@ -16,7 +17,9 @@ def setup_logging(log_file: str = "bot.log") -> None:
     """Configure logging with file and colorized console handlers."""
     colorama_init(autoreset=True)
 
-    file_handler = RotatingFileHandler(log_file, maxBytes=1024 * 1024, backupCount=3)
+    log_path = Path("logs")
+    log_path.mkdir(exist_ok=True)
+    file_handler = RotatingFileHandler(log_path / log_file, maxBytes=1024 * 1024, backupCount=3)
     file_formatter = logging.Formatter(
         "%(asctime)s [%(levelname)s] %(name)s: %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",

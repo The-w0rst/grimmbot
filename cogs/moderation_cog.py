@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import datetime
+from src.activity_logger import log_action
 
 COG_VERSION = "1.5"
 
@@ -22,6 +23,7 @@ class ModerationCog(commands.Cog):
         try:
             await member.timeout(datetime.timedelta(seconds=seconds), reason=reason)
             await ctx.send(f"Muted {member.display_name} for {seconds} seconds.")
+            log_action(f"Muted {member.id} for {seconds}s")
         except Exception:
             await ctx.send("Failed to mute.")
 
@@ -32,6 +34,7 @@ class ModerationCog(commands.Cog):
         count = self.warnings.get(member.id, 0) + 1
         self.warnings[member.id] = count
         await ctx.send(f"Warned {member.display_name}. Total warnings: {count}")
+        log_action(f"Warned {member.id} ({count} total)")
 
     @commands.command()
     @commands.has_permissions(kick_members=True)
@@ -39,6 +42,7 @@ class ModerationCog(commands.Cog):
         """Kick a member from the server."""
         await member.kick(reason=reason)
         await ctx.send(f"Kicked {member.display_name}.")
+        log_action(f"Kicked {member.id}")
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
@@ -46,6 +50,7 @@ class ModerationCog(commands.Cog):
         """Ban a member from the server."""
         await member.ban(reason=reason)
         await ctx.send(f"Banned {member.display_name}.")
+        log_action(f"Banned {member.id}")
 
     @commands.command(name="clear")
     @commands.has_permissions(manage_messages=True)
@@ -53,6 +58,7 @@ class ModerationCog(commands.Cog):
         """Delete a number of recent messages."""
         deleted = await ctx.channel.purge(limit=amount + 1)
         await ctx.send(f"Deleted {len(deleted)-1} messages.", delete_after=5)
+        log_action(f"Cleared {len(deleted)-1} messages in {ctx.guild.id}")
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):

@@ -32,4 +32,5 @@ __pycache__/
 config/setup.env
 *.pyc
 *.DS_Store
+logs/
 

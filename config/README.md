@@ -50,6 +50,7 @@ features or `SOCKET_SERVER_URL` if you want status reporting.
 | `OPENAI_API_KEY` | Enables GPT-based commands |
 | `SPOTIFY_CLIENT_ID` | Client ID for Spotify API searches |
 | `SPOTIFY_CLIENT_SECRET` | Client secret for Spotify API searches |
+| `ADMIN_USER_ID` | Discord user ID to DM on critical errors |
 
 3. Save the file. Any bot you run will read these values automatically.
 

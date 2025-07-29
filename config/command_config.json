@@ -1,0 +1,9 @@
+{
+  "roast": {
+    "roles": ["Roasters"],
+    "cooldown": 10
+  },
+  "gloom": {
+    "cooldown": 5
+  }
+}
