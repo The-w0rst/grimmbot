@@ -11,7 +11,7 @@ at https://github.com/The-w0rst/grimmbot
    ```bash
    python install.py
    ```
-   It creates `config/setup.env` and walks you through each value.
+   It creates `config/setup.env` and walks you through each value with colorful prompts.
 
 2. Prefer manual setup? Copy the template file:
 

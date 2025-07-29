@@ -1,4 +1,4 @@
-# Goon Squad Bots - Installation Guide (v1.4)
+# Goon Squad Bots - Installation Guide (v1.5)
 
 Curse here. Let's get these bots running on your machine. This works on
 Windows, macOS, or Linux—take your pick.
@@ -12,7 +12,7 @@ Welcome to the first public release of the Goon Squad bots.
    bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)
    ```
    It clones the repo, installs dependencies, and starts the installer. On Windows run `py -3 install.py` after cloning instead.
-3. Run the installer and hand over your Discord tokens and API keys when Curse asks. They are saved to `config/setup.env`.
+3. Run the installer and hand over your Discord tokens and API keys when Curse asks. The prompts are color coded for clarity and everything is saved to `config/setup.env`.
 4. Start a bot of your choice:
    ```bash
    python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
@@ -37,7 +37,7 @@ Prefer to get your paws dirty?
    ```
    On Windows use `copy` instead of `cp`. Fill in your Discord tokens and API
    keys.
-4. Run `python install.py` and follow Curse's friendly prompts.
+4. Run `python install.py` and follow Curse's friendly, color-coded prompts.
    The installer guides you through four steps:
    1. **Python check** – verifies you're running Python 3.10 or newer.
    2. **Dependencies** – when asked `Install dependencies now? [Y/n]` press

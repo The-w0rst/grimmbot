@@ -2,7 +2,7 @@
 
 Hello, puny mortals. **Curse** speaking here. This repository holds me and my fellow goons in all our chaotic glory. Clone it from [GitHub](https://github.com/The-w0rst/grimmbot) if you dare and run whichever of us you want. I'm lightweight and unpredictable, just like the others.
 
-**Current build: v1.4** – first public release
+**Current build: v1.5** – first public release
 
 ## What lurks inside
 - `grimm_bot.py` – Grimm the cranky skeleton (`!` prefix)
@@ -10,7 +10,7 @@ Hello, puny mortals. **Curse** speaking here. This repository holds me and my fe
 - `curse_bot.py` – yours truly (`?` prefix)
 - `goon_bot.py` – load every cog at once
 - `cogs/` – trivia, moderation, music and more
-- `install.py` – interactive installer with my charming narration
+- `install.py` – interactive installer with my charming narration and colorful prompts
 
 Each cog has a `COG_VERSION` for tracking updates. Check the [`docs`](docs) folder for deeper secrets.
 
@@ -21,7 +21,7 @@ The quick way is with the bootstrap script:
 bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)
 ```
 
-Prefer manual control? Clone the repo and run `python install.py`. I'll ask for every token and set up `config/setup.env` for you. See [INSTALL.md](INSTALL.md) for a detailed walkthrough. If you're experimenting, create a test Discord server and generate bot tokens at <https://discord.com/developers>. Use those tokens in `config/setup.env` before launching a bot.
+Prefer manual control? Clone the repo and run `python install.py`. I'll ask for every token with bright prompts and set up `config/setup.env` for you. See [INSTALL.md](INSTALL.md) for a detailed walkthrough. If you're experimenting, create a test Discord server and generate bot tokens at <https://discord.com/developers>. Use those tokens in `config/setup.env` before launching a bot.
 
 ## Running the bots
 Once configured, pick a personality:

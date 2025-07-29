@@ -6,6 +6,7 @@ in every token one by one with friendly descriptions. A few validation
 checks help guard against missing values."""
 import sys
 import logging
+from colorama import Fore, Style, init
 
 # Project repository: https://github.com/The-w0rst/grimmbot
 import subprocess
@@ -15,8 +16,14 @@ from config.settings import validate_template
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+init(autoreset=True)
+CYAN = Fore.CYAN + Style.BRIGHT
+GREEN = Fore.GREEN + Style.BRIGHT
+YELLOW = Fore.YELLOW + Style.BRIGHT
+RED = Fore.RED + Style.BRIGHT
+RESET = Style.RESET_ALL
 
-VERSION = "1.4"
+VERSION = "1.5"
 
 TEMPLATE_PATH = Path("config/env_template.env")
 SETUP_PATH = Path("config/setup.env")
@@ -50,15 +57,15 @@ def validate_env(path: Path) -> list:
 
 
 def check_python() -> None:
-    logger.info("Step 1/4: Checking Python version...")
+    logger.info(CYAN + "Step 1/4: Checking Python version..." + RESET)
     if sys.version_info < (3, 10):
         sys.exit("Python 3.10 or newer is required. Aborting.")
-    logger.info("✔ Python %s.%s detected\n", sys.version_info.major, sys.version_info.minor)
+    logger.info(GREEN + "\u2714 Python %s.%s detected\n" + RESET, sys.version_info.major, sys.version_info.minor)
 
 
 def install_requirements() -> None:
-    logger.info("Step 2/4: Installing dependencies from requirements/base.txt")
-    choice = input("Install dependencies now? [Y/n] ").strip().lower()
+    logger.info(CYAN + "Step 2/4: Installing dependencies from requirements/base.txt" + RESET)
+    choice = input(YELLOW + "Install dependencies now? [Y/n] " + RESET).strip().lower()
     if choice in ("", "y", "yes"):
         subprocess.check_call(
             [sys.executable, "-m", "pip", "install", "-r", "requirements/base.txt"]
@@ -67,7 +74,7 @@ def install_requirements() -> None:
 
 
 def configure_env() -> None:
-    logger.info("Step 3/4: Time to hand over the keys. I'm Curse and I'll keep them safe!")
+    logger.info(CYAN + "Step 3/4: Time to hand over the keys. I'm Curse and I'll keep them safe!" + RESET)
     TEMPLATE_PATH.parent.mkdir(parents=True, exist_ok=True)
     if not SETUP_PATH.exists():
         shutil.copyfile(TEMPLATE_PATH, SETUP_PATH)
@@ -98,33 +105,34 @@ def configure_env() -> None:
         key = line.split("=", 1)[0]
         desc = friendly.get(key, key)
         default = existing.get(key, "")
-        prompt = f"{desc} [{default}]: " if default else f"{desc}: "
+        prompt = (f"{desc} [{default}]: " if default else f"{desc}: ")
+        prompt = YELLOW + prompt + RESET
         while True:
             try:
                 value = input(prompt).strip() or default
             except KeyboardInterrupt:
-                logger.info("\nAborted.")
+                logger.info(RED + "\nAborted." + RESET)
                 sys.exit(1)
             if key in REQUIRED_VARS and not value:
-                logger.info("This value is required.")
+                logger.info(RED + "This value is required." + RESET)
                 continue
             break
         lines.append(f"{key}={value}")
     SETUP_PATH.write_text("\n".join(lines) + "\n")
-    logger.info("\nSaved configuration to %s\n", SETUP_PATH)
+    logger.info(GREEN + "\nSaved configuration to %s\n" + RESET, SETUP_PATH)
     missing = validate_env(SETUP_PATH)
     if missing:
-        logger.warning("Warning: the following values are still blank: %s", ", ".join(missing))
+        logger.warning(RED + "Warning: the following values are still blank: %s" + RESET, ", ".join(missing))
     missing_keys = validate_template()
     if missing_keys:
         logger.warning(
-            "Warning: these variables are defined in the template but missing from setup.env: %s",
+            RED + "Warning: these variables are defined in the template but missing from setup.env: %s" + RESET,
             ", ".join(missing_keys),
         )
 
 
 def choose_bot() -> None:
-    logger.info("Step 4/4: Installation finished!")
+    logger.info(CYAN + "Step 4/4: Installation finished!" + RESET)
     options = {
         "1": ("GrimmBot", "grimm_bot.py"),
         "2": ("BloomBot", "bloom_bot.py"),
@@ -136,9 +144,9 @@ def choose_bot() -> None:
     for key, (name, _) in options.items():
         logger.info(" %s. %s", key, name)
     try:
-        choice = input("Run a bot now? [0-5] ").strip()
+        choice = input(YELLOW + "Run a bot now? [0-5] " + RESET).strip()
     except KeyboardInterrupt:
-        logger.info("\nAborted.")
+        logger.info(RED + "\nAborted." + RESET)
         sys.exit(1)
 
     if choice == "5":
@@ -148,7 +156,7 @@ def choose_bot() -> None:
             for p in processes:
                 p.wait()
         except KeyboardInterrupt:
-            logger.info("\nStopping bots…")
+            logger.info(RED + "\nStopping bots…" + RESET)
             for p in processes:
                 p.terminate()
             for p in processes:
@@ -164,7 +172,7 @@ def choose_bot() -> None:
 
 
 def main() -> None:
-    logger.info("== Goon Squad Bot Installer v%s ==", VERSION)
+    logger.info(CYAN + "== Goon Squad Bot Installer v%s ==" + RESET, VERSION)
     logger.info("Curse here. I'll walk you through this. Let's do it!\n")
     try:
         check_python()
@@ -172,10 +180,10 @@ def main() -> None:
         configure_env()
         choose_bot()
     except KeyboardInterrupt:
-        logger.info("\nInstaller aborted.")
+        logger.info(RED + "\nInstaller aborted." + RESET)
         sys.exit(1)
     logger.info(
-        "Congratulations. Your discord server is now cursed! That wasn't very smart of you…"
+        GREEN + "Congratulations. Your discord server is now cursed! That wasn't very smart of you…" + RESET
     )
 
 

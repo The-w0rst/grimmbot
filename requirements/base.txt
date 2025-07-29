@@ -6,3 +6,4 @@ openai==1.97.1
 
 yt_dlp
 lavalink
+colorama
