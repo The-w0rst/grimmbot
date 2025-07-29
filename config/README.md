@@ -37,17 +37,14 @@ features or `SOCKET_SERVER_URL` if you want status reporting.
 | Variable | Description |
 | --- | --- |
 | `GRIMM_DISCORD_TOKEN` | Discord bot token for Grimm |
-| `GRIMM_API_KEY_1`-`GRIMM_API_KEY_3` | Additional OpenAI keys rotated for Grimm |
-| `GRIMM_OPENAI_KEY` | Primary OpenAI key for Grimm's ChatGPT |
+| `GRIMM_API_KEY_1`-`GRIMM_API_KEY_3` | OpenAI keys used by Grimm |
 | `GRIMM_GPT_ENABLED` | Toggle Grimm's ChatGPT commands |
 | `SOCKET_SERVER_URL` | Optional Socket.IO status endpoint |
 | `BLOOM_DISCORD_TOKEN` | Discord bot token for Bloom |
-| `BLOOM_API_KEY_1`-`BLOOM_API_KEY_3` | Extra OpenAI keys rotated for Bloom |
-| `BLOOM_OPENAI_KEY` | Primary OpenAI key for Bloom's ChatGPT |
+| `BLOOM_API_KEY_1`-`BLOOM_API_KEY_3` | OpenAI keys used by Bloom |
 | `BLOOM_GPT_ENABLED` | Toggle Bloom's ChatGPT commands |
 | `CURSE_DISCORD_TOKEN` | Discord bot token for Curse |
-| `CURSE_API_KEY_1`-`CURSE_API_KEY_3` | Extra OpenAI keys rotated for Curse |
-| `CURSE_OPENAI_KEY` | Primary OpenAI key for Curse's ChatGPT |
+| `CURSE_API_KEY_1`-`CURSE_API_KEY_3` | OpenAI keys used by Curse |
 | `CURSE_GPT_ENABLED` | Toggle Curse's ChatGPT commands |
 | `DISCORD_TOKEN` | Token for the unified GoonBot |
 | `OPENAI_API_KEY` | Enables GPT-based commands |

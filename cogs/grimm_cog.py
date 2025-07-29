@@ -11,11 +11,12 @@ COG_VERSION = "1.4"
 
 # Environment values are read from the parent process
 DISCORD_TOKEN = os.getenv("GRIMM_DISCORD_TOKEN")
-GRIMM_API_KEY_1, GRIMM_API_KEY_2, GRIMM_API_KEY_3, _ = get_env_vars(
-    "GRIMM_API_KEY_1",
-    "GRIMM_API_KEY_2",
-    "GRIMM_API_KEY_3",
-    "GRIMM_OPENAI_KEY",
+GRIMM_OPENAI_KEY = tuple(
+    get_env_vars(
+        "GRIMM_API_KEY_1",
+        "GRIMM_API_KEY_2",
+        "GRIMM_API_KEY_3",
+    )
 )
 SOCKET_SERVER = os.getenv("SOCKET_SERVER_URL", "http://localhost:5000")
 

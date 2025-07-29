@@ -28,10 +28,9 @@ Hello, puny mortals. **Curse** speaking here. This repository holds me and my fe
 To run these bots you must provide your own Discord, OpenAI and any other required API keys.
 - **Keep your keys secret.** Never commit them to public repositories.
 - All API usage is governed by each provider's terms of service.
-- Each bot can be given a unique `*_OPENAI_KEY` and `*_GPT_ENABLED` flag in
-  `config/setup.env` to enable or disable its ChatGPT commands. If you supply
-  additional keys using `*_API_KEY_1`‑`*_API_KEY_3` they will be cycled
-  automatically to avoid hitting rate limits.
+- Each bot can be given up to three `*_API_KEY_#` values and a `*_GPT_ENABLED`
+  flag in `config/setup.env`. The keys are rotated automatically to avoid
+  hitting rate limits.
 - The author is not responsible for any API misuse, key theft, account bans, or charges incurred.
 
 ## What lurks inside

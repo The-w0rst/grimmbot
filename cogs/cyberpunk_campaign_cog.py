@@ -11,9 +11,15 @@ try:
     OPENAI_KEY_CYCLE = ApiKeyCycle(
         [
             os.getenv("OPENAI_API_KEY"),
-            os.getenv("GRIMM_OPENAI_KEY"),
-            os.getenv("BLOOM_OPENAI_KEY"),
-            os.getenv("CURSE_OPENAI_KEY"),
+            os.getenv("GRIMM_API_KEY_1"),
+            os.getenv("GRIMM_API_KEY_2"),
+            os.getenv("GRIMM_API_KEY_3"),
+            os.getenv("BLOOM_API_KEY_1"),
+            os.getenv("BLOOM_API_KEY_2"),
+            os.getenv("BLOOM_API_KEY_3"),
+            os.getenv("CURSE_API_KEY_1"),
+            os.getenv("CURSE_API_KEY_2"),
+            os.getenv("CURSE_API_KEY_3"),
         ]
     )
 except ValueError:
