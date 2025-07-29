@@ -27,6 +27,7 @@ REASONS = {
     "Both should compromise": "Neither side convinced me completely.",
 }
 
+
 POSITIVE_WORDS = {
     "please",
     "thank",
