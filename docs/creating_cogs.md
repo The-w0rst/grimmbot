@@ -29,3 +29,12 @@ async def setup(bot):
 
 That's all there is to it. Keep your cogs small and focused, and bump the
 `COG_VERSION` constant if you make updates.
+
+### Logging from your cog
+Import `log_message` and sprinkle it around to see colored logs in the console:
+
+```python
+from src.logger import log_message
+
+log_message("MyCog loaded")
+```

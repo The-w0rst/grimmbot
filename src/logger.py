@@ -7,6 +7,7 @@ try:
     from colorama import Fore, Style, init as colorama_init
 except Exception:  # pragma: no cover - colorama optional for tests
     Fore = Style = None
+
     def colorama_init(*_args, **_kwargs):
         return
 
