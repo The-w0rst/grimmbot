@@ -102,6 +102,7 @@ def configure_env() -> None:
         if key.startswith("CURSE"):
             return ORANGE
         return YELLOW
+
     friendly = {
         "GRIMM_DISCORD_TOKEN": "Grimm's Discord token",
         "GRIMM_API_KEY_1": "Grimm API key #1",

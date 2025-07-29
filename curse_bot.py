@@ -474,8 +474,12 @@ async def on_ready():
     guilds = ", ".join(g.name for g in bot.guilds)
     cogs = ", ".join(bot.cogs.keys())
     env = {
-        "CURSE_DISCORD_TOKEN": (DISCORD_TOKEN[:4] + "...") if DISCORD_TOKEN else "missing",
-        "CURSE_OPENAI_KEY": (CURSE_OPENAI_KEY[:4] + "...") if CURSE_OPENAI_KEY else "missing",
+        "CURSE_DISCORD_TOKEN": (
+            (DISCORD_TOKEN[:4] + "...") if DISCORD_TOKEN else "missing"
+        ),
+        "CURSE_OPENAI_KEY": (
+            (CURSE_OPENAI_KEY[:4] + "...") if CURSE_OPENAI_KEY else "missing"
+        ),
     }
     logger.info("Curse online | guilds: %s | cogs: %s | env: %s", guilds, cogs, env)
     log_message("Curse bot ready")
