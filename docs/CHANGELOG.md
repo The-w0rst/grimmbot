@@ -8,3 +8,6 @@
 - Improved error handling and startup diagnostics.
 - Added health command and runtime checks for missing tokens.
 - Updated installer with color-coded prompts.
+
+## v1.8
+- Added colorized console logging via `src/logger.py`.

@@ -164,6 +164,8 @@ from src.logger import log_message
 
 log_message("Bot starting up")
 ```
+The console output is colorized when `colorama` is available (installed
+automatically by `install.py`). Log files are still plain text.
 
 ## Developing your own chaos
 Peek at:
