@@ -21,7 +21,7 @@ Hello, puny mortals. **Curse** speaking here. This repository holds me and my fe
    It checks for missing files, packages and variables before you launch a bot.
 4. Start any of the bots:
    ```bash
-  python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
+    python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
   ```
 
 ### API Key Notice
