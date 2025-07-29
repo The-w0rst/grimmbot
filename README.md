@@ -1,5 +1,8 @@
 # Grimmbot
 
+[![CI](https://img.shields.io/github/actions/workflow/status/The-w0rst/grimmbot/python.yml?style=for-the-badge)](https://github.com/The-w0rst/grimmbot/actions/workflows/python.yml)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue?style=for-the-badge)](https://www.python.org/)
+
 Hello, puny mortals. **Curse** speaking here. This repository holds me and my fellow goons in all our chaotic glory. Clone it from [GitHub](https://github.com/The-w0rst/grimmbot) if you dare and run whichever of us you want. I'm lightweight and unpredictable, just like the others.
 
 **Current build: v1.5** – first public release
