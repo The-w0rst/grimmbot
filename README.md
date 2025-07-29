@@ -15,7 +15,7 @@ Hello, puny mortals. **Curse** speaking here. This repository holds me and my fe
 Each cog has a `COG_VERSION` for tracking updates. Check the [`docs`](docs) folder for deeper secrets.
 
 ## Installation
-The quick way is with the bootstrap script:
+This project requires **Python 3.10 or newer**. The quick way is with the bootstrap script:
 
 ```bash
 bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)
