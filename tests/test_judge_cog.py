@@ -1,3 +1,5 @@
+
+# flake8: noqa: E402
 import sys
 from pathlib import Path
 
