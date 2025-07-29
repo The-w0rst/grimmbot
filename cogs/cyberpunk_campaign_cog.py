@@ -384,9 +384,7 @@ class CyberpunkCampaignCog(commands.Cog):
         session["class"] = char_class.title()
         session["background"] = background.title() if background else None
         extra = f", {session['background']}" if session["background"] else ""
-        await ctx.send(
-            f"Character sheet updated: {session['class']}{extra}"
-        )
+        await ctx.send(f"Character sheet updated: {session['class']}{extra}")
 
     @commands.command(name="cyberfight")
     async def cyber_fight(self, ctx):

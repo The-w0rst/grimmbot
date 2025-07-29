@@ -74,13 +74,23 @@ START_TIME = datetime.datetime.utcnow()
 
 
 # Send compliments twice a day
-@tasks.loop(time=[datetime.time(hour=6), datetime.time(hour=7), datetime.time(hour=16), datetime.time(hour=17)])
+@tasks.loop(
+    time=[
+        datetime.time(hour=6),
+        datetime.time(hour=7),
+        datetime.time(hour=16),
+        datetime.time(hour=17),
+    ]
+)
 async def timed_compliments():
     guild = discord.utils.get(bot.guilds)
     if not guild:
         return
-    channel = discord.utils.get(guild.text_channels, name="general") or guild.text_channels[0]
+    channel = (
+        discord.utils.get(guild.text_channels, name="general") or guild.text_channels[0]
+    )
     await channel.send(embed=embed_msg(random.choice(BLOOM_COMPLIMENTS)))
+
 
 timed_compliments.start()
 
@@ -495,7 +505,7 @@ async def perform_drama(
     else:
         count = max(1, min(len(lyrics), random.randint(4, 8)))
         start = random.randint(0, max(0, len(lyrics) - count))
-        lines_to_send = lyrics[start:start + count]
+        lines_to_send = lyrics[start : start + count]
 
     for line in lines_to_send:
         await ctx.send(line)
@@ -694,7 +704,7 @@ async def menu(ctx):
 async def ask(ctx, *, question: str):
     """Ask Bloom a question via ChatGPT."""
     reply = await chatgpt_reply(question)
-    for chunk in [reply[i:i + 1900] for i in range(0, len(reply), 1900)]:
+    for chunk in [reply[i : i + 1900] for i in range(0, len(reply), 1900)]:
         await ctx.send(chunk)
 
 
@@ -935,7 +945,7 @@ async def judge(ctx, other: discord.Member, *, issue: str):
         "Give your verdict in character as Bloom."
     )
     reply = await chatgpt_reply(prompt)
-    for chunk in [reply[i:i + 1900] for i in range(0, len(reply), 1900)]:
+    for chunk in [reply[i : i + 1900] for i in range(0, len(reply), 1900)]:
         await ctx.send(chunk)
 
 

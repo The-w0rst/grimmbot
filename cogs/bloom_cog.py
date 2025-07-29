@@ -276,8 +276,8 @@ class BloomCog(commands.Cog):
         choices = [g for g in self.gifts if g["positive"] == positive]
         gift = random.choice(choices)
         channel = (
-            discord.utils.get(guild.text_channels, name="general") or
-            guild.text_channels[0]
+            discord.utils.get(guild.text_channels, name="general")
+            or guild.text_channels[0]
         )
         if positive:
             line = random.choice(self.positive_gift_responses)

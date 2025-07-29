@@ -353,7 +353,7 @@ async def menu(ctx):
 async def ask(ctx, *, question: str):
     """Ask Grimm a question via ChatGPT."""
     reply = await chatgpt_reply(question)
-    for chunk in [reply[i:i + 1900] for i in range(0, len(reply), 1900)]:
+    for chunk in [reply[i : i + 1900] for i in range(0, len(reply), 1900)]:
         await ctx.send(chunk)
 
 
@@ -597,7 +597,7 @@ async def judge(ctx, other: discord.Member, *, issue: str):
         "Give your verdict in character as Grimm."
     )
     reply = await chatgpt_reply(prompt)
-    for chunk in [reply[i:i + 1900] for i in range(0, len(reply), 1900)]:
+    for chunk in [reply[i : i + 1900] for i in range(0, len(reply), 1900)]:
         await ctx.send(chunk)
 
 
@@ -645,7 +645,9 @@ async def on_message(message):
         )
         send_status("active", "Reacted to Bloom mention.")
     elif "curse" in lowered and random.random() < 0.18:
-        await message.channel.send(embed=embed_msg("I told you, don’t trust the cat. Ever."))
+        await message.channel.send(
+            embed=embed_msg("I told you, don’t trust the cat. Ever.")
+        )
         send_status("active", "Reacted to Curse mention.")
 
     # Occasionally chime in with a random quip

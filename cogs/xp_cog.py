@@ -12,7 +12,7 @@ class XPCog(commands.Cog):
         self.xp: dict[int, int] = {}
 
     def _level(self, xp: int) -> int:
-        return int(xp ** 0.5)
+        return int(xp**0.5)
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
