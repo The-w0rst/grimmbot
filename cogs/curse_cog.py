@@ -7,7 +7,7 @@ import datetime
 from src.logger import log_message
 from config.settings import get_env_vars
 
-COG_VERSION = "1.4"
+COG_VERSION = "1.5"
 
 # Environment values are read from the parent process
 DISCORD_TOKEN = os.getenv("CURSE_DISCORD_TOKEN")

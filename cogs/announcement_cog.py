@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands, tasks
 
-COG_VERSION = "1.4"
+COG_VERSION = "1.5"
 
 # Server reference information for quick access
 SERVER_ROLES = [

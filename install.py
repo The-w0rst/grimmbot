@@ -26,7 +26,7 @@ BLUE = Fore.BLUE + Style.BRIGHT
 ORANGE = Fore.LIGHTYELLOW_EX + Style.BRIGHT
 RESET = Style.RESET_ALL
 
-VERSION = "1.7"
+VERSION = "1.8"
 
 TEMPLATE_PATH = Path("config/env_template.env")
 SETUP_PATH = Path("config/setup.env")

@@ -7,7 +7,7 @@ import logging
 
 TEMPLATE_PATH = Path("config/env_template.env")
 SETUP_PATH = Path("config/setup.env")
-VERSION = "1.4"
+VERSION = "1.5"
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

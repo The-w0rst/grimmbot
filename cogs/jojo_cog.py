@@ -3,7 +3,7 @@ import discord
 import datetime
 import random
 
-COG_VERSION = "1.4"
+COG_VERSION = "1.5"
 
 JOJO_DISPLAY_NAME = "JoJo is bizarre"
 EMMA_NAME = "Emma"

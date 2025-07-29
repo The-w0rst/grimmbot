@@ -8,7 +8,7 @@ from bloom_bot import perform_drama, BLOOM_COMPLIMENTS
 from src.logger import log_message
 from config.settings import get_env_vars
 
-COG_VERSION = "1.4"
+COG_VERSION = "1.5"
 
 # Environment values are read from the parent process
 DISCORD_TOKEN = os.getenv("BLOOM_DISCORD_TOKEN")

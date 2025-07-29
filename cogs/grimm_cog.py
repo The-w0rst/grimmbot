@@ -7,7 +7,7 @@ from config.settings import get_env_vars
 import socketio
 from src.logger import log_message
 
-COG_VERSION = "1.4"
+COG_VERSION = "1.5"
 
 # Environment values are read from the parent process
 DISCORD_TOKEN = os.getenv("GRIMM_DISCORD_TOKEN")

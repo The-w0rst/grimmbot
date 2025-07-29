@@ -2,7 +2,7 @@ import random
 import asyncio
 from discord.ext import commands
 
-COG_VERSION = "1.4"
+COG_VERSION = "1.5"
 
 NUMBER_WORDS = {
     0: "zero",

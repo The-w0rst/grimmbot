@@ -4,7 +4,7 @@ import openai
 from discord.ext import commands
 from src.api_utils import ApiKeyCycle
 
-COG_VERSION = "1.4"
+COG_VERSION = "1.5"
 
 # Environment values are read from the parent process
 try:
