@@ -41,6 +41,11 @@ class BloomCog(commands.Cog):
             "Pastel power incoming!",
             "Compliment break! You're awesome!",
             "Who needs sleep when we have each other?",
+            "Musicals at midnight? Count me in!",
+            "Glitter here, glitter there, glitter everywhere!",
+            "Who wants to join my spontaneous karaoke?",
+            "I just hugged a pillow thinking it was you!",
+            "Boba first, questions later!",
         ]
         self.boy_lines = [
             "Boy oh boy, let's have some fun!",
@@ -93,6 +98,11 @@ class BloomCog(commands.Cog):
             "Boy oh boy, let's throw a party!",
             "Hey boy, keep being amazing!",
             "Boys, let's conquer the day with joy!",
+            "Boy, you're rocking those vibes!",
+            "Boys, more jokes, less worries!",
+            "Boy oh boy, let's level up the fun!",
+            "Boys, let's spam Grimm with selfies!",
+            "Boy, keep shining like the star you are!",
         ]
         self.queen_lines = [
             "Yas queen! Slay the day!",
@@ -120,6 +130,11 @@ class BloomCog(commands.Cog):
             "Keep that crown polished, girl!",
             "Queens, let's turn up the glitter!",
             "You're royalty, girl—don't forget it!",
+            "Yas queen, strut your stuff!",
+            "Queens, bring on the sparkle storm!",
+            "Hey girl, your crown looks amazing today!",
+            "Queens rise above the drama!",
+            "Yas queen, keep slaying with kindness!",
         ]
         # Lines from Bloom's favorite song "Pretty Little Baby"
         self.pretty_little_baby_lines = [
@@ -129,6 +144,27 @@ class BloomCog(commands.Cog):
             "Pretty little baby, I'm hoping that you do",
             "Ask your mama, your papa, your sister or your brother",
             "If they've ever loved another like I love you",
+        ]
+        self.comfort_lines = [
+            "Deep breaths, you've totally got this!",
+            "Bloom believes in you more than bubble tea!",
+            "Sending cuddles and sunshine your way!",
+            "You're stronger than you know, friend!",
+            "I'll stand by you with glittery support!",
+        ]
+        self.story_lines = [
+            "Once upon a sparkle, you saved the day!",
+            "In a world of boba, you were the hero we needed.",
+            "There was a cat, a skeleton, and you—chaos ensued!",
+            "Legend tells of your epic dance moves across the land.",
+            "Every good story starts with a hug from Bloom!",
+        ]
+        self.goodnight_lines = [
+            "Nighty night! Dream of bubble tea rivers!",
+            "May your dreams be filled with musicals and friends!",
+            "Sleep tight and don't let the glitter bite!",
+            "Rest well, tomorrow we'll cause more chaos!",
+            "Goodnight superstar, you deserve a break!",
         ]
         self.user_interactions = {}
         self.gifts = [
@@ -210,6 +246,10 @@ class BloomCog(commands.Cog):
                 "You're shining brighter than my glitter!",
                 "Compliments inbound: you're amazing!",
             ],
+            "comfort": self.comfort_lines,
+            "story": self.story_lines,
+            "goodnight": self.goodnight_lines,
+            "gn": self.goodnight_lines,
             "queen": self.queen_lines,
             "girl": self.queen_lines,
             "girls": self.queen_lines,
@@ -444,6 +484,21 @@ class BloomCog(commands.Cog):
         """Share a virtual flower."""
         flowers = ["🌸", "🌺", "🌷", "🌻", "💮"]
         await ctx.send(random.choice(flowers) + " for you!")
+
+    @commands.command()
+    async def comfort(self, ctx):
+        """Offer supportive words."""
+        await ctx.send(random.choice(self.comfort_lines))
+
+    @commands.command()
+    async def story(self, ctx):
+        """Tell a short whimsical story."""
+        await ctx.send(random.choice(self.story_lines))
+
+    @commands.command()
+    async def goodnight(self, ctx):
+        """Say goodnight with flair."""
+        await ctx.send(random.choice(self.goodnight_lines))
 
 
 async def setup(bot: commands.Bot):
