@@ -3,6 +3,7 @@ from discord.ext import commands, tasks
 import random
 import os
 import yt_dlp
+import asyncio
 from bloom_bot import perform_drama
 
 COG_VERSION = "1.4"
@@ -290,9 +291,13 @@ class BloomCog(commands.Cog):
         elif voice.channel != channel:
             await voice.move_to(channel)
         ydl_opts = {"format": "bestaudio", "quiet": True}
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(EPIC_VIDEO_URL, download=False)
-            audio_url = info["url"]
+
+        def _extract() -> dict:
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                return ydl.extract_info(EPIC_VIDEO_URL, download=False)
+
+        info = await asyncio.to_thread(_extract)
+        audio_url = info["url"]
         source = await discord.FFmpegOpusAudio.from_probe(audio_url)
         voice.play(
             source, after=lambda e: self.bot.loop.create_task(voice.disconnect())

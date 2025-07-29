@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import yt_dlp
+import asyncio
 import requests
 from bs4 import BeautifulSoup
 from typing import Dict, List
@@ -52,8 +53,12 @@ class MusicCog(commands.Cog):
         guild_id = ctx.guild.id
         queue = self.queues.setdefault(guild_id, [])
         ydl_opts = {"format": "bestaudio", "quiet": True}
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(url, download=False)
+
+        def _extract() -> dict:
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                return ydl.extract_info(url, download=False)
+
+        info = await asyncio.to_thread(_extract)
 
         if "entries" in info:
             for entry in info["entries"]:

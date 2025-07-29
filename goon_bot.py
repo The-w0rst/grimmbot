@@ -2,16 +2,20 @@
 import asyncio
 import os
 import glob
+import logging
 import discord
 from discord.ext import commands
-from dotenv import load_dotenv
 from pathlib import Path
+from config.settings import load_config
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Load a single shared configuration file for all bots
 ENV_PATH = Path(__file__).resolve().parent / "config" / "setup.env"
 if not ENV_PATH.exists():
     raise SystemExit("config/setup.env missing. Run 'python install.py' first.")
-load_dotenv(ENV_PATH)
+load_config({"DISCORD_TOKEN"})
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 
 # Allow '!', '*', and '?' prefixes like the individual bots
@@ -29,7 +33,7 @@ bot = commands.Bot(command_prefix=get_prefix, intents=intents, help_command=None
 
 @bot.event
 async def on_ready():
-    print("Goon Bot online with cogs loaded.")
+    logger.info("Goon Bot online with cogs loaded.")
 
 
 async def load_startup_cogs():
@@ -37,9 +41,9 @@ async def load_startup_cogs():
         ext = f"cogs.{os.path.splitext(os.path.basename(file))[0]}"
         try:
             await bot.load_extension(ext)
-            print(f"Loaded {ext}")
+            logger.info("Loaded %s", ext)
         except Exception as e:
-            print(f"Failed to load {ext}: {e}")
+            logger.warning("Failed to load %s: %s", ext, e)
 
 
 asyncio.run(load_startup_cogs())
