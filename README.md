@@ -16,8 +16,14 @@ Hello, puny mortals. **Curse** speaking here. This repository holds me and my fe
 2. Provide your Discord tokens and API keys when asked. They will be saved to `config/setup.env`.
 3. Start any of the bots:
    ```bash
-   python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
-   ```
+  python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
+  ```
+
+### API Key Notice
+To run these bots you must provide your own Discord, OpenAI and any other required API keys.
+- **Keep your keys secret.** Never commit them to public repositories.
+- All API usage is governed by each provider's terms of service.
+- The author is not responsible for any API misuse, key theft, account bans, or charges incurred.
 
 ## What lurks inside
 
