@@ -49,6 +49,7 @@ def check_required() -> None:
         logger.error("Missing required variables: %s", ", ".join(missing))
         raise SystemExit(1)
 
+
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
