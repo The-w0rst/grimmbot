@@ -2,7 +2,8 @@
 """Interactive installer for the Goon Squad bots.
 
 This version speaks in Curse's voice and guides the user through filling
-in every token one by one with friendly descriptions."""
+in every token one by one with friendly descriptions. A few validation
+checks help guard against missing values."""
 import sys
 
 # Project repository: https://github.com/The-w0rst/grimmbot
@@ -15,6 +16,15 @@ VERSION = "1.4"
 TEMPLATE_PATH = Path("config/env_template.env")
 SETUP_PATH = Path("config/setup.env")
 
+# Environment variables that must not be left blank. Leaving these empty will
+# likely prevent a bot from starting correctly.
+REQUIRED_VARS = {
+    "GRIMM_DISCORD_TOKEN",
+    "BLOOM_DISCORD_TOKEN",
+    "CURSE_DISCORD_TOKEN",
+    "DISCORD_TOKEN",
+}
+
 
 def read_existing(path: Path) -> dict:
     data = {}
@@ -25,6 +35,13 @@ def read_existing(path: Path) -> dict:
             key, value = line.split("=", 1)
             data[key.strip()] = value.strip()
     return data
+
+
+def validate_env(path: Path) -> list:
+    """Return a list of required variables that are missing values."""
+    data = read_existing(path)
+    missing = [var for var in REQUIRED_VARS if not data.get(var)]
+    return missing
 
 
 def check_python() -> None:
@@ -77,10 +94,22 @@ def configure_env() -> None:
         desc = friendly.get(key, key)
         default = existing.get(key, "")
         prompt = f"{desc} [{default}]: " if default else f"{desc}: "
-        value = input(prompt).strip() or default
+        while True:
+            try:
+                value = input(prompt).strip() or default
+            except KeyboardInterrupt:
+                print("\nAborted.")
+                sys.exit(1)
+            if key in REQUIRED_VARS and not value:
+                print("This value is required.")
+                continue
+            break
         lines.append(f"{key}={value}")
     SETUP_PATH.write_text("\n".join(lines) + "\n")
     print(f"\nSaved configuration to {SETUP_PATH}\n")
+    missing = validate_env(SETUP_PATH)
+    if missing:
+        print("Warning: the following values are still blank:", ", ".join(missing))
 
 
 def choose_bot() -> None:
@@ -95,7 +124,11 @@ def choose_bot() -> None:
     }
     for key, (name, _) in options.items():
         print(f" {key}. {name}")
-    choice = input("Run a bot now? [0-5] ").strip()
+    try:
+        choice = input("Run a bot now? [0-5] ").strip()
+    except KeyboardInterrupt:
+        print("\nAborted.")
+        sys.exit(1)
 
     if choice == "5":
         scripts = ["grimm_bot.py", "bloom_bot.py", "curse_bot.py", "goon_bot.py"]
@@ -122,10 +155,14 @@ def choose_bot() -> None:
 def main() -> None:
     print(f"== Goon Squad Bot Installer v{VERSION} ==")
     print("Curse here. I'll walk you through this. Let's do it!\n")
-    check_python()
-    install_requirements()
-    configure_env()
-    choose_bot()
+    try:
+        check_python()
+        install_requirements()
+        configure_env()
+        choose_bot()
+    except KeyboardInterrupt:
+        print("\nInstaller aborted.")
+        sys.exit(1)
     print(
         "Congratulations. Your discord server is now cursed! That wasn't very smart of you…"
     )

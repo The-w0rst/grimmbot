@@ -21,7 +21,7 @@ The quick way is with the bootstrap script:
 bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)
 ```
 
-Prefer manual control? Clone the repo and run `python install.py`. I'll ask for every token and set up `config/setup.env` for you. See [INSTALL.md](INSTALL.md) for a detailed walkthrough.
+Prefer manual control? Clone the repo and run `python install.py`. I'll ask for every token and set up `config/setup.env` for you. See [INSTALL.md](INSTALL.md) for a detailed walkthrough. If you're experimenting, create a test Discord server and generate bot tokens at <https://discord.com/developers>. Use those tokens in `config/setup.env` before launching a bot.
 
 ## Running the bots
 Once configured, pick a personality:
