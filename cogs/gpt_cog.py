@@ -1,8 +1,7 @@
 import os
 import openai
 from discord.ext import commands
-
-COG_VERSION = "1.4"
+from . import PACKAGE_VERSION as COG_VERSION
 
 # Environment values are read from the parent process
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -16,7 +15,7 @@ SYSTEM_MESSAGES = {
 
 
 class GPTCog(commands.Cog):
-    """Cog that adds a ChatGPT-based chat command and mention replies. Version 1.4."""
+    """Cog that adds a ChatGPT-based chat command and mention replies. Version 1.6."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

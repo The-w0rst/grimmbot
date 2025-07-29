@@ -1,11 +1,10 @@
 import discord
 from discord.ext import commands
-
-COG_VERSION = "1.4"
+from . import PACKAGE_VERSION as COG_VERSION
 
 
 class ModerationCog(commands.Cog):
-    """Basic moderation commands. Version 1.4."""
+    """Basic moderation commands. Version 1.6."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

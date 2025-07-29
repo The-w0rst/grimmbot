@@ -1,8 +1,7 @@
 import random
 import asyncio
 from discord.ext import commands
-
-COG_VERSION = "1.4"
+from . import PACKAGE_VERSION as COG_VERSION
 
 NUMBER_WORDS = {
     0: "zero",
@@ -50,7 +49,7 @@ def number_to_words(n: int) -> str:
 
 
 class TriviaCog(commands.Cog):
-    """Randomized trivia game with 500 math questions. Version 1.4."""
+    """Randomized trivia game with 500 math questions. Version 1.6."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

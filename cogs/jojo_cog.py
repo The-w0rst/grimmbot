@@ -3,14 +3,14 @@ import discord
 import datetime
 import random
 
-COG_VERSION = "1.4"
+from . import PACKAGE_VERSION as COG_VERSION
 
 JOJO_DISPLAY_NAME = "JoJo is bizarre"
 EMMA_NAME = "Emma"
 
 
 class JojoCog(commands.Cog):
-    """Send spontaneous loving messages to Emma. Version 1.4."""
+    """Send spontaneous loving messages to Emma. Version 1.6."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

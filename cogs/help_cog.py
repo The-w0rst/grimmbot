@@ -1,6 +1,5 @@
 from discord.ext import commands
-
-COG_VERSION = "1.4"
+from . import PACKAGE_VERSION as COG_VERSION
 
 # Short help messages for each bot so they can be reused in other commands
 GRIMM_HELP = (
@@ -20,7 +19,7 @@ CURSE_HELP = (
 
 
 class HelpCog(commands.Cog):
-    """Provide help commands for the goons. Version 1.4."""
+    """Provide help commands for the goons. Version 1.6."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

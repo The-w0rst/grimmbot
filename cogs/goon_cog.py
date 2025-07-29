@@ -1,11 +1,10 @@
 import random
 from discord.ext import commands
-
-COG_VERSION = "1.4"
+from . import PACKAGE_VERSION as COG_VERSION
 
 
 class GoonCog(commands.Cog):
-    """Group lines from all bots together. Version 1.4."""
+    """Group lines from all bots together. Version 1.6."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

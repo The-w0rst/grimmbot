@@ -6,8 +6,7 @@ import yt_dlp
 import asyncio
 from bloom_bot import perform_drama
 from src.logger import log_message
-
-COG_VERSION = "1.4"
+from . import PACKAGE_VERSION as COG_VERSION
 
 # Environment values are read from the parent process
 DISCORD_TOKEN = os.getenv("BLOOM_DISCORD_TOKEN")
@@ -18,7 +17,7 @@ EPIC_VIDEO_URL = "https://m.youtube.com/watch?v=6K-eMKjo1bs"
 
 
 class BloomCog(commands.Cog):
-    """BloomBot personality packaged as a Cog. Version 1.4."""
+    """BloomBot personality packaged as a Cog. Version 1.6."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

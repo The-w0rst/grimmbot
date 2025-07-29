@@ -2,13 +2,11 @@ import discord
 from discord.ext import commands
 
 
-from . import grimm_utils
-
-COG_VERSION = "1.4"
+from . import grimm_utils, PACKAGE_VERSION as COG_VERSION
 
 
 class GrimmExtraCog(commands.Cog):
-    """Additional utilities and fun commands for Grimm. Version 1.4."""
+    """Additional utilities and fun commands for Grimm. Version 1.6."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot

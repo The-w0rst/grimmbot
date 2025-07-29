@@ -6,11 +6,11 @@ import requests
 from bs4 import BeautifulSoup
 from typing import Dict, List
 
-COG_VERSION = "1.4"
+from . import PACKAGE_VERSION as COG_VERSION
 
 
 class MusicCog(commands.Cog):
-    """Basic music playback commands with queue support. Version 1.4."""
+    """Basic music playback commands with queue support. Version 1.6."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
