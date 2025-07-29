@@ -3,6 +3,7 @@ from discord.ext import commands, tasks
 import random
 import os
 import asyncio
+from src.logger import log_message
 
 COG_VERSION = "1.4"
 
@@ -362,7 +363,7 @@ class CurseCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print("Curse cog loaded.")
+        log_message("Curse cog loaded.")
 
     @commands.Cog.listener()
     async def on_message(self, message):

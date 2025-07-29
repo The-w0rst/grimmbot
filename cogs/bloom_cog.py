@@ -5,6 +5,7 @@ import os
 import yt_dlp
 import asyncio
 from bloom_bot import perform_drama
+from src.logger import log_message
 
 COG_VERSION = "1.4"
 
@@ -345,7 +346,7 @@ class BloomCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print("Bloom cog loaded.")
+        log_message("Bloom cog loaded.")
 
     @commands.Cog.listener()
     async def on_message(self, message):
