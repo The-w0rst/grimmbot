@@ -45,3 +45,8 @@ def validate_template() -> list[str]:
     template_vars = parse_vars(TEMPLATE_PATH)
     setup_vars = parse_vars(ENV_PATH) if ENV_PATH.exists() else set()
     return sorted(template_vars - setup_vars)
+
+
+def get_env_vars(*names: str):
+    """Return multiple environment variables at once."""
+    return map(os.getenv, names)

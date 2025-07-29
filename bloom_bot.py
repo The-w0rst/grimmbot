@@ -19,7 +19,7 @@ import asyncio
 import openai
 import datetime
 import logging
-from config.settings import load_config
+from config.settings import load_config, get_env_vars
 from pathlib import Path
 import yt_dlp
 from src.logger import setup_logging, log_message
@@ -43,10 +43,12 @@ if not ENV_PATH.exists():
     raise SystemExit("config/setup.env missing. Run 'python install.py' first.")
 load_config({"BLOOM_DISCORD_TOKEN"})
 DISCORD_TOKEN = os.getenv("BLOOM_DISCORD_TOKEN")
-BLOOM_API_KEY_1 = os.getenv("BLOOM_API_KEY_1")
-BLOOM_API_KEY_2 = os.getenv("BLOOM_API_KEY_2")
-BLOOM_API_KEY_3 = os.getenv("BLOOM_API_KEY_3")
-BLOOM_OPENAI_KEY = os.getenv("BLOOM_OPENAI_KEY")
+BLOOM_API_KEY_1, BLOOM_API_KEY_2, BLOOM_API_KEY_3, BLOOM_OPENAI_KEY = get_env_vars(
+    "BLOOM_API_KEY_1",
+    "BLOOM_API_KEY_2",
+    "BLOOM_API_KEY_3",
+    "BLOOM_OPENAI_KEY",
+)
 BLOOM_GPT_ENABLED = os.getenv("BLOOM_GPT_ENABLED", "true").lower() == "true"
 BLOOM_OPENAI_MODEL = os.getenv("BLOOM_OPENAI_MODEL", "gpt-3.5-turbo")
 
