@@ -118,7 +118,9 @@ def main() -> None:
     if errors == 0:
         logger.info("All checks passed! You should be able to start your bots.")
     else:
-        logger.error("%s issues found. Please resolve before running your bots.", errors)
+        logger.error(
+            "%s issues found. Please resolve before running your bots.", errors
+        )
         sys.exit(1)
     logger.info("====================================")
 

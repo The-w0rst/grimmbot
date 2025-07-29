@@ -43,7 +43,9 @@ def main() -> None:
     logger.info("\nSaved configuration to %s\n", SETUP_PATH)
     logger.info("Next steps:")
     logger.info("  1. Ensure Python 3.10+ is installed.")
-    logger.info("  2. Install dependencies: python -m pip install -r requirements/base.txt")
+    logger.info(
+        "  2. Install dependencies: python -m pip install -r requirements/base.txt"
+    )
     logger.info("  3. Run a bot, e.g.: python goon_bot.py\n")
 
 
