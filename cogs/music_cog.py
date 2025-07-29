@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import yt_dlp
 import asyncio
+import os
 import requests
 from bs4 import BeautifulSoup
 from typing import Dict, List
@@ -72,13 +73,39 @@ class MusicCog(commands.Cog):
             await self.play_next(ctx)
 
     @commands.command()
-    async def spotify(self, ctx, url: str):
-        """Fetch track info from a Spotify URL and respond creatively."""
-        if "spotify" not in url:
-            await ctx.send("Please provide a valid Spotify link.")
-            return
+    async def spotify(self, ctx, *, query: str):
+        """Fetch track info from a Spotify URL or search query."""
+        if "spotify" in query:
+            url = query
+        else:
+            client_id = os.getenv("SPOTIFY_CLIENT_ID")
+            client_secret = os.getenv("SPOTIFY_CLIENT_SECRET")
+            if not client_id or not client_secret:
+                await ctx.send("Spotify search is not configured.")
+                return
+            try:
+                token_res = requests.post(
+                    "https://accounts.spotify.com/api/token",
+                    data={"grant_type": "client_credentials"},
+                    auth=(client_id, client_secret),
+                    timeout=10,
+                )
+                token = token_res.json()["access_token"]
+                search_res = requests.get(
+                    "https://api.spotify.com/v1/search",
+                    params={"q": query, "type": "track", "limit": 1},
+                    headers={"Authorization": f"Bearer {token}"},
+                    timeout=10,
+                )
+                items = search_res.json()["tracks"]["items"]
+                url = items[0]["external_urls"]["spotify"] if items else None
+            except Exception:
+                url = None
+            if not url:
+                await ctx.send("Couldn't find that track on Spotify.")
+                return
         try:
-            html = requests.get(url).text
+            html = requests.get(url, timeout=10).text
             soup = BeautifulSoup(html, "html.parser")
             title = soup.title.text
             track = title.split(" | ")[0]

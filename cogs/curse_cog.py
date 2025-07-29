@@ -3,6 +3,7 @@ from discord.ext import commands, tasks
 import random
 import os
 import asyncio
+import datetime
 from src.logger import log_message
 
 COG_VERSION = "1.4"
@@ -264,7 +265,8 @@ class CurseCog(commands.Cog):
         self.pick_daily_cursed.start()
         self.daily_gift.start()
 
-    @tasks.loop(hours=24)
+    # Run the daily curse at noon local time
+    @tasks.loop(time=datetime.time(hour=12))
     async def pick_daily_cursed(self):
         guild = discord.utils.get(self.bot.guilds)
         if not guild:
@@ -283,7 +285,8 @@ class CurseCog(commands.Cog):
             f"😼 A new curse has been cast... {self.cursed_user_name} is now cursed for 24 hours."
         )
 
-    @tasks.loop(hours=24)
+    # Hand out a gift at noon local time
+    @tasks.loop(time=datetime.time(hour=12))
     async def daily_gift(self):
         """Give a random user a random gift from Curse."""
         guild = discord.utils.get(self.bot.guilds)

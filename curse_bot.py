@@ -90,7 +90,8 @@ cursed_user_name = None
 # === Daily Curse Scheduler ===
 
 
-@tasks.loop(hours=24)
+# Run the daily curse at noon local time
+@tasks.loop(time=datetime.time(hour=12))
 async def pick_daily_cursed():
     global cursed_user_id, cursed_user_name
     guild = discord.utils.get(bot.guilds)
@@ -112,7 +113,8 @@ async def pick_daily_cursed():
     )
 
 
-@tasks.loop(hours=24)
+# Hand out a gift at noon local time
+@tasks.loop(time=datetime.time(hour=12))
 async def daily_gift():
     """Give a random user a random gift from Curse."""
     guild = discord.utils.get(bot.guilds)

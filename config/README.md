@@ -42,6 +42,8 @@ features or `SOCKET_SERVER_URL` if you want status reporting.
 | `CURSE_GPT_ENABLED` | Toggle Curse's ChatGPT commands |
 | `DISCORD_TOKEN` | Token for the unified GoonBot |
 | `OPENAI_API_KEY` | Enables GPT-based commands |
+| `SPOTIFY_CLIENT_ID` | Client ID for Spotify API searches |
+| `SPOTIFY_CLIENT_SECRET` | Client secret for Spotify API searches |
 
 3. Save the file. Any bot you run will read these values automatically.
 
