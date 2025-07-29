@@ -21,7 +21,7 @@ The quick way is with the bootstrap script:
 bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)
 ```
 
-Prefer manual control? Clone the repo and run `python install.py`. I'll ask for every token with bright prompts and set up `config/setup.env` for you. See [INSTALL.md](INSTALL.md) for a detailed walkthrough. If you're experimenting, create a test Discord server and generate bot tokens at <https://discord.com/developers>. Use those tokens in `config/setup.env` before launching a bot.
+Prefer manual control? Clone the repo and run `python install.py`. I'll ask for every token with bright prompts and set up `config/setup.env` for you. See [INSTALL.md](INSTALL.md) for a detailed walkthrough. If you're experimenting, create a test Discord server and generate bot tokens at <https://discord.com/developers>. Use those tokens in `config/setup.env` before launching a bot. A full list of variables is documented in [config/README.md](config/README.md).
 
 ## Running the bots
 Once configured, pick a personality:
@@ -33,6 +33,8 @@ python curse_bot.py   # obviously the best one
 python goon_bot.py    # the whole squad
 ```
 
+Bloom's music features require FFmpeg. Follow [`docs/music_setup.md`](docs/music_setup.md) if the `*play` command complains.
+
 ### Help commands
 Use each bot's prefix followed by `help` for a quick rundown:
 
@@ -41,9 +43,20 @@ Use each bot's prefix followed by `help` for a quick rundown:
 - `?help` for Curse
 - `!helpall` or `*helpall` or `?helpall` to hear from everyone at once
 
-For more details on each cog see [`docs/cogs_overview.md`](docs/cogs_overview.md).
+For more details on every cog, including the GPT-powered ones, see [`docs/cogs_overview.md`](docs/cogs_overview.md).
+
+## Testing
+Install the dev dependencies and run the test suite:
+
+```bash
+pip install -r requirements/extra-dev.txt
+pytest
+```
 
 ## Developing your own chaos
 Peek at `goon_bot.py` for a modular design. Load or unload cogs on the fly with the Admin commands (`load`, `unload`, `reload`, `listcogs`). Add your own twisted creations under `cogs/` and I'll happily cause mayhem with them.
+
+### Expanding the personalities
+Each bot keeps its catchphrases in lists inside the Python files. Check [`docs/personality_customization.md`](docs/personality_customization.md) for tips on adding your own quips or moving them to JSON.
 
 Enjoy the curse.
