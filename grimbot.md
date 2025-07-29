@@ -10,9 +10,10 @@ Hey there, mortals. It's **Curse**, your favorite chaotic cat, here to walk you 
    ```bash
    bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)
    ```
-   This grabs the code, installs everything, and launches the installer.
-3. When the installer asks, enter your Discord tokens and API keys. A file called `config/setup.env` will appear with your secrets.
-4. Launch any bot you want:
+   It checks prerequisites, installs everything, and launches the installer.
+3. When prompted, enter your Discord tokens and API keys. They are saved to `config/setup.env`.
+4. The script automatically runs `diagnostics.py` to verify the setup.
+5. Launch any bot you want:
    ```bash
    python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
    ```
@@ -39,5 +40,12 @@ Prefer to do things yourself? Fine.
    ```
 5. Run `python install.py` to fill in the file interactively, or edit it manually.
 6. Launch any of the bot files above and you're done.
+
+### Updating
+Stay current with the latest features:
+
+```bash
+./update.sh
+```
 
 Enjoy the chaos, courtesy of yours truly.

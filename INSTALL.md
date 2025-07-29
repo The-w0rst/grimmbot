@@ -11,9 +11,10 @@ Welcome to the first public release of the Goon Squad bots.
    ```bash
    bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)
    ```
-   It clones the repo, installs dependencies, and starts the installer. On Windows run `py -3 install.py` after cloning instead.
-3. Run the installer and hand over your Discord tokens and API keys when Curse asks. The prompts are color coded for clarity and everything is saved to `config/setup.env`.
-4. Start a bot of your choice:
+   It checks prerequisites, clones the repo, installs dependencies, and starts the installer. On Windows run `py -3 install.py` after cloning instead.
+3. Provide your Discord tokens and API keys when Curse asks. The values are saved to `config/setup.env`.
+4. The script automatically runs `diagnostics.py` so you know everything works.
+5. Start a bot of your choice:
    ```bash
    python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
    ```

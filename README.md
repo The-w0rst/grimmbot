@@ -12,17 +12,13 @@ Hello, puny mortals. **Curse** speaking here. This repository holds me and my fe
    ```bash
    bash <(curl -L https://raw.githubusercontent.com/The-w0rst/grimmbot/main/bootstrap.sh)
    ```
-   This grabs the repo, installs dependencies and launches the installer.
+   This checks prerequisites, grabs the repo, installs dependencies and launches the installer.
 2. Provide your Discord tokens and API keys when asked. They will be saved to `config/setup.env`.
-3. Run the optional diagnostics script to verify your environment:
-   ```bash
-   python diagnostics.py
-   ```
-   It checks for missing files, packages and variables before you launch a bot.
+3. The script automatically runs `diagnostics.py` to verify everything.
 4. Start any of the bots:
    ```bash
-    python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
-  
+   python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
+   ```
 
 ### API Key Notice
 To run these bots you must provide your own Discord, OpenAI and any other required API keys.
@@ -129,6 +125,13 @@ pull in optional linting and test tools with:
 
 ```
 requirements/extra-dev.txt
+```
+
+## Updating
+Pull the latest changes and reinstall dependencies at any time:
+
+```bash
+./update.sh
 ```
 
 ## Running the bots
