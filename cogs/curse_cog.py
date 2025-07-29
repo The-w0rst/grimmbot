@@ -5,14 +5,17 @@ import os
 import asyncio
 import datetime
 from src.logger import log_message
+from config.settings import get_env_vars
 
 COG_VERSION = "1.4"
 
 # Environment values are read from the parent process
 DISCORD_TOKEN = os.getenv("CURSE_DISCORD_TOKEN")
-CURSE_API_KEY_1 = os.getenv("CURSE_API_KEY_1")
-CURSE_API_KEY_2 = os.getenv("CURSE_API_KEY_2")
-CURSE_API_KEY_3 = os.getenv("CURSE_API_KEY_3")
+CURSE_API_KEY_1, CURSE_API_KEY_2, CURSE_API_KEY_3 = get_env_vars(
+    "CURSE_API_KEY_1",
+    "CURSE_API_KEY_2",
+    "CURSE_API_KEY_3",
+)
 
 CURSE_BLOCK_ROLES = ["Grimm's Shield", "Bloom's Blessing"]
 

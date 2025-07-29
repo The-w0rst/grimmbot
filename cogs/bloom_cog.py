@@ -6,14 +6,17 @@ import yt_dlp
 import asyncio
 from bloom_bot import perform_drama, BLOOM_COMPLIMENTS
 from src.logger import log_message
+from config.settings import get_env_vars
 
 COG_VERSION = "1.4"
 
 # Environment values are read from the parent process
 DISCORD_TOKEN = os.getenv("BLOOM_DISCORD_TOKEN")
-BLOOM_API_KEY_1 = os.getenv("BLOOM_API_KEY_1")
-BLOOM_API_KEY_2 = os.getenv("BLOOM_API_KEY_2")
-BLOOM_API_KEY_3 = os.getenv("BLOOM_API_KEY_3")
+BLOOM_API_KEY_1, BLOOM_API_KEY_2, BLOOM_API_KEY_3 = get_env_vars(
+    "BLOOM_API_KEY_1",
+    "BLOOM_API_KEY_2",
+    "BLOOM_API_KEY_3",
+)
 EPIC_VIDEO_URL = "https://m.youtube.com/watch?v=6K-eMKjo1bs"
 
 

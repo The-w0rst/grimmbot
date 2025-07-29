@@ -18,7 +18,7 @@ import asyncio
 import openai
 import datetime
 import logging
-from config.settings import load_config
+from config.settings import load_config, get_env_vars
 from pathlib import Path
 from src.logger import setup_logging, log_message
 
@@ -41,10 +41,12 @@ if not ENV_PATH.exists():
     raise SystemExit("config/setup.env missing. Run 'python install.py' first.")
 load_config({"CURSE_DISCORD_TOKEN"})
 DISCORD_TOKEN = os.getenv("CURSE_DISCORD_TOKEN")
-CURSE_API_KEY_1 = os.getenv("CURSE_API_KEY_1")
-CURSE_API_KEY_2 = os.getenv("CURSE_API_KEY_2")
-CURSE_API_KEY_3 = os.getenv("CURSE_API_KEY_3")
-CURSE_OPENAI_KEY = os.getenv("CURSE_OPENAI_KEY")
+CURSE_API_KEY_1, CURSE_API_KEY_2, CURSE_API_KEY_3, CURSE_OPENAI_KEY = get_env_vars(
+    "CURSE_API_KEY_1",
+    "CURSE_API_KEY_2",
+    "CURSE_API_KEY_3",
+    "CURSE_OPENAI_KEY",
+)
 CURSE_GPT_ENABLED = os.getenv("CURSE_GPT_ENABLED", "true").lower() == "true"
 CURSE_OPENAI_MODEL = os.getenv("CURSE_OPENAI_MODEL", "gpt-3.5-turbo")
 

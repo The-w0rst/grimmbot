@@ -19,7 +19,7 @@ import openai
 import datetime
 
 import logging
-from config.settings import load_config
+from config.settings import load_config, get_env_vars
 import grimm_utils
 import random
 import socketio
@@ -42,10 +42,12 @@ logger = logging.getLogger(__name__)
 # Load shared configuration
 load_config({"GRIMM_DISCORD_TOKEN"})
 DISCORD_TOKEN = os.getenv("GRIMM_DISCORD_TOKEN")
-GRIMM_API_KEY_1 = os.getenv("GRIMM_API_KEY_1")
-GRIMM_API_KEY_2 = os.getenv("GRIMM_API_KEY_2")
-GRIMM_API_KEY_3 = os.getenv("GRIMM_API_KEY_3")
-GRIMM_OPENAI_KEY = os.getenv("GRIMM_OPENAI_KEY")
+GRIMM_API_KEY_1, GRIMM_API_KEY_2, GRIMM_API_KEY_3, GRIMM_OPENAI_KEY = get_env_vars(
+    "GRIMM_API_KEY_1",
+    "GRIMM_API_KEY_2",
+    "GRIMM_API_KEY_3",
+    "GRIMM_OPENAI_KEY",
+)
 GRIMM_GPT_ENABLED = os.getenv("GRIMM_GPT_ENABLED", "true").lower() == "true"
 GRIMM_OPENAI_MODEL = os.getenv("GRIMM_OPENAI_MODEL", "gpt-3.5-turbo")
 SOCKET_SERVER = os.getenv("SOCKET_SERVER_URL", "http://localhost:5000")
