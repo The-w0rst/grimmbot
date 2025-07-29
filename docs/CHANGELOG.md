@@ -23,3 +23,7 @@
 ## v2.0.1
 - Added `ApiKeyCycle` utility for rotating OpenAI keys.
 - Formatted entire codebase with Black and removed E203 ignore from flake8.
+
+## v2.0.2
+- Updated all documentation for the v2.0.2 release.
+- Bumped the package version in `setup.py`.

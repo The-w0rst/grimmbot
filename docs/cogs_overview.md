@@ -1,7 +1,7 @@
 # Cogs Overview
 
 Curse here again. Here's a quick summary of each cog bundled with Grimmbot and
-what mischief it adds. All cogs are currently **v2.0.1**.
+what mischief it adds. All cogs are currently **v2.0.2**.
 
 | Cog | Purpose |
 | --- | ------- |

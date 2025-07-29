@@ -1,4 +1,4 @@
-# Grimmbot Command Reference (v2.0.1)
+# Grimmbot Command Reference (v2.0.2)
 
 This file lists every command exposed by the included cogs. Use the bot prefix for your chosen personality (`!`, `*` or `?`) before each command.
 
