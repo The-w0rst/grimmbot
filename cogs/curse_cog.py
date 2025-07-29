@@ -278,8 +278,8 @@ class CurseCog(commands.Cog):
         self.cursed_user_id = chosen.id
         self.cursed_user_name = chosen.display_name
         channel = (
-            discord.utils.get(guild.text_channels, name="general")
-            or guild.text_channels[0]
+            discord.utils.get(guild.text_channels, name="general") or
+            guild.text_channels[0]
         )
         await channel.send(
             f"😼 A new curse has been cast... {self.cursed_user_name} is now cursed for 24 hours."
@@ -298,8 +298,8 @@ class CurseCog(commands.Cog):
         recipient = random.choice(members)
         gift = random.choice(self.gifts)
         channel = (
-            discord.utils.get(guild.text_channels, name="general")
-            or guild.text_channels[0]
+            discord.utils.get(guild.text_channels, name="general") or
+            guild.text_channels[0]
         )
         if gift["positive"]:
             line = random.choice(self.positive_gift_responses)
@@ -316,9 +316,9 @@ class CurseCog(commands.Cog):
 
             def check(m: discord.Message) -> bool:
                 return (
-                    m.author == recipient
-                    and m.channel == channel
-                    and m.content.lower() in ["yes", "no", "y", "n"]
+                    m.author == recipient and
+                    m.channel == channel and
+                    m.content.lower() in ["yes", "no", "y", "n"]
                 )
 
             try:
@@ -347,22 +347,18 @@ class CurseCog(commands.Cog):
                             minutes = random.randint(1, 3)
                             await channel.send(
                                 f"{member.display_name} "
-                                + random.choice(self.fent_player_responses).format(
-                                    minutes=minutes
-                                )
+                                f"{random.choice(self.fent_player_responses).format(minutes=minutes)}"
                             )
             else:
                 await channel.send(f"{recipient.display_name} keeps the bucket...")
                 for character in ["Curse", "Bloom", "Grimm"]:
                     await channel.send(random.choice(self.fent_party_fail[character]))
-                if random.random() < 0.5:
-                    minutes = random.randint(1, 3)
-                    await channel.send(
-                        f"{recipient.display_name} "
-                        + random.choice(self.fent_player_responses).format(
-                            minutes=minutes
+                    if random.random() < 0.5:
+                        minutes = random.randint(1, 3)
+                        await channel.send(
+                            f"{recipient.display_name} "
+                            f"{random.choice(self.fent_player_responses).format(minutes=minutes)}"
                         )
-                    )
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -451,9 +447,7 @@ class CurseCog(commands.Cog):
                         minutes = random.randint(1, 3)
                         await ctx.send(
                             f"{member.display_name} "
-                            + random.choice(self.fent_player_responses).format(
-                                minutes=minutes
-                            )
+                            f"{random.choice(self.fent_player_responses).format(minutes=minutes)}"
                         )
         elif outcome < 0.66:
             await ctx.send("😼 *purrs softly* Maybe I'll spare you... for now.")

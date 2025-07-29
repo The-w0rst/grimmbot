@@ -84,9 +84,7 @@ def install_requirements() -> None:
 
 def configure_env() -> None:
     logger.info(
-        CYAN
-        + "Step 3/4: Time to hand over the keys. I'm Curse and I'll keep them safe!"
-        + RESET
+        f"{CYAN}Step 3/4: Time to hand over the keys. I'm Curse and I'll keep them safe!{RESET}"
     )
     TEMPLATE_PATH.parent.mkdir(parents=True, exist_ok=True)
     if not SETUP_PATH.exists():
@@ -146,15 +144,13 @@ def configure_env() -> None:
     missing = validate_env(SETUP_PATH)
     if missing:
         logger.warning(
-            RED + "Warning: the following values are still blank: %s" + RESET,
+            f"{RED}Warning: the following values are still blank: %s{RESET}",
             ", ".join(missing),
         )
     missing_keys = validate_template()
     if missing_keys:
         logger.warning(
-            RED
-            + "Warning: these variables are defined in the template but missing from setup.env: %s"
-            + RESET,
+            f"{RED}Warning: these variables are defined in the template but missing from setup.env: %s{RESET}",
             ", ".join(missing_keys),
         )
 
@@ -212,9 +208,7 @@ def main() -> None:
         logger.info(RED + "\nInstaller aborted." + RESET)
         sys.exit(1)
     logger.info(
-        GREEN
-        + "Congratulations. Your discord server is now cursed! That wasn't very smart of you…"
-        + RESET
+        f"{GREEN}Congratulations. Your discord server is now cursed! That wasn't very smart of you…{RESET}"
     )
 
 

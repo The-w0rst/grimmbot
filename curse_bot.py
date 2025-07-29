@@ -544,7 +544,7 @@ async def menu(ctx):
 async def ask(ctx, *, question: str):
     """Ask Curse a question via ChatGPT."""
     reply = await chatgpt_reply(question)
-    for chunk in [reply[i : i + 1900] for i in range(0, len(reply), 1900)]:
+    for chunk in [reply[i:i + 1900] for i in range(0, len(reply), 1900)]:
         await ctx.send(chunk)
 
 
@@ -769,7 +769,7 @@ async def pet(ctx):
                     minutes = random.randint(1, 3)
                     await ctx.send(
                         f"{member.display_name} "
-                        + random.choice(fent_player_responses).format(minutes=minutes)
+                        f"{random.choice(fent_player_responses).format(minutes=minutes)}"
                     )
     elif outcome < 0.66:
         await ctx.send("😼 *purrs softly* Maybe I'll spare you... for now.")
@@ -822,7 +822,7 @@ async def judge(ctx, other: discord.Member, *, issue: str):
         "Give your verdict in character as Curse."
     )
     reply = await chatgpt_reply(prompt)
-    for chunk in [reply[i : i + 1900] for i in range(0, len(reply), 1900)]:
+    for chunk in [reply[i:i + 1900] for i in range(0, len(reply), 1900)]:
         await ctx.send(chunk)
 
 
