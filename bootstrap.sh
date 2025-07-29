@@ -5,9 +5,10 @@ set -e
 REPO_URL="https://github.com/The-w0rst/grimmbot.git"
 TARGET_DIR="grimmbot"
 
+TOTAL=5
 step=1
 
-echo "Step ${step}/4: Checking prerequisites..."
+echo "Step ${step}/${TOTAL}: Checking prerequisites..."
 ((step++))
 if ! command -v git >/dev/null 2>&1; then
     echo "git is required but not installed." >&2
@@ -28,7 +29,7 @@ if ! $PY -m pip --version >/dev/null 2>&1; then
     exit 1
 fi
 
-echo "Step ${step}/4: Cloning repository..."
+echo "Step ${step}/${TOTAL}: Cloning repository..."
 ((step++))
 if [ ! -d .git ] || [ ! -f install.py ]; then
     if [ ! -d "$TARGET_DIR" ]; then
@@ -37,14 +38,18 @@ if [ ! -d .git ] || [ ! -f install.py ]; then
     cd "$TARGET_DIR"
 fi
 
-echo "Step ${step}/4: Running installer..."
+echo "Step ${step}/${TOTAL}: Running installer..."
 ((step++))
 $PY install.py
 
-echo "Step ${step}/4: Running diagnostics..."
+echo "Step ${step}/${TOTAL}: Running diagnostics..."
 if ! $PY diagnostics.py; then
     echo "Diagnostics failed. Check the output above." >&2
 fi
+
+((step++))
+echo "Step ${step}/${TOTAL}: Launching GoonBot..."
+$PY goon_bot.py
 
 echo "Bootstrap complete."
 
