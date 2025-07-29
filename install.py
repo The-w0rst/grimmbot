@@ -90,16 +90,33 @@ def choose_bot() -> None:
         "2": ("BloomBot", "bloom_bot.py"),
         "3": ("CurseBot", "curse_bot.py"),
         "4": ("GoonBot (all cogs)", "goon_bot.py"),
+        "5": ("All bots", None),
         "0": ("Exit", None),
     }
     for key, (name, _) in options.items():
         print(f" {key}. {name}")
-    choice = input("Run a bot now? [0-4] ").strip()
-    script = options.get(choice, (None, None))[1]
-    if script:
-        subprocess.call([sys.executable, script])
+    choice = input("Run a bot now? [0-5] ").strip()
+
+    if choice == "5":
+        scripts = ["grimm_bot.py", "bloom_bot.py", "curse_bot.py", "goon_bot.py"]
+        processes = [subprocess.Popen([sys.executable, s]) for s in scripts]
+        try:
+            for p in processes:
+                p.wait()
+        except KeyboardInterrupt:
+            print("\nStopping bots…")
+            for p in processes:
+                p.terminate()
+            for p in processes:
+                p.wait()
     else:
-        print("You can start a bot later using one of the python commands above.")
+        script = options.get(choice, (None, None))[1]
+        if script:
+            subprocess.call([sys.executable, script])
+        else:
+            print(
+                "You can start a bot later using one of the python commands above."
+            )
 
 
 def main() -> None:

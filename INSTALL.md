@@ -61,9 +61,9 @@ Prefer to get your paws dirty?
       - `OPENAI_API_KEY`
       Leave a value blank to keep any existing entry.
    4. **Choose bot** – finally you'll see a menu:
-      `1. GrimmBot`, `2. BloomBot`, `3. CurseBot`, `4. GoonBot`, `0. Exit`.
+      `1. GrimmBot`, `2. BloomBot`, `3. CurseBot`, `4. GoonBot`, `5. All bots`, `0. Exit`.
       Enter a number to launch a bot immediately or `0` to finish without
-      starting one.
+      starting one. Choosing option `5` launches all four bots at once.
 5. Launch any bot as shown above. All bots read from `config/setup.env`.
 
 Place optional media files in the `localtracks` directory.
