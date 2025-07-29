@@ -4,7 +4,7 @@ import random
 import os
 import yt_dlp
 import asyncio
-from bloom_bot import perform_drama
+from bloom_bot import perform_drama, BLOOM_COMPLIMENTS
 from src.logger import log_message
 
 COG_VERSION = "1.4"
@@ -243,10 +243,7 @@ class BloomCog(commands.Cog):
             "hug": ["HUG TIME! Ready or not! 🥢", "*wraps you in love and chaos*"],
             "sing": self.pretty_little_baby_lines,
             "boba": ["Bubble tea buddies unite!", "I could drink boba all day!"],
-            "compliment": [
-                "You're shining brighter than my glitter!",
-                "Compliments inbound: you're amazing!",
-            ],
+            "compliment": BLOOM_COMPLIMENTS,
             "comfort": self.comfort_lines,
             "story": self.story_lines,
             "goodnight": self.goodnight_lines,
@@ -447,12 +444,8 @@ class BloomCog(commands.Cog):
 
     @commands.command()
     async def compliment(self, ctx):
-        compliments = [
-            "You're the sparkle in my day!",
-            "You make the server shine!",
-            "I might be a 9 in Drake's book, but I'll be 10 on my birthday.",
-        ]
-        await ctx.send(random.choice(compliments))
+        """Send a random compliment."""
+        await ctx.send(random.choice(BLOOM_COMPLIMENTS))
 
     @commands.command()
     async def boy(self, ctx):
