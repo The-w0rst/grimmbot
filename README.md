@@ -14,7 +14,12 @@ Hello, puny mortals. **Curse** speaking here. This repository holds me and my fe
    ```
    This grabs the repo, installs dependencies and launches the installer.
 2. Provide your Discord tokens and API keys when asked. They will be saved to `config/setup.env`.
-3. Start any of the bots:
+3. Run the optional diagnostics script to verify your environment:
+   ```bash
+   python diagnostics.py
+   ```
+   It checks for missing files, packages and variables before you launch a bot.
+4. Start any of the bots:
    ```bash
   python grimm_bot.py   # or bloom_bot.py, curse_bot.py, goon_bot.py
   ```
