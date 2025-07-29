@@ -288,7 +288,12 @@ EPIC_LYRICS_DIR.mkdir(parents=True, exist_ok=True)
 
 def load_epic_lyrics(song: str) -> list[str]:
     """Return lyric lines for ``song`` loaded from ``EPIC_LYRICS_DIR``."""
-    slug = song.lower().replace(" ", "_")
+    slug = (
+        song.lower()
+        .replace("'", "")
+        .replace("’", "")
+        .replace(" ", "_")
+    )
     path = EPIC_LYRICS_DIR / f"{slug}.txt"
     if not path.exists():
         return []
