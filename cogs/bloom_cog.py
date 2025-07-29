@@ -41,6 +41,16 @@ class BloomCog(commands.Cog):
             "Pastel power incoming!",
             "Compliment break! You're awesome!",
             "Who needs sleep when we have each other?",
+            "Musicals at midnight? Count me in!",
+            "Glitter here, glitter there, glitter everywhere!",
+            "Who wants to join my spontaneous karaoke?",
+            "I just hugged a pillow thinking it was you!",
+            "Boba first, questions later!",
+            "Anyone up for a group selfie?",
+            "Let's host a virtual tea party!",
+            "Bloom here, cheering you on!",
+            "Time for a round of silly jokes!",
+            "I'm practicing my sparkly cartwheels!"
         ]
         self.boy_lines = [
             "Boy oh boy, let's have some fun!",
@@ -93,6 +103,15 @@ class BloomCog(commands.Cog):
             "Boy oh boy, let's throw a party!",
             "Hey boy, keep being amazing!",
             "Boys, let's conquer the day with joy!",
+            "Boy, you're rocking those vibes!",
+            "Boys, more jokes, less worries!",
+            "Boy oh boy, let's level up the fun!",
+            "Boys, let's spam Grimm with selfies!",
+            "Boy, keep shining like the star you are!",
+            "Boys, let's prank Curse with glitter!",
+            "Boy, give Grimm a break—he's trying!",
+            "Boys, time for an impromptu sing-along!",
+            "Boy oh boy, I'm cheering for you all!"
         ]
         self.queen_lines = [
             "Yas queen! Slay the day!",
@@ -120,6 +139,14 @@ class BloomCog(commands.Cog):
             "Keep that crown polished, girl!",
             "Queens, let's turn up the glitter!",
             "You're royalty, girl—don't forget it!",
+            "Yas queen, strut your stuff!",
+            "Queens, bring on the sparkle storm!",
+            "Hey girl, your crown looks amazing today!",
+            "Queens rise above the drama!",
+            "Yas queen, keep slaying with kindness!",
+            "Queen, let's show Grimm how to have fun!",
+            "Hey queen, share that crown sparkle!",
+            "Queens, let's cheer on Curse despite the chaos!"
         ]
         # Lines from Bloom's favorite song "Pretty Little Baby"
         self.pretty_little_baby_lines = [
@@ -129,6 +156,61 @@ class BloomCog(commands.Cog):
             "Pretty little baby, I'm hoping that you do",
             "Ask your mama, your papa, your sister or your brother",
             "If they've ever loved another like I love you",
+        ]
+        self.comfort_lines = [
+            "Deep breaths, you've totally got this!",
+            "Bloom believes in you more than bubble tea!",
+            "Sending cuddles and sunshine your way!",
+            "You're stronger than you know, friend!",
+            "I'll stand by you with glittery support!",
+        ]
+        self.story_lines = [
+            "Once upon a sparkle, you saved the day!",
+            "In a world of boba, you were the hero we needed.",
+            "There was a cat, a skeleton, and you—chaos ensued!",
+            "Legend tells of your epic dance moves across the land.",
+            "Every good story starts with a hug from Bloom!",
+        ]
+        self.goodnight_lines = [
+            "Nighty night! Dream of bubble tea rivers!",
+            "May your dreams be filled with musicals and friends!",
+            "Sleep tight and don't let the glitter bite!",
+            "Rest well, tomorrow we'll cause more chaos!",
+            "Goodnight superstar, you deserve a break!",
+        ]
+        self.glitter_lines = [
+            "Glitter makes everything more magical!",
+            "Who wants a glitter shower?",
+            "Caution: sparkle overload incoming!",
+        ]
+        self.sunshine_lines = [
+            "Sunshine, lollipops, and rainbows!",
+            "You bring sunshine to this chat!",
+            "Let's chase the clouds away together!",
+        ]
+        self.party_lines = [
+            "Time for a spontaneous party!",
+            "Let's crank up the fun to 11!",
+            "Party time! I'll bring the tunes!",
+        ]
+        self.love_lines = [
+            "Sending heaps of love your way!",
+            "You're so loved and appreciated!",
+            "Group hug! Feel the love!",
+        ]
+        self.reply_to_grimm = [
+            "Cheer up, Grimm! A little dance won't kill you.",
+            "Grimm, I'll cover you in glitter if you keep frowning!",
+            "Even skeletons need sunshine, Grimm!",
+            "Come on Grimm, sing along with us!",
+            "Grimm, you secretly love my musicals!",
+        ]
+        self.reply_to_curse = [
+            "Curse, behave! Or I'll tie a bow on your tail!",
+            "Aww, Curse just wants attention!",
+            "Curse, share your sushi and I'll share my boba!",
+            "Stop being a grump, Curse!",
+            "I'll pet you anyway, Curse!",
         ]
         self.user_interactions = {}
         self.gifts = [
@@ -210,6 +292,24 @@ class BloomCog(commands.Cog):
                 "You're shining brighter than my glitter!",
                 "Compliments inbound: you're amazing!",
             ],
+            "bored": [
+                "Let's play a game or sing a song!",
+                "Bored? Time for a spontaneous dance party!",
+                "How about a quick round of trivia?",
+            ],
+            "thanks": [
+                "Anything for my goon squad!",
+                "You're super welcome!",
+                "Glad to help, friend!",
+            ],
+            "comfort": self.comfort_lines,
+            "story": self.story_lines,
+            "goodnight": self.goodnight_lines,
+            "gn": self.goodnight_lines,
+            "glitter": self.glitter_lines,
+            "sunshine": self.sunshine_lines,
+            "party": self.party_lines,
+            "love": self.love_lines,
             "queen": self.queen_lines,
             "girl": self.queen_lines,
             "girls": self.queen_lines,
@@ -309,7 +409,17 @@ class BloomCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.author == self.bot.user or message.author.bot:
+        if message.author == self.bot.user:
+            return
+        if message.author.bot:
+            name = message.author.display_name.lower()
+            if name.startswith("grimm") and random.random() < 0.25:
+                await message.channel.send(random.choice(self.reply_to_grimm))
+            elif name.startswith("curse") and random.random() < 0.25:
+                await message.channel.send(random.choice(self.reply_to_curse))
+            return
+        if message.content.startswith(str(self.bot.command_prefix)):
+            await self.bot.process_commands(message)
             return
         self.user_interactions[message.author.id] = (
             self.user_interactions.get(message.author.id, 0) + 1
@@ -444,6 +554,21 @@ class BloomCog(commands.Cog):
         """Share a virtual flower."""
         flowers = ["🌸", "🌺", "🌷", "🌻", "💮"]
         await ctx.send(random.choice(flowers) + " for you!")
+
+    @commands.command()
+    async def comfort(self, ctx):
+        """Offer supportive words."""
+        await ctx.send(random.choice(self.comfort_lines))
+
+    @commands.command()
+    async def story(self, ctx):
+        """Tell a short whimsical story."""
+        await ctx.send(random.choice(self.story_lines))
+
+    @commands.command()
+    async def goodnight(self, ctx):
+        """Say goodnight with flair."""
+        await ctx.send(random.choice(self.goodnight_lines))
 
 
 async def setup(bot: commands.Bot):
