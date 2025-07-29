@@ -6,6 +6,7 @@ import logging
 import discord
 from discord.ext import commands
 from pathlib import Path
+import datetime
 from config.settings import load_config
 from src.logger import setup_logging, log_message
 
@@ -19,6 +20,12 @@ if not ENV_PATH.exists():
 load_config({"DISCORD_TOKEN"})
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 
+
+def check_required() -> None:
+    if not DISCORD_TOKEN:
+        logger.error("DISCORD_TOKEN missing")
+        raise SystemExit(1)
+
 # Allow '!', '*', and '?' prefixes like the individual bots
 
 
@@ -30,12 +37,39 @@ async def get_prefix(bot, message):
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix=get_prefix, intents=intents, help_command=None)
+START_TIME = datetime.datetime.utcnow()
 
 
 @bot.event
 async def on_ready():
-    logger.info("Goon Bot online with cogs loaded.")
+    check_required()
+    guilds = ", ".join(g.name for g in bot.guilds)
+    cogs = ", ".join(bot.cogs.keys())
+    env = {"DISCORD_TOKEN": (DISCORD_TOKEN[:4] + "...") if DISCORD_TOKEN else "missing"}
+    logger.info("Goon online | guilds: %s | cogs: %s | env: %s", guilds, cogs, env)
     log_message("Goon bot ready")
+
+
+@bot.event
+async def on_command_error(ctx, error):
+    logger.exception("Command error: %s", error)
+    await ctx.send("Command failed. Check logs.")
+
+
+@bot.command(name="health")
+async def health(ctx):
+    """Report bot health statistics."""
+    try:
+        uptime = datetime.datetime.utcnow() - START_TIME
+        latency = round(bot.latency * 1000)
+        msg = (
+            f"Uptime: {uptime}\n"
+            f"Ping: {latency} ms\n"
+            f"Cogs: {len(bot.cogs)} loaded"
+        )
+        await ctx.send(msg)
+    except Exception as exc:
+        logger.exception("health command failed: %s", exc)
 
 
 async def load_startup_cogs():
@@ -49,9 +83,7 @@ async def load_startup_cogs():
 
 
 asyncio.run(load_startup_cogs())
-
-if not DISCORD_TOKEN:
-    raise RuntimeError("DISCORD_TOKEN not set in config/setup.env")
+check_required()
 try:
     bot.run(DISCORD_TOKEN)
 finally:

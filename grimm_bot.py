@@ -16,6 +16,7 @@ from discord.ext import commands
 import os
 import asyncio
 import openai
+import datetime
 
 import logging
 from config.settings import load_config
@@ -39,6 +40,18 @@ GRIMM_OPENAI_KEY = os.getenv("GRIMM_OPENAI_KEY")
 GRIMM_GPT_ENABLED = os.getenv("GRIMM_GPT_ENABLED", "true").lower() == "true"
 GRIMM_OPENAI_MODEL = os.getenv("GRIMM_OPENAI_MODEL", "gpt-3.5-turbo")
 SOCKET_SERVER = os.getenv("SOCKET_SERVER_URL", "http://localhost:5000")
+
+
+def check_required() -> None:
+    missing = []
+    for var in ("GRIMM_DISCORD_TOKEN", "GRIMM_OPENAI_KEY"):
+        val = os.getenv(var)
+        if not val:
+            missing.append(var)
+    if missing:
+        logger.error("Missing required variables: %s", ", ".join(missing))
+        raise SystemExit(1)
+
 
 # === SOCKET.IO CLIENT FOR DASHBOARD ===
 sio = socketio.Client()
@@ -185,13 +198,21 @@ keywords = {
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
+START_TIME = datetime.datetime.utcnow()
 
 # === ON READY ===
 
 
 @bot.event
 async def on_ready():
-    logger.info("Grimm has arrived. Watch your step, goons.")
+    check_required()
+    guilds = ", ".join(g.name for g in bot.guilds)
+    cogs = ", ".join(bot.cogs.keys())
+    env_summary = {
+        "GRIMM_DISCORD_TOKEN": (DISCORD_TOKEN[:4] + "...") if DISCORD_TOKEN else "missing",
+        "GRIMM_OPENAI_KEY": (GRIMM_OPENAI_KEY[:4] + "...") if GRIMM_OPENAI_KEY else "missing",
+    }
+    logger.info("Grimm online | guilds: %s | cogs: %s | env: %s", guilds, cogs, env_summary)
     log_message("Grimm bot ready")
     send_status("online", "On patrol. Nobody dies on my watch (except for Mondays).")
 
@@ -296,10 +317,20 @@ async def ask(ctx, *, question: str):
 
 @bot.command(name="health")
 async def health(ctx):
-    """Display the current health of all bots."""
-    from src import health
-
-    await ctx.send(health.get_menu())
+    """Report bot health statistics."""
+    try:
+        uptime = datetime.datetime.utcnow() - START_TIME
+        latency = round(bot.latency * 1000)
+        api_status = "ok" if GRIMM_OPENAI_KEY else "no key"
+        msg = (
+            f"Uptime: {uptime}\n"
+            f"Ping: {latency} ms\n"
+            f"Cogs: {len(bot.cogs)} loaded\n"
+            f"OpenAI: {api_status}"
+        )
+        await ctx.send(msg)
+    except Exception as exc:
+        logger.exception("health command failed: %s", exc)
 
 
 # === MODERATION: PROTECT BLOOM (JOKINGLY) ===
@@ -583,8 +614,7 @@ async def on_message(message):
 
 
 # === RUN THE BOT ===
-if not DISCORD_TOKEN:
-    raise RuntimeError("GRIMM_DISCORD_TOKEN not set in config/setup.env")
+check_required()
 
 try:
     bot.run(DISCORD_TOKEN)

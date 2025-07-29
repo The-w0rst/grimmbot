@@ -16,6 +16,7 @@ import random
 import os
 import asyncio
 import openai
+import datetime
 import logging
 from config.settings import load_config
 from pathlib import Path
@@ -38,11 +39,22 @@ CURSE_OPENAI_KEY = os.getenv("CURSE_OPENAI_KEY")
 CURSE_GPT_ENABLED = os.getenv("CURSE_GPT_ENABLED", "true").lower() == "true"
 CURSE_OPENAI_MODEL = os.getenv("CURSE_OPENAI_MODEL", "gpt-3.5-turbo")
 
+
+def check_required() -> None:
+    missing = []
+    for var in ("CURSE_DISCORD_TOKEN", "CURSE_OPENAI_KEY"):
+        if not os.getenv(var):
+            missing.append(var)
+    if missing:
+        logger.error("Missing required variables: %s", ", ".join(missing))
+        raise SystemExit(1)
+
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 intents.presences = True
 bot = commands.Bot(command_prefix="?", intents=intents, help_command=None)
+START_TIME = datetime.datetime.utcnow()
 
 # === CurseBot Personality ===
 curse_personality = {
@@ -457,10 +469,23 @@ async def _collect_statement(member: discord.Member, issue: str) -> str | None:
 
 @bot.event
 async def on_ready():
-    logger.info("%s is here to ruin someone's day.", curse_personality["name"])
+    check_required()
+    guilds = ", ".join(g.name for g in bot.guilds)
+    cogs = ", ".join(bot.cogs.keys())
+    env = {
+        "CURSE_DISCORD_TOKEN": (DISCORD_TOKEN[:4] + "...") if DISCORD_TOKEN else "missing",
+        "CURSE_OPENAI_KEY": (CURSE_OPENAI_KEY[:4] + "...") if CURSE_OPENAI_KEY else "missing",
+    }
+    logger.info("Curse online | guilds: %s | cogs: %s | env: %s", guilds, cogs, env)
     log_message("Curse bot ready")
     pick_daily_cursed.start()
     daily_gift.start()
+
+
+@bot.event
+async def on_command_error(ctx, error):
+    logger.exception("Command error: %s", error)
+    await ctx.send("Something broke. Check the logs.")
 
 
 @bot.command(name="help")
@@ -487,10 +512,20 @@ async def ask(ctx, *, question: str):
 
 @bot.command(name="health")
 async def health(ctx):
-    """Display the current health of all bots."""
-    from src import health
-
-    await ctx.send(health.get_menu())
+    """Report bot health statistics."""
+    try:
+        uptime = datetime.datetime.utcnow() - START_TIME
+        latency = round(bot.latency * 1000)
+        api_status = "ok" if CURSE_OPENAI_KEY else "no key"
+        msg = (
+            f"Uptime: {uptime}\n"
+            f"Ping: {latency} ms\n"
+            f"Cogs: {len(bot.cogs)} loaded\n"
+            f"OpenAI: {api_status}"
+        )
+        await ctx.send(msg)
+    except Exception as exc:
+        logger.exception("health command failed: %s", exc)
 
 
 # === Passive Comments to Cursed User ===
@@ -690,8 +725,7 @@ async def nap(ctx):
     await ctx.send("😼 Curling up for a nap. Don't bother me.")
 
 
-if not DISCORD_TOKEN:
-    raise RuntimeError("CURSE_DISCORD_TOKEN not set in config/setup.env")
+check_required()
 try:
     bot.run(DISCORD_TOKEN)
 finally:
