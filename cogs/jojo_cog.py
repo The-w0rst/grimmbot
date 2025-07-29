@@ -142,8 +142,8 @@ class JojoCog(commands.Cog):
         if not guild:
             return
         channel = (
-            discord.utils.get(guild.text_channels, name="general") or
-            guild.text_channels[0]
+            discord.utils.get(guild.text_channels, name="general")
+            or guild.text_channels[0]
         )
         await channel.send(random.choice(self.loving_lines))
 

@@ -15,7 +15,9 @@ class ModerationCog(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(moderate_members=True)
-    async def mute(self, ctx, member: discord.Member, seconds: int, *, reason: str | None = None):
+    async def mute(
+        self, ctx, member: discord.Member, seconds: int, *, reason: str | None = None
+    ):
         """Temporarily mute a member."""
         try:
             await member.timeout(datetime.timedelta(seconds=seconds), reason=reason)
