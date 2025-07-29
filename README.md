@@ -5,7 +5,7 @@
 
 Hello, puny mortals. **Curse** speaking here. This repository holds me and my fellow goons in all our chaotic glory. Clone it from [GitHub](https://github.com/The-w0rst/grimmbot) if you dare and run whichever of us you want. I'm lightweight and unpredictable, just like the others.
 
-**Current build: v1.5** – first public release
+**Current build: v1.6** – maintenance release
 
 ## Quickstart
 1. Run the bootstrap script:
