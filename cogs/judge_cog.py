@@ -27,6 +27,7 @@ REASONS = {
     "Both should compromise": "Neither side convinced me completely.",
 }
 
+
 class JudgeCog(commands.Cog):
     """Relationship judge for the Goon Squad."""
 
@@ -146,6 +147,7 @@ class JudgeCog(commands.Cog):
                 pass
         await ctx.send("Appeal processed. Check your DMs.")
         log_message(f"Appeal case {user1_id} vs {user2_id} issue '{issue}'")
+
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(JudgeCog(bot))
