@@ -133,6 +133,9 @@ python curse_bot.py   # obviously the best one
 python goon_bot.py    # the whole squad
 ```
 
+Each bot now speaks in colorful embeds—Tiffany blue for Grimm, orange for Bloom
+and deep red for Curse—making it easy to tell who's talking at a glance.
+
 Bloom's music features require FFmpeg. Follow [`docs/music_setup.md`](docs/music_setup.md) if the `*play` command complains.
 
 ### Help commands
