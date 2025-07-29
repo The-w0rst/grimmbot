@@ -20,6 +20,7 @@ from config.settings import load_config
 import grimm_utils
 import random
 import socketio
+from src.logger import log_message
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -186,6 +187,7 @@ bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 @bot.event
 async def on_ready():
     logger.info("Grimm has arrived. Watch your step, goons.")
+    log_message("Grimm bot ready")
     send_status("online", "On patrol. Nobody dies on my watch (except for Mondays).")
 
 

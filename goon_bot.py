@@ -7,6 +7,7 @@ import discord
 from discord.ext import commands
 from pathlib import Path
 from config.settings import load_config
+from src.logger import log_message
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -34,6 +35,7 @@ bot = commands.Bot(command_prefix=get_prefix, intents=intents, help_command=None
 @bot.event
 async def on_ready():
     logger.info("Goon Bot online with cogs loaded.")
+    log_message("Goon bot ready")
 
 
 async def load_startup_cogs():

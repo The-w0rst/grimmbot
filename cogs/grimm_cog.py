@@ -4,6 +4,7 @@ import random
 import os
 
 import socketio
+from src.logger import log_message
 
 COG_VERSION = "1.4"
 
@@ -18,14 +19,14 @@ sio = socketio.Client()
 try:
     sio.connect(SOCKET_SERVER)
 except Exception as e:
-    print(f"Failed to connect to Socket.IO dashboard: {e}")
+    log_message(f"Failed to connect to Socket.IO dashboard: {e}")
 
 
 def send_status(status, message):
     try:
         sio.emit("bot_status", {"bot": "Grimm", "status": status, "message": message})
     except Exception as e:
-        print(f"SocketIO error: {e}")
+        log_message(f"SocketIO error: {e}")
 
 
 class GrimmCog(commands.Cog):
@@ -148,7 +149,7 @@ class GrimmCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print("Grimm cog loaded.")
+        log_message("Grimm cog loaded.")
         send_status("online", "On patrol. Nobody dies on my watch (except Mondays).")
 
     @commands.command()

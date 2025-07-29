@@ -17,6 +17,7 @@ import os
 import logging
 from config.settings import load_config
 from pathlib import Path
+from src.logger import log_message
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -397,6 +398,7 @@ fent_bot_responses = [
 @bot.event
 async def on_ready():
     logger.info("%s is here to ruin someone's day.", curse_personality["name"])
+    log_message("Curse bot ready")
     pick_daily_cursed.start()
     daily_gift.start()
 

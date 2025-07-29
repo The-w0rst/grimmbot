@@ -6,6 +6,7 @@ in every token one by one with friendly descriptions. A few validation
 checks help guard against missing values."""
 import sys
 import logging
+from src.logger import log_message
 from colorama import Fore, Style, init
 
 # Project repository: https://github.com/The-w0rst/grimmbot
@@ -173,6 +174,7 @@ def choose_bot() -> None:
 
 def main() -> None:
     logger.info(CYAN + "== Goon Squad Bot Installer v%s ==" + RESET, VERSION)
+    log_message("Installer starting")
     logger.info("Curse here. I'll walk you through this. Let's do it!\n")
     try:
         check_python()

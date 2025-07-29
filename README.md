@@ -139,6 +139,15 @@ pip install -r requirements/extra-dev.txt
 pytest
 ```
 
+## Simple logging
+Use the helper in `src/logger.py` to print timestamped messages:
+
+```python
+from src.logger import log_message
+
+log_message("Bot starting up")
+```
+
 ## Developing your own chaos
 Peek at:
 

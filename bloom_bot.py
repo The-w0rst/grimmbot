@@ -20,6 +20,7 @@ from config.settings import load_config
 from pathlib import Path
 import yt_dlp
 import asyncio
+from src.logger import log_message
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -444,6 +445,7 @@ interactions = [
 @bot.event
 async def on_ready():
     logger.info("%s is online and ready to hug the whole server!", bloom_personality["name"])
+    log_message("Bloom bot ready")
 
 
 @bot.command(name="help")
