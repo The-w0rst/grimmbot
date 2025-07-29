@@ -91,6 +91,16 @@ bloom_responses = [
     "Any excuse for a dance break, right?",
     "Glitter makes everything better, trust me!",
     "Let's turn this chat into a mini musical!",
+    "Musicals at midnight? Count me in!",
+    "Glitter here, glitter there, glitter everywhere!",
+    "Who wants to join my spontaneous karaoke?",
+    "I just hugged a pillow thinking it was you!",
+    "Boba first, questions later!",
+    "Anyone up for a group selfie?",
+    "Let's host a virtual tea party!",
+    "Bloom here, cheering you on!",
+    "Time for a round of silly jokes!",
+    "I'm practicing my sparkly cartwheels!"
 ]
 
 # Short help message used by the help commands
@@ -167,6 +177,10 @@ boy_lines = [
     "Boy oh boy, let's level up the fun!",
     "Boys, let's spam Grimm with selfies!",
     "Boy, keep shining like the star you are!",
+    "Boys, let's prank Curse with glitter!",
+    "Boy, give Grimm a break—he's trying!",
+    "Boys, time for an impromptu sing-along!",
+    "Boy oh boy, I'm cheering for you all!"
 ]
 
 # === Bloom Queen Lines ===
@@ -201,6 +215,9 @@ queen_lines = [
     "Hey girl, your crown looks amazing today!",
     "Queens rise above the drama!",
     "Yas queen, keep slaying with kindness!",
+    "Queen, let's show Grimm how to have fun!",
+    "Hey queen, share that crown sparkle!",
+    "Queens, let's cheer on Curse despite the chaos!"
 ]
 
 # === EPIC: The Musical Track List ===
@@ -363,6 +380,45 @@ pretty_little_baby_lines = [
     "Pretty little baby, I'll always be true",
 ]
 
+comfort_lines = [
+    "Deep breaths, you've totally got this!",
+    "Bloom believes in you more than bubble tea!",
+    "Sending cuddles and sunshine your way!",
+    "You're stronger than you know, friend!",
+    "I'll stand by you with glittery support!",
+]
+
+story_lines = [
+    "Once upon a sparkle, you saved the day!",
+    "In a world of boba, you were the hero we needed.",
+    "There was a cat, a skeleton, and you—chaos ensued!",
+    "Legend tells of your epic dance moves across the land.",
+    "Every good story starts with a hug from Bloom!",
+]
+
+goodnight_lines = [
+    "Nighty night! Dream of bubble tea rivers!",
+    "May your dreams be filled with musicals and friends!",
+    "Sleep tight and don't let the glitter bite!",
+    "Rest well, tomorrow we'll cause more chaos!",
+    "Goodnight superstar, you deserve a break!",
+] 
+
+reply_to_grimm = [
+    "Cheer up, Grimm! A little dance won't kill you.",
+    "Grimm, I'll cover you in glitter if you keep frowning!",
+    "Even skeletons need sunshine, Grimm!",
+    "Come on Grimm, sing along with us!",
+    "Grimm, you secretly love my musicals!",
+]
+reply_to_curse = [
+    "Curse, behave! Or I'll tie a bow on your tail!",
+    "Aww, Curse just wants attention!",
+    "Curse, share your sushi and I'll share my boba!",
+    "Stop being a grump, Curse!",
+    "I'll pet you anyway, Curse!",
+]
+
 # === Keyword Triggers ===
 keywords = {
     "grimm": ["Grimm is my spooky bestie.", "He acts tough, but he's a sweetheart."],
@@ -377,6 +433,20 @@ keywords = {
         "You're shining brighter than my glitter!",
         "Compliments inbound: you're amazing!",
     ],
+    "bored": [
+        "Let's play a game or sing a song!",
+        "Bored? Time for a spontaneous dance party!",
+        "How about a quick round of trivia?",
+    ],
+    "thanks": [
+        "Anything for my goon squad!",
+        "You're super welcome!",
+        "Glad to help, friend!",
+    ],
+    "comfort": comfort_lines,
+    "story": story_lines,
+    "goodnight": goodnight_lines,
+    "gn": goodnight_lines,
     "queen": queen_lines,
     "girl": queen_lines,
     "girls": queen_lines,
@@ -429,6 +499,11 @@ async def on_message(message):
     if message.author == bot.user:
         return
     if message.author.bot:
+        name = message.author.display_name.lower()
+        if name.startswith("grimm") and random.random() < 0.25:
+            await message.channel.send(random.choice(reply_to_grimm))
+        elif name.startswith("curse") and random.random() < 0.25:
+            await message.channel.send(random.choice(reply_to_curse))
         return
     lowered = message.content.lower()
     for trigger, responses in keywords.items():
@@ -592,6 +667,49 @@ async def boy(ctx):
 async def queen(ctx):
     """Share a playful yas queen-style line."""
     await ctx.send(random.choice(queen_lines))
+
+
+@bot.command()
+async def dance(ctx):
+    """Start a random dance party."""
+    moves = ["Cha-cha-cha!", "Time to boogie!", "Let's breakdance!"]
+    await ctx.send(random.choice(moves) + " 💃")
+
+
+@bot.command()
+async def sunshine(ctx):
+    """Shower the chat with sunshine."""
+    quotes = [
+        "Sunshine, lollipops, and rainbows!",
+        "You're my little ray of light!",
+        "Let's chase the clouds away!",
+    ]
+    await ctx.send(random.choice(quotes))
+
+
+@bot.command()
+async def flower(ctx):
+    """Share a virtual flower."""
+    flowers = ["🌸", "🌺", "🌷", "🌻", "💮"]
+    await ctx.send(random.choice(flowers) + " for you!")
+
+
+@bot.command()
+async def comfort(ctx):
+    """Offer supportive words."""
+    await ctx.send(random.choice(comfort_lines))
+
+
+@bot.command()
+async def story(ctx):
+    """Tell a short whimsical story."""
+    await ctx.send(random.choice(story_lines))
+
+
+@bot.command()
+async def goodnight(ctx):
+    """Say goodnight with flair."""
+    await ctx.send(random.choice(goodnight_lines))
 
 
 if not DISCORD_TOKEN:
