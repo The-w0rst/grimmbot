@@ -42,25 +42,24 @@ if not ENV_PATH.exists():
     raise SystemExit("config/setup.env missing. Run 'python install.py' first.")
 load_config({"CURSE_DISCORD_TOKEN"})
 DISCORD_TOKEN = os.getenv("CURSE_DISCORD_TOKEN")
-CURSE_API_KEY_1, CURSE_API_KEY_2, CURSE_API_KEY_3, CURSE_OPENAI_KEY = get_env_vars(
-    "CURSE_API_KEY_1",
-    "CURSE_API_KEY_2",
-    "CURSE_API_KEY_3",
-    "CURSE_OPENAI_KEY",
+CURSE_OPENAI_KEY = tuple(
+    get_env_vars(
+        "CURSE_API_KEY_1",
+        "CURSE_API_KEY_2",
+        "CURSE_API_KEY_3",
+    )
 )
 CURSE_GPT_ENABLED = os.getenv("CURSE_GPT_ENABLED", "true").lower() == "true"
 CURSE_OPENAI_MODEL = os.getenv("CURSE_OPENAI_MODEL", "gpt-3.5-turbo")
-OPENAI_KEY_CYCLE = ApiKeyCycle(
-    [CURSE_OPENAI_KEY, CURSE_API_KEY_1, CURSE_API_KEY_2, CURSE_API_KEY_3]
-)
+OPENAI_KEY_CYCLE = ApiKeyCycle(CURSE_OPENAI_KEY)
 
 
 def check_required() -> None:
     missing = []
     if not os.getenv("CURSE_DISCORD_TOKEN"):
         missing.append("CURSE_DISCORD_TOKEN")
-    if not any([CURSE_OPENAI_KEY, CURSE_API_KEY_1, CURSE_API_KEY_2, CURSE_API_KEY_3]):
-        missing.append("CURSE_OPENAI_KEY")
+    if not any(CURSE_OPENAI_KEY):
+        missing.append("CURSE_API_KEY_1")
     if missing:
         logger.error("Missing required variables: %s", ", ".join(missing))
         raise SystemExit(1)
@@ -446,7 +445,7 @@ async def chatgpt_reply(prompt: str) -> str:
     """
     if not CURSE_GPT_ENABLED:
         return "ChatGPT features are disabled."
-    if not any([CURSE_OPENAI_KEY, CURSE_API_KEY_1, CURSE_API_KEY_2, CURSE_API_KEY_3]):
+    if not any(CURSE_OPENAI_KEY):
         return "OpenAI key missing for Curse."
     client = openai.AsyncOpenAI(api_key=OPENAI_KEY_CYCLE.next())
     try:
@@ -504,7 +503,7 @@ async def on_ready():
             (DISCORD_TOKEN[:4] + "...") if DISCORD_TOKEN else "missing"
         ),
         "CURSE_OPENAI_KEY": (
-            (CURSE_OPENAI_KEY[:4] + "...") if CURSE_OPENAI_KEY else "missing"
+            (CURSE_OPENAI_KEY[0][:4] + "...") if any(CURSE_OPENAI_KEY) else "missing"
         ),
     }
     logger.info("Curse online | guilds: %s | cogs: %s | env: %s", guilds, cogs, env)
@@ -561,16 +560,7 @@ async def health(ctx):
     try:
         uptime = datetime.datetime.utcnow() - START_TIME
         latency = round(bot.latency * 1000)
-        api_status = (
-            "ok"
-            if any([
-                CURSE_OPENAI_KEY,
-                CURSE_API_KEY_1,
-                CURSE_API_KEY_2,
-                CURSE_API_KEY_3,
-            ])
-            else "no key"
-        )
+        api_status = "ok" if any(CURSE_OPENAI_KEY) else "no key"
         msg = (
             f"Uptime: {uptime}\n"
             f"Ping: {latency} ms\n"
