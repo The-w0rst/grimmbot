@@ -188,3 +188,8 @@ docs/personality_customization.md
 for tips on adding your own quips or moving them to JSON.
 
 Enjoy the curse.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
