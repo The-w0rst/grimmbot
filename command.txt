@@ -107,8 +107,6 @@ This file lists every command exposed by the included cogs. Use the bot prefix f
 - grimmhelp
 - helpall
 
-## JojoCog
-- jojo
 
 ## JudgeCog
 - appeal

@@ -7,7 +7,7 @@ what mischief it adds. All cogs are currently **v2.0.3**.
 | --- | ------- |
 | `admin_cog.py` | Commands for loading, unloading and reloading other cogs at runtime. Owner only. |
 | `announcement_cog.py` | Sends periodic announcements and exposes a `serverinfo` command describing the configured server layout. |
-| `bloom_cog.py` | Implements the cheerful Bloom personality with `*play` music commands and an EPIC musical trigger. |
+| `bloom_cog.py` | Implements the cheerful Bloom personality with `*play` music commands. |
 | `curse_cog.py` | Implements the mischievous Curse personality. |
 | `grimm_cog.py` | Implements the grumpy Grimm personality. |
 | `grimm_extra_cog.py` | Extra utilities for Grimm: gloom meter, laments and bonks. |
