@@ -231,7 +231,7 @@ BLOOM_COMPLIMENTS = [
     "Your support means the world!",
     "You’re more fun than a confetti cannon!",
     "You’re bursting with inspiration!",
-    "Your spirit is an encore!",
+    "Your spirit is an epic encore!",
     "You always find the silver lining!",
     "You’re sweeter than a bakery full of treats!",
     "Your good mood is a gift to us all!",
@@ -370,6 +370,149 @@ queen_lines = [
     "Yas queen, keep slaying with kindness!",
 ]
 
+# === EPIC: The Musical Track List ===
+# Organized by saga name with every released song.
+epic_songs = {
+    "The Troy Saga": [
+        "The Horse and the Infant",
+        "Just a Man",
+        "Full Speed Ahead",
+        "Open Arms",
+        "Warrior of the Mind",
+    ],
+    "The Cyclops Saga": [
+        "Polyphemus",
+        "Survive",
+        "Remember Them",
+        "My Goodbye",
+    ],
+    "The Ocean Saga": [
+        "Storm",
+        "Luck Runs Out",
+        "Keep Your Friends Close",
+        "Ruthlessness",
+    ],
+    "The Circe Saga": [
+        "Puppeteer",
+        "Wouldn’t You Like",
+        "Done For",
+        "There Are Other Ways",
+    ],
+    "The Underworld Saga": [
+        "The Underworld",
+        "No Longer You",
+        "Monster",
+    ],
+    "The Thunder Saga": [
+        "Suffering",
+        "Different Beast",
+        "Scylla",
+        "Mutiny",
+        "Thunder Bringer",
+    ],
+    "The Wisdom Saga": [
+        "Legendary",
+        "Little Wolf",
+        "We’ll Be Fine",
+        "Love in Paradise",
+        "God Games",
+    ],
+    "The Vengeance Saga": [
+        "Not Sorry for Loving You",
+        "Dangerous",
+        "Charybdis",
+        "Get in the Water",
+        "Six Hundred Strike",
+    ],
+    "The Ithaca Saga": [
+        "The Challenge",
+        "Hold Them Down",
+        "Odysseus",
+        "I Can’t Help but Wonder",
+        "Would You Fall in Love with Me Again",
+    ],
+}
+
+# Optional lyrics for EPIC songs. This dictionary can be filled with full
+# lyrics if you have permission to use them. Each song maps to a list of
+# lines that can be sung.  By default it is left empty so you can provide
+# your own files in ``localtracks/epic_lyrics``.
+epic_lyrics: dict[str, list[str]] = {}
+
+# Directory containing optional lyric text files.  Each file should be named
+# after the song, lowercase with spaces replaced by underscores and a
+# ``.txt`` extension, e.g. ``the_horse_and_the_infant.txt``.  Lines in the
+# file are sent one by one when singing.
+EPIC_LYRICS_DIR = Path(__file__).resolve().parent / "localtracks" / "epic_lyrics"
+EPIC_LYRICS_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def load_epic_lyrics(song: str) -> list[str]:
+    """Return lyric lines for ``song`` loaded from ``EPIC_LYRICS_DIR``."""
+    slug = song.lower().replace("'", "").replace("’", "").replace(" ", "_")
+    path = EPIC_LYRICS_DIR / f"{slug}.txt"
+    if not path.exists():
+        return []
+    with path.open(encoding="utf-8") as f:
+        return [line.strip() for line in f if line.strip()]
+
+
+async def perform_drama(
+    bot: commands.Bot, ctx: commands.Context, song: str | None = None
+):
+    """Interactive EPIC sing-along helper."""
+    all_songs = [s for songs in epic_songs.values() for s in songs]
+
+    if song and song.lower() == "list":
+        msg_lines = ["**Available EPIC songs:**"]
+        for saga, songs in epic_songs.items():
+            msg_lines.append(f"__{saga}__")
+            msg_lines.extend(f"- {title}" for title in songs)
+        await ctx.send("\n".join(msg_lines))
+        return
+
+    chosen = None
+    if song:
+        for s in all_songs:
+            if s.lower() == song.lower():
+                chosen = s
+                break
+        if not chosen:
+            await ctx.send("Song not found. Use `*drama list` to see options.")
+            return
+    else:
+        chosen = random.choice(all_songs)
+
+    await ctx.send(f"🎭 **EPIC: The Musical** – let's sing **{chosen}**!")
+
+    lyrics = epic_lyrics.get(chosen) or load_epic_lyrics(chosen)
+    if not lyrics:
+        await ctx.send(
+            "(Lyrics missing – add them in `localtracks/epic_lyrics` to sing along!)"
+        )
+        return
+
+    await ctx.send("Type `full` for the entire song or `snippet` for a short excerpt.")
+
+    def check(m: discord.Message) -> bool:
+        return m.author == ctx.author and m.channel == ctx.channel
+
+    try:
+        reply = await bot.wait_for("message", timeout=15, check=check)
+        choice = reply.content.lower().strip()
+    except asyncio.TimeoutError:
+        choice = "snippet"
+
+    if choice.startswith("full"):
+        lines_to_send = lyrics
+    else:
+        count = max(1, min(len(lyrics), random.randint(4, 8)))
+        start = random.randint(0, max(0, len(lyrics) - count))
+        lines_to_send = lyrics[start:start + count]
+
+    for line in lines_to_send:
+        await ctx.send(line)
+        await asyncio.sleep(1)
 
 
 # Lines from Bloom's favorite song "Pretty Little Baby" by Connie Francis
@@ -399,7 +542,7 @@ story_lines = [
     "Once upon a sparkle, you saved the day!",
     "In a world of boba, you were the hero we needed.",
     "There was a cat, a skeleton, and you—chaos ensued!",
-    "Legend tells of your dance moves across the land.",
+    "Legend tells of your epic dance moves across the land.",
     "Every good story starts with a hug from Bloom!",
 ]
 
@@ -676,6 +819,10 @@ async def sparkle(ctx):
         await ctx.send(f"{ctx.author.mention} gets covered in glitter! {compliment}")
 
 
+@bot.command()
+async def drama(ctx, *, song: str | None = None):
+    """Interactive EPIC song performance."""
+    await perform_drama(bot, ctx, song)
 
 
 @bot.command()

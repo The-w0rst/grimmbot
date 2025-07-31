@@ -12,4 +12,4 @@ brew install ffmpeg
 
 For advanced playback via Lavalink, make sure a Lavalink server is running and update the connection details inside `media_player.py` if needed.
 
-Place optional audio files in the [`localtracks`](../localtracks) folder.
+Place optional audio files in the [`localtracks`](../localtracks) folder. BloomBot looks for lyrics in `localtracks/epic_lyrics` when you use `*drama`.
