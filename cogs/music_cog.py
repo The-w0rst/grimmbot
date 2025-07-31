@@ -110,7 +110,7 @@ class MusicCog(commands.Cog):
             title = soup.title.text
             track = title.split(" | ")[0]
         except Exception:
-            await ctx.send("Couldn't fetch that track, but imagine something awesome!")
+            await ctx.send("Couldn't fetch that track, but imagine something epic!")
             return
         await ctx.send(f"Pretending to play **{track}** from Spotify. Feel the vibes!")
 

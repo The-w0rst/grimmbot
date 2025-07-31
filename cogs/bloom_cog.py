@@ -2,7 +2,9 @@ import discord
 from discord.ext import commands, tasks
 import random
 import os
-from bloom_bot import BLOOM_COMPLIMENTS
+import yt_dlp
+import asyncio
+from bloom_bot import perform_drama, BLOOM_COMPLIMENTS
 from src.logger import log_message
 from config.settings import get_env_vars
 
@@ -15,6 +17,7 @@ BLOOM_API_KEY_1, BLOOM_API_KEY_2, BLOOM_API_KEY_3 = get_env_vars(
     "BLOOM_API_KEY_2",
     "BLOOM_API_KEY_3",
 )
+EPIC_VIDEO_URL = "https://m.youtube.com/watch?v=6K-eMKjo1bs"
 
 
 class BloomCog(commands.Cog):
@@ -157,7 +160,7 @@ class BloomCog(commands.Cog):
             "Once upon a sparkle, you saved the day!",
             "In a world of boba, you were the hero we needed.",
             "There was a cat, a skeleton, and you—chaos ensued!",
-            "Legend tells of your dance moves across the land.",
+            "Legend tells of your epic dance moves across the land.",
             "Every good story starts with a hug from Bloom!",
         ]
         self.goodnight_lines = [
@@ -306,6 +309,40 @@ class BloomCog(commands.Cog):
             except discord.Forbidden:
                 pass
 
+    async def handle_epic(self, message: discord.Message):
+        """Rant about EPIC and play the musical clip."""
+        rant = (
+            "EPIC is only the greatest musical ever! The songs, the drama, the thrills! "
+            "You HAVE to experience it!"
+        )
+        await message.channel.send(rant)
+        voice_state = message.author.voice
+        if voice_state is None or voice_state.channel is None:
+            await message.channel.send(
+                "Join a voice channel so we can jam to EPIC together!"
+            )
+            return
+        channel = voice_state.channel
+        await message.channel.send(
+            f"@everyone hop into {channel.mention} for an EPIC sing-along!"
+        )
+        voice = message.guild.voice_client
+        if voice is None:
+            voice = await channel.connect()
+        elif voice.channel != channel:
+            await voice.move_to(channel)
+        ydl_opts = {"format": "bestaudio", "quiet": True}
+
+        def _extract() -> dict:
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                return ydl.extract_info(EPIC_VIDEO_URL, download=False)
+
+        info = await asyncio.to_thread(_extract)
+        audio_url = info["url"]
+        source = await discord.FFmpegOpusAudio.from_probe(audio_url)
+        voice.play(
+            source, after=lambda e: self.bot.loop.create_task(voice.disconnect())
+        )
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -319,6 +356,9 @@ class BloomCog(commands.Cog):
             self.user_interactions.get(message.author.id, 0) + 1
         )
         lowered = message.content.lower()
+        if "epic" in lowered:
+            await self.handle_epic(message)
+            return
         for trigger, responses in self.keywords.items():
             if trigger in lowered:
                 await message.channel.send(random.choice(responses))
@@ -377,6 +417,10 @@ class BloomCog(commands.Cog):
                 f"{ctx.author.mention} gets covered in glitter! {compliment}"
             )
 
+    @commands.command()
+    async def drama(self, ctx, *, song: str | None = None):
+        """Perform an EPIC song with interactive prompts."""
+        await perform_drama(self.bot, ctx, song)
 
     @commands.command()
     async def bloom(self, ctx):
